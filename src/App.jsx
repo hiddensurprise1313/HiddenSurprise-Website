@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import StatsBanner from './components/StatsBanner';
 import SurpriseBuilder from './components/SurpriseBuilder';
 import Packages from './components/Packages';
 import Gallery from './components/Gallery';
@@ -26,7 +27,7 @@ function App() {
 
   const handleApplyDiscount = (discount) => {
     setAppliedDiscount(discount);
-    setToastMessage(`🎉 Promo "${discount.code}" (${discount.discount}) applied to your booking!`);
+    setToastMessage(`🎉 Perk "${discount.code}" (${discount.discount}) applied to your booking!`);
   };
 
   return (
@@ -34,7 +35,7 @@ function App() {
       {/* Toast Notification */}
       <Toast message={toastMessage} onClose={() => setToastMessage('')} />
 
-      {/* Top Navbar */}
+      {/* Top Floating Pill Navbar */}
       <Navbar
         onOpenBooking={() => handleOpenBooking()}
         onOpenUnboxing={() => setUnboxingModalOpen(true)}
@@ -42,34 +43,37 @@ function App() {
 
       {/* Main Content */}
       <main>
-        {/* Hero Section */}
+        {/* Fullscreen 100vh Hero with Giant Typography */}
         <Hero
           onOpenBooking={handleOpenBooking}
           onOpenUnboxing={() => setUnboxingModalOpen(true)}
         />
 
-        {/* Surprise Configurator Wizard */}
+        {/* Elevare Style Stats & Statement Callout */}
+        <StatsBanner />
+
+        {/* Interactive 4-step Surprise Builder Wizard */}
         <SurpriseBuilder
           onOpenBooking={handleOpenBooking}
           appliedDiscount={appliedDiscount}
         />
 
-        {/* Curated Package Catalog */}
+        {/* Curated Package Catalog Cards */}
         <Packages
           onOpenBooking={handleOpenBooking}
         />
 
-        {/* Photo Gallery of Moments */}
+        {/* Gallery / Moments Grid */}
         <Gallery />
 
-        {/* Client Testimonials */}
+        {/* Client Stories & Testimonials */}
         <Testimonials />
 
-        {/* Frequently Asked Questions */}
+        {/* FAQ Accordion */}
         <FAQ />
       </main>
 
-      {/* Footer */}
+      {/* Footer with Top CTA Card */}
       <Footer
         onOpenBooking={() => handleOpenBooking()}
         onOpenUnboxing={() => setUnboxingModalOpen(true)}
@@ -78,7 +82,7 @@ function App() {
       {/* Floating 24/7 WhatsApp Concierge Button */}
       <FloatingWhatsApp onOpenBooking={() => handleOpenBooking()} />
 
-      {/* Interactive Unboxing Game / Mystery Box Modal */}
+      {/* Mystery Box Unboxing Game */}
       <UnboxingGame
         isOpen={unboxingModalOpen}
         onClose={() => setUnboxingModalOpen(false)}
@@ -86,7 +90,7 @@ function App() {
         appliedDiscount={appliedDiscount}
       />
 
-      {/* Direct Booking Modal with WhatsApp Message Link */}
+      {/* Stealth Booking Modal */}
       <BookingModal
         isOpen={bookingModalOpen}
         onClose={() => setBookingModalOpen(false)}

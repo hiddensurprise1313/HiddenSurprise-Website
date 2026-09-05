@@ -1,23 +1,28 @@
 import React from 'react';
 import { TESTIMONIALS } from '../data/mockData';
-import { Sparkles, Star, Quote } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 
 export default function Testimonials() {
   return (
-    <section id="reviews" className="section-padding" style={{ position: 'relative' }}>
+    <section id="reviews" className="section-padding bg-bone" style={{ borderTop: '1px solid var(--color-border-light)' }}>
       <div className="container">
-        <div className="section-header">
-          <div className="section-badge">
-            <Sparkles size={14} /> Emotional Stories
+        {/* Section Header */}
+        <div style={{ maxWidth: '820px', marginBottom: '3.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+            <span className="mono-tag" style={{ background: '#000000', color: '#F8DC6C' }}>STORIES 04</span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B7280' }}>
+              Client Proof
+            </span>
           </div>
-          <h2 className="section-title">
-            Loved by <span className="text-gradient">1,500+ Happy Hearts</span>
+          <h2 style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.6rem)', color: '#000000', marginBottom: '1rem' }}>
+            Loved by 1,500+ Happy Hearts
           </h2>
-          <p className="section-subtitle">
-            Read how we brought dream celebrations to life with tears of happiness and stealth perfection.
+          <p style={{ color: '#5E6472', fontSize: '1.1rem', lineHeight: 1.6 }}>
+            Hear from partners, friends, and families who trusted our stealth coordination.
           </p>
         </div>
 
+        {/* Testimonials Grid */}
         <div
           style={{
             display: 'grid',
@@ -25,58 +30,53 @@ export default function Testimonials() {
             gap: '2rem'
           }}
         >
-          {TESTIMONIALS.map((t) => (
-            <div
-              key={t.id}
-              className="glass-card"
-              style={{
-                padding: '2.2rem',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                position: 'relative'
-              }}
-            >
+          {TESTIMONIALS.map((t, idx) => {
+            const formattedIndex = String(idx + 1).padStart(2, '0');
+            return (
               <div
+                key={t.id}
+                className="framer-card"
                 style={{
-                  position: 'absolute',
-                  top: '20px',
-                  right: '20px',
-                  color: 'rgba(236, 72, 153, 0.2)'
+                  padding: '2.5rem',
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  border: '1px solid #E5E7EB'
                 }}
               >
-                <Quote size={48} />
-              </div>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
+                    <span className="mono-tag" style={{ background: '#000000', color: '#F8DC6C' }}>{formattedIndex}</span>
+                    <div style={{ display: 'flex', gap: '0.2rem', color: '#000000' }}>
+                      {[...Array(t.rating)].map((_, i) => (
+                        <Star key={i} size={16} fill="#000000" />
+                      ))}
+                    </div>
+                  </div>
 
-              <div>
-                {/* Star rating */}
-                <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1.2rem', color: '#F59E0B' }}>
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} size={18} fill="#F59E0B" />
-                  ))}
+                  <p style={{ fontSize: '1.05rem', color: '#1F2937', lineHeight: 1.7, marginBottom: '2rem' }}>
+                    "{t.comment}"
+                  </p>
                 </div>
 
-                <p style={{ color: '#E2E8F0', fontSize: '0.96rem', lineHeight: 1.7, marginBottom: '2rem', fontStyle: 'italic' }}>
-                  "{t.comment}"
-                </p>
-              </div>
-
-              {/* Author Footer */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '1.2rem' }}>
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #EC4899' }}
-                />
-                <div>
-                  <h4 style={{ fontSize: '1rem', color: '#FFFFFF' }}>{t.name}</h4>
-                  <div style={{ fontSize: '0.8rem', color: '#94A3B8' }}>
-                    {t.occasion} • <span style={{ color: '#EC4899' }}>{t.city}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderTop: '1px solid #F3F4F6', paddingTop: '1.2rem' }}>
+                  <img
+                    src={t.avatar}
+                    alt={t.name}
+                    style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }}
+                  />
+                  <div>
+                    <h4 style={{ fontSize: '1.05rem', color: '#000000', fontWeight: 700 }}>{t.name}</h4>
+                    <div style={{ fontSize: '0.85rem', color: '#6B7280' }}>
+                      {t.occasion} • <span style={{ color: '#000000', fontWeight: 600 }}>{t.city}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

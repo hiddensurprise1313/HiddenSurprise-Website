@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FAQS } from '../data/mockData';
-import { Sparkles, ChevronDown, HelpCircle } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
@@ -10,16 +10,19 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="section-padding" style={{ position: 'relative' }}>
-      <div className="container" style={{ maxWidth: '860px' }}>
-        <div className="section-header">
-          <div className="section-badge">
-            <HelpCircle size={14} /> Got Questions?
+    <section id="faq" className="section-padding" style={{ backgroundColor: '#FFFFFF' }}>
+      <div className="container" style={{ maxWidth: '920px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+            <span className="mono-tag" style={{ background: '#000000', color: '#F8DC6C' }}>FAQ 05</span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B7280' }}>
+              Common Inquiries
+            </span>
           </div>
-          <h2 className="section-title">
-            Frequently Asked <span className="text-gradient">Questions</span>
+          <h2 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', color: '#000000', marginBottom: '1rem' }}>
+            Frequently Asked Questions
           </h2>
-          <p className="section-subtitle">
+          <p style={{ color: '#5E6472', fontSize: '1.05rem' }}>
             Everything you need to know about our discreet surprise setups, timings, and custom curation.
           </p>
         </div>
@@ -27,52 +30,57 @@ export default function FAQ() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {FAQS.map((faq, idx) => {
             const isOpen = openIndex === idx;
+            const formattedIndex = String(idx + 1).padStart(2, '0');
             return (
               <div
                 key={idx}
-                className="glass-card"
+                className="framer-card"
                 style={{
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  border: isOpen ? '1px solid rgba(236, 72, 153, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)',
-                  transition: 'all 0.25s ease'
+                  borderRadius: '20px',
+                  backgroundColor: '#F6F6F6',
+                  border: '1px solid #E5E7EB',
+                  overflow: 'hidden'
                 }}
               >
                 <button
                   onClick={() => toggleFAQ(idx)}
                   style={{
                     width: '100%',
-                    padding: '1.4rem 1.6rem',
+                    padding: '1.6rem 2rem',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     textAlign: 'left',
-                    color: '#F8FAFC',
-                    fontWeight: 600,
-                    fontSize: '1.05rem',
+                    color: '#000000',
+                    fontWeight: 700,
+                    fontSize: '1.15rem',
                     gap: '1rem'
                   }}
                 >
-                  <span>{faq.q}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', color: '#6B7280' }}>{formattedIndex}</span>
+                    <span>{faq.q}</span>
+                  </div>
                   <div
                     style={{
                       transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                       transition: 'transform 0.25s ease',
-                      color: isOpen ? '#EC4899' : '#94A3B8'
+                      color: '#000000'
                     }}
                   >
-                    <ChevronDown size={20} />
+                    <ChevronDown size={22} />
                   </div>
                 </button>
 
                 {isOpen && (
                   <div
                     style={{
-                      padding: '0 1.6rem 1.4rem',
-                      color: '#94A3B8',
-                      fontSize: '0.95rem',
+                      padding: '0 2rem 1.6rem',
+                      paddingLeft: '3.6rem',
+                      color: '#4B5563',
+                      fontSize: '1rem',
                       lineHeight: 1.7,
-                      borderTop: '1px solid rgba(255, 255, 255, 0.04)'
+                      borderTop: '1px solid #EAEAEA'
                     }}
                   >
                     {faq.a}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, Clock, MapPin, User, Heart, MessageSquare, Send, CheckCircle2 } from 'lucide-react';
+import { X, Calendar, Send, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function BookingModal({ isOpen, onClose, initialData, onBookingSuccess }) {
@@ -40,7 +40,6 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
       (formData.specialNote ? `📝 *Custom Instructions:* ${encodeURIComponent(formData.specialNote)}%0A` : '') +
       `%0A🔒 *Stealth Protocol:* Please coordinate discreetly with me!`;
 
-    // WhatsApp Direct URL (Replace with business number or use direct api)
     const whatsappUrl = `https://api.whatsapp.com/send?phone=919876543210&text=${message}`;
 
     confetti({
@@ -74,14 +73,15 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
       onClick={onClose}
     >
       <div
-        className="glass-card"
         style={{
           width: '100%',
           maxWidth: '580px',
           padding: '2.5rem',
           position: 'relative',
-          background: 'linear-gradient(145deg, rgba(20, 26, 44, 0.98), rgba(10, 14, 25, 0.99))',
-          border: '1px solid rgba(236, 72, 153, 0.3)',
+          backgroundColor: '#0A0D14',
+          borderRadius: '32px',
+          border: '1px solid rgba(255, 255, 255, 0.15)',
+          color: '#FFFFFF',
           boxShadow: '0 25px 60px rgba(0, 0, 0, 0.8)',
           margin: 'auto'
         }}
@@ -94,10 +94,10 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
             position: 'absolute',
             top: '20px',
             right: '20px',
-            color: '#94A3B8',
+            color: '#9CA3AF',
             padding: '0.4rem',
             borderRadius: '50%',
-            background: 'rgba(255, 255, 255, 0.05)'
+            background: 'rgba(255, 255, 255, 0.1)'
           }}
           aria-label="Close"
         >
@@ -106,22 +106,23 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
 
         {!isSubmitted ? (
           <div>
-            <div className="section-badge" style={{ marginBottom: '0.8rem' }}>
-              <Heart size={14} /> Stealth Booking Concierge
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem' }}>
+              <span className="mono-tag" style={{ background: '#F8DC6C', color: '#000000' }}>CONCIERGE 06</span>
             </div>
-            <h3 style={{ fontSize: '1.6rem', marginBottom: '0.4rem' }}>
-              Reserve Your <span className="text-gradient">Surprise Date</span>
+
+            <h3 style={{ fontSize: '1.8rem', color: '#FFFFFF', marginBottom: '0.3rem' }}>
+              Reserve Your Surprise Date
             </h3>
-            <p style={{ color: '#94A3B8', fontSize: '0.88rem', marginBottom: '1.8rem' }}>
+
+            <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.92rem', marginBottom: '1.8rem' }}>
               Selected: <strong style={{ color: '#FFFFFF' }}>{initialData?.title || 'Custom Surprise Setup'}</strong>
-              {initialData?.price && <span style={{ color: '#F59E0B', marginLeft: '0.5rem' }}>(₹{initialData.price})</span>}
+              {initialData?.price && <span style={{ color: '#F8DC6C', marginLeft: '0.5rem', fontWeight: 700 }}>(₹{initialData.price})</span>}
             </p>
 
-            <form onSubmit={handleWhatsAppSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
-              {/* Row 1: Your Name & Phone */}
+            <form onSubmit={handleWhatsAppSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: '#CBD5E1', marginBottom: '0.4rem' }}>Your Name (Secret Planner)</label>
+                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>Your Name (Planner)</label>
                   <input
                     type="text"
                     name="yourName"
@@ -133,7 +134,7 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: '#CBD5E1', marginBottom: '0.4rem' }}>Your WhatsApp Number</label>
+                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>Your WhatsApp Number</label>
                   <input
                     type="tel"
                     name="yourPhone"
@@ -146,10 +147,9 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                 </div>
               </div>
 
-              {/* Row 2: Recipient Name & Date */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: '#CBD5E1', marginBottom: '0.4rem' }}>Recipient's Name</label>
+                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>Recipient's Name</label>
                   <input
                     type="text"
                     name="recipientName"
@@ -161,7 +161,7 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: '#CBD5E1', marginBottom: '0.4rem' }}>Surprise Date</label>
+                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>Surprise Date</label>
                   <input
                     type="date"
                     name="date"
@@ -173,10 +173,9 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                 </div>
               </div>
 
-              {/* Row 3: Time slot & City */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: '#CBD5E1', marginBottom: '0.4rem' }}>Preferred Time Slot</label>
+                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>Preferred Time Slot</label>
                   <select
                     name="timeSlot"
                     value={formData.timeSlot}
@@ -190,7 +189,7 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                   </select>
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: '#CBD5E1', marginBottom: '0.4rem' }}>City</label>
+                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>City</label>
                   <select
                     name="city"
                     value={formData.city}
@@ -208,23 +207,21 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                 </div>
               </div>
 
-              {/* Address / Landmark */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', color: '#CBD5E1', marginBottom: '0.4rem' }}>Delivery / Setup Location & Landmark</label>
+                <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>Delivery / Setup Location</label>
                 <input
                   type="text"
                   name="venueAddress"
                   required
-                  placeholder="e.g. Bandra West, Apartment 402 or Rooftop Cafe"
+                  placeholder="e.g. Bandra West, Apartment 402 or Rooftop Venue"
                   value={formData.venueAddress}
                   onChange={handleChange}
                   className="modal-input"
                 />
               </div>
 
-              {/* Special Instructions */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', color: '#CBD5E1', marginBottom: '0.4rem' }}>Special Custom Requests / Message</label>
+                <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>Custom Stealth Instructions</label>
                 <textarea
                   name="specialNote"
                   rows="2"
@@ -236,31 +233,30 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                 />
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
-                className="btn btn-whatsapp btn-lg"
-                style={{ width: '100%', marginTop: '0.6rem' }}
+                className="btn-gold"
+                style={{ width: '100%', padding: '0.9rem', marginTop: '0.5rem', fontSize: '1rem' }}
                 id="modal-submit-whatsapp"
               >
                 <Send size={18} /> Send Booking to WhatsApp Concierge
               </button>
 
-              <p style={{ textAlign: 'center', fontSize: '0.76rem', color: '#64748B' }}>
+              <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'rgba(255, 255, 255, 0.5)' }}>
                 🔒 100% Confidentiality Guarantee. We will never contact the recipient directly.
               </p>
             </form>
           </div>
         ) : (
           <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-            <div style={{ color: '#10B981', marginBottom: '1.2rem', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ color: '#F8DC6C', marginBottom: '1.2rem', display: 'flex', justifyContent: 'center' }}>
               <CheckCircle2 size={64} />
             </div>
-            <h3 style={{ fontSize: '1.8rem', marginBottom: '0.6rem' }}>Booking Prepared!</h3>
-            <p style={{ color: '#94A3B8', fontSize: '0.95rem', marginBottom: '2rem', lineHeight: 1.6 }}>
-              We've connected you with our 24/7 WhatsApp Surprise Concierge. If WhatsApp didn't open automatically, click the button below.
+            <h3 style={{ fontSize: '1.8rem', color: '#FFFFFF', marginBottom: '0.6rem' }}>Booking Prepared!</h3>
+            <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95rem', marginBottom: '2rem' }}>
+              We've prepared your private WhatsApp concierge link.
             </p>
-            <button onClick={onClose} className="btn btn-primary" style={{ width: '100%' }}>
+            <button onClick={onClose} className="btn-gold" style={{ width: '100%' }}>
               Back to Website
             </button>
           </div>
@@ -270,22 +266,21 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
       <style>{`
         .modal-input {
           width: 100%;
-          padding: 0.75rem 1rem;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          border-radius: 12px;
+          padding: 0.8rem 1rem;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 14px;
           color: #FFFFFF;
           font-family: inherit;
-          font-size: 0.9rem;
+          font-size: 0.92rem;
           outline: none;
-          transition: border-color 0.2s;
         }
         .modal-input:focus {
-          border-color: #E11D48;
-          background: rgba(255, 255, 255, 0.08);
+          border-color: #F8DC6C;
+          background: rgba(255, 255, 255, 0.12);
         }
         .modal-input option {
-          background: #0B0F19;
+          background: #0A0D14;
           color: #FFFFFF;
         }
       `}</style>
