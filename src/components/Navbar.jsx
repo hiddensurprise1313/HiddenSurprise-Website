@@ -1,28 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sparkles, Flame } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
   const [activeTab, setActiveTab] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Dynamic Scroll Spy: Automatically switch active pill based on scroll position
   useEffect(() => {
     const handleScroll = () => {
+      const scrollPosition = window.scrollY + 200;
+
       setIsScrolled(window.scrollY > 30);
+
+      const builderSection = document.getElementById('builder');
+      const packagesSection = document.getElementById('packages');
+      const gallerySection = document.getElementById('gallery');
+      const reviewsSection = document.getElementById('reviews');
+
+      if (reviewsSection && scrollPosition >= reviewsSection.offsetTop) {
+        setActiveTab('reviews');
+      } else if (gallerySection && scrollPosition >= gallerySection.offsetTop) {
+        setActiveTab('gallery');
+      } else if (packagesSection && scrollPosition >= packagesSection.offsetTop) {
+        setActiveTab('packages');
+      } else if (builderSection && scrollPosition >= builderSection.offsetTop) {
+        setActiveTab('builder');
+      } else {
+        setActiveTab('home');
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const scrollToSection = (e, id, tabName) => {
+    e.preventDefault();
+    setActiveTab(tabName);
+    setMobileMenuOpen(false);
+
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
 
   return (
     <header
       style={{
         position: 'fixed',
-        top: '16px',
+        top: '14px',
         left: 0,
         right: 0,
         zIndex: 100,
-        padding: '0 1.5rem',
+        padding: '0 1.2rem',
         pointerEvents: 'none'
       }}
     >
@@ -35,82 +82,90 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           pointerEvents: 'auto'
         }}
       >
-        {/* Left: Brand Logo */}
+        {/* Left: Official Brand Logo & Name */}
         <a
           href="#"
+          onClick={(e) => scrollToSection(e, 'home', 'home')}
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.65rem',
+            gap: '0.75rem',
             textDecoration: 'none',
             color: '#FFFFFF'
           }}
         >
-          {/* Elevare-style connected organic emblem */}
-          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="34" height="34" rx="10" fill="#F8DC6C" />
-            <path
-              d="M12 11C10.8954 11 10 11.8954 10 13C10 14.1046 10.8954 15 12 15C13.1046 15 14 14.1046 14 13C14 11.8954 13.1046 11 12 11Z"
-              fill="#000000"
-            />
-            <path
-              d="M22 19C20.8954 19 20 19.8954 20 21C20 22.1046 20.8954 23 22 23C23.1046 23 24 22.1046 24 21C24 19.8954 23.1046 19 22 19Z"
-              fill="#000000"
-            />
-            <path
-              d="M17 15C15.8954 15 15 15.8954 15 17C15 18.1046 15.8954 19 17 19C18.1046 19 19 18.1046 19 17C19 15.8954 18.1046 15 17 15Z"
-              fill="#000000"
-            />
-            <path
-              d="M22 11C20.8954 11 20 11.8954 20 13C20 14.1046 20.8954 15 22 15C23.1046 15 24 14.1046 24 13C24 11.8954 23.1046 11 22 11Z"
-              fill="#000000"
-            />
-            <path
-              d="M12 19C10.8954 19 10 19.8954 10 21C10 22.1046 10.8954 23 12 23C13.1046 23 14 22.1046 14 21C14 19.8954 13.1046 19 12 19Z"
-              fill="#000000"
-            />
-          </svg>
-
-          <span
+          <img
+            src={logoImg}
+            alt="Hidden Surprise Logo"
             style={{
-              fontSize: '1.45rem',
-              fontWeight: 800,
-              letterSpacing: '-0.03em',
-              color: '#FFFFFF',
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+              width: '44px',
+              height: '44px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              border: '2px solid #F8DC6C',
+              boxShadow: '0 0 15px rgba(248, 220, 108, 0.45)',
+              display: 'block'
             }}
-          >
-            Hidden Surprise
-          </span>
+          />
+
+          <div>
+            <span
+              style={{
+                fontSize: '1.35rem',
+                fontWeight: 900,
+                letterSpacing: '-0.03em',
+                color: '#FFFFFF',
+                display: 'block',
+                lineHeight: 1,
+                textShadow: '0 2px 10px rgba(0,0,0,0.6)'
+              }}
+            >
+              HIDDEN <span style={{ color: '#F8DC6C' }}>SURPRISE</span>
+            </span>
+            <span
+              style={{
+                fontSize: '0.62rem',
+                color: '#F8DC6C',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                fontWeight: 700,
+                display: 'block',
+                marginTop: '2px'
+              }}
+            >
+              Events & Surprise Planner
+            </span>
+          </div>
         </a>
 
-        {/* Center: Elevare Floating Capsule Navigation */}
+        {/* Center: Elevare Floating Capsule Navigation with Dynamic Scroll Spy */}
         <nav
           style={{
             display: 'none',
             mdDisplay: 'flex',
             alignItems: 'center',
-            background: 'rgba(0, 0, 0, 0.55)',
+            background: 'rgba(0, 0, 0, 0.65)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
             borderRadius: '9999px',
             padding: '4px 6px',
-            boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)'
+            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)'
           }}
           className="desktop-nav-capsule"
         >
           <a
             href="#"
-            onClick={() => setActiveTab('home')}
+            onClick={(e) => scrollToSection(e, 'home', 'home')}
             style={{
-              padding: '8px 20px',
+              padding: '8px 18px',
               borderRadius: '9999px',
-              fontSize: '0.92rem',
+              fontSize: '0.9rem',
               fontWeight: 600,
-              transition: 'all 0.2s ease',
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'home' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'home' ? '#000000' : 'rgba(255, 255, 255, 0.85)'
+              color: activeTab === 'home' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+              boxShadow: activeTab === 'home' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
             }}
           >
             Home
@@ -118,15 +173,16 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
 
           <a
             href="#builder"
-            onClick={() => setActiveTab('builder')}
+            onClick={(e) => scrollToSection(e, 'builder', 'builder')}
             style={{
-              padding: '8px 20px',
+              padding: '8px 18px',
               borderRadius: '9999px',
-              fontSize: '0.92rem',
+              fontSize: '0.9rem',
               fontWeight: 600,
-              transition: 'all 0.2s ease',
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'builder' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'builder' ? '#000000' : 'rgba(255, 255, 255, 0.85)'
+              color: activeTab === 'builder' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+              boxShadow: activeTab === 'builder' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
             }}
           >
             Surprise Builder
@@ -134,15 +190,16 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
 
           <a
             href="#packages"
-            onClick={() => setActiveTab('packages')}
+            onClick={(e) => scrollToSection(e, 'packages', 'packages')}
             style={{
-              padding: '8px 20px',
+              padding: '8px 18px',
               borderRadius: '9999px',
-              fontSize: '0.92rem',
+              fontSize: '0.9rem',
               fontWeight: 600,
-              transition: 'all 0.2s ease',
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'packages' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'packages' ? '#000000' : 'rgba(255, 255, 255, 0.85)'
+              color: activeTab === 'packages' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+              boxShadow: activeTab === 'packages' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
             }}
           >
             Packages
@@ -155,11 +212,11 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
               onOpenUnboxing();
             }}
             style={{
-              padding: '8px 20px',
+              padding: '8px 18px',
               borderRadius: '9999px',
-              fontSize: '0.92rem',
+              fontSize: '0.9rem',
               fontWeight: 600,
-              transition: 'all 0.2s ease',
+              transition: 'all 0.25s ease',
               color: '#F8DC6C',
               display: 'flex',
               alignItems: 'center',
@@ -170,16 +227,34 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           </a>
 
           <a
-            href="#reviews"
-            onClick={() => setActiveTab('reviews')}
+            href="#gallery"
+            onClick={(e) => scrollToSection(e, 'gallery', 'gallery')}
             style={{
-              padding: '8px 20px',
+              padding: '8px 18px',
               borderRadius: '9999px',
-              fontSize: '0.92rem',
+              fontSize: '0.9rem',
               fontWeight: 600,
-              transition: 'all 0.2s ease',
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+              background: activeTab === 'gallery' ? '#FFFFFF' : 'transparent',
+              color: activeTab === 'gallery' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+              boxShadow: activeTab === 'gallery' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+            }}
+          >
+            Gallery
+          </a>
+
+          <a
+            href="#reviews"
+            onClick={(e) => scrollToSection(e, 'reviews', 'reviews')}
+            style={{
+              padding: '8px 18px',
+              borderRadius: '9999px',
+              fontSize: '0.9rem',
+              fontWeight: 600,
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'reviews' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'reviews' ? '#000000' : 'rgba(255, 255, 255, 0.85)'
+              color: activeTab === 'reviews' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+              boxShadow: activeTab === 'reviews' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
             }}
           >
             Reviews
@@ -200,7 +275,7 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{
-              background: 'rgba(0, 0, 0, 0.6)',
+              background: 'rgba(0, 0, 0, 0.65)',
               backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255, 255, 255, 0.2)',
               borderRadius: '12px',
@@ -222,36 +297,49 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
         <div
           style={{
             marginTop: '0.75rem',
-            background: 'rgba(10, 13, 20, 0.96)',
+            background: 'rgba(10, 13, 20, 0.98)',
             backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
             borderRadius: '20px',
             border: '1px solid rgba(255, 255, 255, 0.15)',
             padding: '1.5rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1rem',
+            gap: '1.1rem',
             pointerEvents: 'auto',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)'
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.7)'
           }}
         >
           <a
             href="#"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontSize: '1.05rem', fontWeight: 600, color: '#FFFFFF' }}
+            onClick={(e) => scrollToSection(e, 'home', 'home')}
+            style={{
+              fontSize: '1.05rem',
+              fontWeight: 600,
+              color: activeTab === 'home' ? '#F8DC6C' : '#FFFFFF'
+            }}
           >
             Home
           </a>
           <a
             href="#builder"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontSize: '1.05rem', fontWeight: 600, color: '#FFFFFF' }}
+            onClick={(e) => scrollToSection(e, 'builder', 'builder')}
+            style={{
+              fontSize: '1.05rem',
+              fontWeight: 600,
+              color: activeTab === 'builder' ? '#F8DC6C' : '#FFFFFF'
+            }}
           >
             Surprise Builder
           </a>
           <a
             href="#packages"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontSize: '1.05rem', fontWeight: 600, color: '#FFFFFF' }}
+            onClick={(e) => scrollToSection(e, 'packages', 'packages')}
+            style={{
+              fontSize: '1.05rem',
+              fontWeight: 600,
+              color: activeTab === 'packages' ? '#F8DC6C' : '#FFFFFF'
+            }}
           >
             Packages & Pricing
           </a>
@@ -267,15 +355,23 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           </a>
           <a
             href="#gallery"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontSize: '1.05rem', fontWeight: 600, color: '#FFFFFF' }}
+            onClick={(e) => scrollToSection(e, 'gallery', 'gallery')}
+            style={{
+              fontSize: '1.05rem',
+              fontWeight: 600,
+              color: activeTab === 'gallery' ? '#F8DC6C' : '#FFFFFF'
+            }}
           >
             Moments & Gallery
           </a>
           <a
             href="#reviews"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ fontSize: '1.05rem', fontWeight: 600, color: '#FFFFFF' }}
+            onClick={(e) => scrollToSection(e, 'reviews', 'reviews')}
+            style={{
+              fontSize: '1.05rem',
+              fontWeight: 600,
+              color: activeTab === 'reviews' ? '#F8DC6C' : '#FFFFFF'
+            }}
           >
             Client Reviews
           </a>

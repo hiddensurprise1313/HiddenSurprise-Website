@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 export default function Footer({ onOpenBooking, onOpenUnboxing }) {
   return (
@@ -58,17 +59,28 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
           }}
         >
           {/* Brand */}
-          <div style={{ maxWidth: '320px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1.2rem' }}>
-              <svg width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="34" height="34" rx="10" fill="#F8DC6C" />
-                <path d="M12 11C10.8954 11 10 11.8954 10 13C10 14.1046 10.8954 15 12 15C13.1046 15 14 14.1046 14 13C14 11.8954 13.1046 11 12 11Z" fill="#000000"/>
-                <path d="M22 19C20.8954 19 20 19.8954 20 21C20 22.1046 20.8954 23 22 23C23.1046 23 24 22.1046 24 21C24 19.8954 23.1046 19 22 19Z" fill="#000000"/>
-                <path d="M17 15C15.8954 15 15 15.8954 15 17C15 18.1046 15.8954 19 17 19C18.1046 19 19 18.1046 19 17C19 15.8954 18.1046 15 17 15Z" fill="#000000"/>
-              </svg>
-              <span style={{ fontSize: '1.35rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#FFFFFF' }}>
-                Hidden Surprise
-              </span>
+          <div style={{ maxWidth: '340px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.2rem' }}>
+              <img
+                src={logoImg}
+                alt="Hidden Surprise Logo"
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  border: '2px solid #F8DC6C',
+                  boxShadow: '0 0 15px rgba(248, 220, 108, 0.45)'
+                }}
+              />
+              <div>
+                <span style={{ fontSize: '1.35rem', fontWeight: 900, letterSpacing: '-0.02em', color: '#FFFFFF', display: 'block', lineHeight: 1 }}>
+                  HIDDEN <span style={{ color: '#F8DC6C' }}>SURPRISE</span>
+                </span>
+                <span style={{ fontSize: '0.65rem', color: '#F8DC6C', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, display: 'block', marginTop: '3px' }}>
+                  Events & Surprise Planner
+                </span>
+              </div>
             </div>
 
             <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.92rem', lineHeight: 1.7 }}>
@@ -138,7 +150,7 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
             © {new Date().getFullYear()} Hidden Surprise. All rights reserved.
           </div>
           <div>
-            Crafted for pure celebration magic & stealth execution.
+            "Your Smile... Our Surprise..."
           </div>
         </div>
       </div>
