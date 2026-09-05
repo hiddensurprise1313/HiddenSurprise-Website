@@ -58,15 +58,26 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
             marginBottom: '4rem'
           }}
         >
-          {/* Brand */}
+          {/* Brand with Black Luxury Capsule */}
           <div style={{ maxWidth: '340px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.2rem' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.85rem',
+                marginBottom: '1.4rem',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                borderRadius: '20px',
+                padding: '8px 16px 8px 8px'
+              }}
+            >
               <img
                 src={logoImg}
                 alt="Hidden Surprise Logo"
                 style={{
-                  width: '50px',
-                  height: '50px',
+                  width: '48px',
+                  height: '48px',
                   borderRadius: '50%',
                   objectFit: 'cover',
                   border: '2px solid #F8DC6C',
@@ -74,11 +85,11 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
                 }}
               />
               <div>
-                <span style={{ fontSize: '1.35rem', fontWeight: 900, letterSpacing: '-0.02em', color: '#FFFFFF', display: 'block', lineHeight: 1 }}>
+                <span style={{ fontSize: '1.3rem', fontWeight: 900, letterSpacing: '-0.02em', color: '#FFFFFF', display: 'block', lineHeight: 1.1 }}>
                   HIDDEN <span style={{ color: '#F8DC6C' }}>SURPRISE</span>
                 </span>
-                <span style={{ fontSize: '0.65rem', color: '#F8DC6C', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 700, display: 'block', marginTop: '3px' }}>
-                  Events & Surprise Planner
+                <span style={{ fontSize: '0.65rem', color: '#F8DC6C', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, display: 'block', marginTop: '3px' }}>
+                  Your Smile... Our Surprise...
                 </span>
               </div>
             </div>

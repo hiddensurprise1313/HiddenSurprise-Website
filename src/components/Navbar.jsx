@@ -11,7 +11,6 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
-
       setIsScrolled(window.scrollY > 30);
 
       const builderSection = document.getElementById('builder');
@@ -33,7 +32,7 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -82,58 +81,65 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           pointerEvents: 'auto'
         }}
       >
-        {/* Left: Official Brand Logo & Name */}
+        {/* Left: Brand Logo & Name with Solid Black Background Capsule */}
         <a
           href="#"
           onClick={(e) => scrollToSection(e, 'home', 'home')}
           style={{
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
             gap: '0.75rem',
             textDecoration: 'none',
-            color: '#FFFFFF'
+            background: 'rgba(0, 0, 0, 0.85)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
+            borderRadius: '9999px',
+            padding: '5px 16px 5px 6px',
+            boxShadow: '0 10px 28px rgba(0, 0, 0, 0.55)',
+            transition: 'all 0.25s ease'
           }}
+          className="nav-brand-capsule"
         >
           <img
             src={logoImg}
             alt="Hidden Surprise Logo"
             style={{
-              width: '44px',
-              height: '44px',
+              width: '42px',
+              height: '42px',
               borderRadius: '50%',
               objectFit: 'cover',
               border: '2px solid #F8DC6C',
-              boxShadow: '0 0 15px rgba(248, 220, 108, 0.45)',
+              boxShadow: '0 0 12px rgba(248, 220, 108, 0.45)',
               display: 'block'
             }}
           />
 
           <div>
-            <span
-              style={{
-                fontSize: '1.35rem',
-                fontWeight: 900,
-                letterSpacing: '-0.03em',
-                color: '#FFFFFF',
-                display: 'block',
-                lineHeight: 1,
-                textShadow: '0 2px 10px rgba(0,0,0,0.6)'
-              }}
-            >
-              HIDDEN <span style={{ color: '#F8DC6C' }}>SURPRISE</span>
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+              <span
+                style={{
+                  fontSize: '1.25rem',
+                  fontWeight: 900,
+                  letterSpacing: '-0.03em',
+                  color: '#FFFFFF',
+                  lineHeight: 1.1
+                }}
+              >
+                HIDDEN <span style={{ color: '#F8DC6C' }}>SURPRISE</span>
+              </span>
+            </div>
             <span
               style={{
                 fontSize: '0.62rem',
                 color: '#F8DC6C',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
                 fontWeight: 700,
                 display: 'block',
-                marginTop: '2px'
+                marginTop: '1px'
               }}
             >
-              Events & Surprise Planner
+              Your Smile... Our Surprise...
             </span>
           </div>
         </a>
@@ -144,13 +150,13 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             display: 'none',
             mdDisplay: 'flex',
             alignItems: 'center',
-            background: 'rgba(0, 0, 0, 0.65)',
+            background: 'rgba(0, 0, 0, 0.85)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             border: '1px solid rgba(255, 255, 255, 0.18)',
             borderRadius: '9999px',
             padding: '4px 6px',
-            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)'
+            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5)'
           }}
           className="desktop-nav-capsule"
         >
@@ -275,7 +281,7 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{
-              background: 'rgba(0, 0, 0, 0.65)',
+              background: 'rgba(0, 0, 0, 0.85)',
               backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255, 255, 255, 0.2)',
               borderRadius: '12px',
@@ -386,6 +392,10 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           .mobile-nav-toggle {
             display: none !important;
           }
+        }
+        .nav-brand-capsule:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7);
         }
       `}</style>
     </header>
