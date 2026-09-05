@@ -4,5 +4,5 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // Ensures relative assets work on GitHub Pages and any subpath
+  base: './', // Ensures relative assets work cleanly on GitHub Pages
 })
