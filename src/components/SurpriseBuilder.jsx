@@ -48,23 +48,23 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
     <section id="builder" className="section-padding" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="container">
         {/* Section Header */}
-        <div style={{ maxWidth: '820px', marginBottom: '3.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+        <div style={{ maxWidth: '820px', marginBottom: '2.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem' }}>
             <span className="mono-tag" style={{ background: '#000000', color: '#F8DC6C' }}>WIZARD 01</span>
             <span style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B7280' }}>
               Interactive Customizer
             </span>
           </div>
-          <h2 style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.6rem)', color: '#000000', marginBottom: '1rem' }}>
+          <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.4rem)', color: '#000000', marginBottom: '0.8rem' }}>
             Why Great Surprises Change Everything
           </h2>
-          <p style={{ color: '#5E6472', fontSize: '1.1rem', lineHeight: 1.6 }}>
+          <p style={{ color: '#5E6472', fontSize: '1.05rem', lineHeight: 1.6 }}>
             At Hidden Surprise, we recognize that every bond is unique. That’s why we design bespoke experiences tailored to each celebration's emotional goals.
           </p>
         </div>
 
         {/* Step Tabs Pills (Elevare Style) */}
-        <div className="tab-pills-container" style={{ marginBottom: '2.5rem' }}>
+        <div className="tab-pills-container" style={{ marginBottom: '2rem' }}>
           {[
             { num: 1, tag: '01', label: 'Occasions' },
             { num: 2, tag: '02', label: 'Experiences' },
@@ -75,7 +75,7 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
               key={s.num}
               onClick={() => setStep(s.num)}
               className={`tab-pill ${step === s.num ? 'active' : ''}`}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
             >
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', opacity: 0.8 }}>{s.tag}</span>
               <span>{s.label}</span>
@@ -85,9 +85,9 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
 
         {/* Wizard Main Container Card */}
         <div
-          className="framer-card"
+          className="framer-card wizard-card-container"
           style={{
-            padding: '2.5rem',
+            padding: '2.2rem',
             backgroundColor: '#F6F6F6',
             borderRadius: '28px',
             border: '1px solid #E5E7EB'
@@ -96,12 +96,12 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
           {/* STEP 1: Occasions */}
           {step === 1 && (
             <div>
-              <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ fontSize: '1.5rem', color: '#000000' }}>Select Your Occasion</h3>
-                <span style={{ fontSize: '0.88rem', color: '#5E6472' }}>Step 1 of 4</span>
+              <div style={{ marginBottom: '1.2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={{ fontSize: '1.35rem', color: '#000000' }}>Select Your Occasion</h3>
+                <span style={{ fontSize: '0.85rem', color: '#5E6472' }}>Step 1 of 4</span>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.2rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.2rem' }}>
                 {OCCASIONS.map((occ, idx) => {
                   const isSelected = selectedOccasion.id === occ.id;
                   const formattedIndex = String(idx + 1).padStart(2, '0');
@@ -110,23 +110,23 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                       key={occ.id}
                       onClick={() => setSelectedOccasion(occ)}
                       style={{
-                        padding: '1.6rem',
-                        borderRadius: '20px',
+                        padding: '1.4rem',
+                        borderRadius: '18px',
                         backgroundColor: isSelected ? '#000000' : '#FFFFFF',
                         color: isSelected ? '#FFFFFF' : '#000000',
                         border: isSelected ? '2px solid #000000' : '1px solid #E5E7EB',
                         cursor: 'pointer',
                         transition: 'all 0.2s ease',
-                        boxShadow: isSelected ? '0 10px 25px rgba(0,0,0,0.15)' : 'none'
+                        boxShadow: isSelected ? '0 8px 20px rgba(0,0,0,0.12)' : 'none'
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
                         <span
                           style={{
                             fontFamily: 'var(--font-mono)',
-                            fontSize: '0.8rem',
+                            fontSize: '0.78rem',
                             fontWeight: 700,
-                            padding: '0.2rem 0.6rem',
+                            padding: '0.2rem 0.55rem',
                             borderRadius: '6px',
                             backgroundColor: isSelected ? '#F8DC6C' : '#F0F0F0',
                             color: '#000000'
@@ -136,10 +136,10 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                         </span>
                         {isSelected && <Check size={18} color="#F8DC6C" />}
                       </div>
-                      <h4 style={{ fontSize: '1.2rem', marginBottom: '0.4rem', color: isSelected ? '#FFFFFF' : '#000000' }}>
+                      <h4 style={{ fontSize: '1.15rem', marginBottom: '0.35rem', color: isSelected ? '#FFFFFF' : '#000000' }}>
                         {occ.name}
                       </h4>
-                      <p style={{ fontSize: '0.88rem', color: isSelected ? 'rgba(255, 255, 255, 0.75)' : '#5E6472' }}>
+                      <p style={{ fontSize: '0.86rem', color: isSelected ? 'rgba(255, 255, 255, 0.75)' : '#5E6472' }}>
                         {occ.desc}
                       </p>
                     </div>
@@ -147,7 +147,7 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                 })}
               </div>
 
-              <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end' }}>
+              <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
                 <button onClick={() => setStep(2)} className="btn-gold" id="builder-step1-next">
                   Continue to Experiences <ArrowRight size={18} />
                 </button>
@@ -158,12 +158,12 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
           {/* STEP 2: Experiences */}
           {step === 2 && (
             <div>
-              <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ fontSize: '1.5rem', color: '#000000' }}>Choose Experience Format</h3>
-                <span style={{ fontSize: '0.88rem', color: '#5E6472' }}>Step 2 of 4</span>
+              <div style={{ marginBottom: '1.2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={{ fontSize: '1.35rem', color: '#000000' }}>Choose Experience Format</h3>
+                <span style={{ fontSize: '0.85rem', color: '#5E6472' }}>Step 2 of 4</span>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.4rem' }}>
                 {EXPERIENCE_TYPES.map((exp, idx) => {
                   const isSelected = selectedExperience.id === exp.id;
                   const formattedIndex = String(idx + 1).padStart(2, '0');
@@ -172,18 +172,18 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                       key={exp.id}
                       onClick={() => setSelectedExperience(exp)}
                       style={{
-                        borderRadius: '24px',
+                        borderRadius: '22px',
                         overflow: 'hidden',
                         backgroundColor: '#FFFFFF',
                         border: isSelected ? '3px solid #000000' : '1px solid #E5E7EB',
                         cursor: 'pointer',
                         transition: 'all 0.25s ease',
-                        boxShadow: isSelected ? '0 12px 30px rgba(0,0,0,0.15)' : 'none'
+                        boxShadow: isSelected ? '0 10px 25px rgba(0,0,0,0.12)' : 'none'
                       }}
                     >
                       <div
                         style={{
-                          height: '180px',
+                          height: '170px',
                           backgroundImage: `url(${exp.image})`,
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
@@ -200,7 +200,7 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                           }}
                         >
                           <span className="mono-tag">{formattedIndex}</span>
-                          <span className="mono-tag" style={{ background: '#F8DC6C', color: '#000000' }}>EXPERIENCE</span>
+                          <span className="mono-tag" style={{ background: '#F8DC6C', color: '#000000' }}>SETUP</span>
                         </div>
 
                         <div
@@ -210,26 +210,26 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                             right: '12px',
                             background: '#000000',
                             color: '#F8DC6C',
-                            padding: '0.35rem 0.8rem',
+                            padding: '0.3rem 0.75rem',
                             borderRadius: '9999px',
                             fontWeight: 700,
-                            fontSize: '0.85rem'
+                            fontSize: '0.82rem'
                           }}
                         >
                           Starts ₹{exp.basePrice}
                         </div>
                       </div>
 
-                      <div style={{ padding: '1.4rem' }}>
-                        <h4 style={{ fontSize: '1.2rem', color: '#000000', marginBottom: '0.4rem' }}>{exp.name}</h4>
-                        <p style={{ fontSize: '0.88rem', color: '#5E6472' }}>{exp.desc}</p>
+                      <div style={{ padding: '1.2rem' }}>
+                        <h4 style={{ fontSize: '1.15rem', color: '#000000', marginBottom: '0.35rem' }}>{exp.name}</h4>
+                        <p style={{ fontSize: '0.86rem', color: '#5E6472' }}>{exp.desc}</p>
                       </div>
                     </div>
                   );
                 })}
               </div>
 
-              <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
                 <button onClick={() => setStep(1)} className="btn-dark">
                   <ArrowLeft size={18} /> Back
                 </button>
@@ -243,15 +243,15 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
           {/* STEP 3: Add-Ons */}
           {step === 3 && (
             <div>
-              <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ marginBottom: '1.2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.5rem', color: '#000000' }}>Customize Luxury Add-ons</h3>
-                  <span style={{ fontSize: '0.88rem', color: '#5E6472' }}>{selectedAddons.length} added (+₹{addonsTotal})</span>
+                  <h3 style={{ fontSize: '1.35rem', color: '#000000' }}>Customize Luxury Add-ons</h3>
+                  <span style={{ fontSize: '0.85rem', color: '#5E6472' }}>{selectedAddons.length} added (+₹{addonsTotal})</span>
                 </div>
-                <span style={{ fontSize: '0.88rem', color: '#5E6472' }}>Step 3 of 4</span>
+                <span style={{ fontSize: '0.85rem', color: '#5E6472' }}>Step 3 of 4</span>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
                 {ADDONS.map((addon) => {
                   const isChecked = selectedAddons.some(a => a.id === addon.id);
                   return (
@@ -259,8 +259,8 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                       key={addon.id}
                       onClick={() => toggleAddon(addon)}
                       style={{
-                        padding: '1.2rem',
-                        borderRadius: '18px',
+                        padding: '1.1rem',
+                        borderRadius: '16px',
                         backgroundColor: isChecked ? '#000000' : '#FFFFFF',
                         color: isChecked ? '#FFFFFF' : '#000000',
                         border: isChecked ? '2px solid #000000' : '1px solid #E5E7EB',
@@ -273,17 +273,17 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                       }}
                     >
                       <div>
-                        <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>{addon.name}</div>
-                        <div style={{ fontSize: '0.85rem', color: isChecked ? '#F8DC6C' : '#000000', fontWeight: 700, marginTop: '0.2rem' }}>
+                        <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>{addon.name}</div>
+                        <div style={{ fontSize: '0.82rem', color: isChecked ? '#F8DC6C' : '#000000', fontWeight: 700, marginTop: '0.2rem' }}>
                           + ₹{addon.price}
                         </div>
                       </div>
 
                       <div
                         style={{
-                          width: '26px',
-                          height: '26px',
-                          borderRadius: '8px',
+                          width: '24px',
+                          height: '24px',
+                          borderRadius: '7px',
                           border: isChecked ? 'none' : '2px solid #D1D5DB',
                           backgroundColor: isChecked ? '#F8DC6C' : 'transparent',
                           display: 'flex',
@@ -299,7 +299,7 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                 })}
               </div>
 
-              <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
                 <button onClick={() => setStep(2)} className="btn-dark">
                   <ArrowLeft size={18} /> Back
                 </button>
@@ -313,40 +313,40 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
           {/* STEP 4: Review & Estimate */}
           {step === 4 && (
             <div>
-              <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ fontSize: '1.5rem', color: '#000000' }}>Review & Instant Estimate</h3>
-                <span style={{ fontSize: '0.88rem', color: '#5E6472' }}>Step 4 of 4</span>
+              <div style={{ marginBottom: '1.2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={{ fontSize: '1.35rem', color: '#000000' }}>Review & Instant Estimate</h3>
+                <span style={{ fontSize: '0.85rem', color: '#5E6472' }}>Step 4 of 4</span>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '1.8rem' }}>
                 {/* Left Breakdown */}
                 <div
                   style={{
                     backgroundColor: '#FFFFFF',
-                    borderRadius: '20px',
-                    padding: '1.8rem',
+                    borderRadius: '18px',
+                    padding: '1.6rem',
                     border: '1px solid #E5E7EB'
                   }}
                 >
-                  <h4 style={{ fontSize: '1.2rem', marginBottom: '1.2rem', color: '#000000' }}>Configuration Details</h4>
+                  <h4 style={{ fontSize: '1.15rem', marginBottom: '1rem', color: '#000000' }}>Configuration Details</h4>
 
-                  <div style={{ marginBottom: '1rem' }}>
-                    <div style={{ fontSize: '0.8rem', color: '#5E6472', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Occasion</div>
-                    <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#000000' }}>{selectedOccasion.name}</div>
+                  <div style={{ marginBottom: '0.9rem' }}>
+                    <div style={{ fontSize: '0.78rem', color: '#5E6472', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Occasion</div>
+                    <div style={{ fontWeight: 700, fontSize: '1rem', color: '#000000' }}>{selectedOccasion.name}</div>
                   </div>
 
-                  <div style={{ marginBottom: '1rem' }}>
-                    <div style={{ fontSize: '0.8rem', color: '#5E6472', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Experience Format</div>
-                    <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#000000' }}>{selectedExperience.name}</div>
-                    <div style={{ fontSize: '0.85rem', color: '#5E6472' }}>₹{selectedExperience.basePrice} base</div>
+                  <div style={{ marginBottom: '0.9rem' }}>
+                    <div style={{ fontSize: '0.78rem', color: '#5E6472', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Experience Format</div>
+                    <div style={{ fontWeight: 700, fontSize: '1rem', color: '#000000' }}>{selectedExperience.name}</div>
+                    <div style={{ fontSize: '0.82rem', color: '#5E6472' }}>₹{selectedExperience.basePrice} base</div>
                   </div>
 
                   <div>
-                    <div style={{ fontSize: '0.8rem', color: '#5E6472', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>
+                    <div style={{ fontSize: '0.78rem', color: '#5E6472', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                       Add-ons ({selectedAddons.length})
                     </div>
                     {selectedAddons.map(a => (
-                      <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', marginBottom: '0.3rem' }}>
+                      <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem', marginBottom: '0.3rem' }}>
                         <span>• {a.name}</span>
                         <span style={{ fontWeight: 600 }}>₹{a.price}</span>
                       </div>
@@ -359,28 +359,28 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                   style={{
                     backgroundColor: '#000000',
                     color: '#FFFFFF',
-                    borderRadius: '20px',
-                    padding: '2rem',
+                    borderRadius: '18px',
+                    padding: '1.8rem',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between'
                   }}
                 >
                   <div>
-                    <h4 style={{ fontSize: '1.3rem', color: '#F8DC6C', marginBottom: '1.2rem' }}>Estimated Investment</h4>
+                    <h4 style={{ fontSize: '1.25rem', color: '#F8DC6C', marginBottom: '1rem' }}>Estimated Investment</h4>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem', color: 'rgba(255, 255, 255, 0.8)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.55rem', color: 'rgba(255, 255, 255, 0.8)' }}>
                       <span>Base Experience</span>
                       <span>₹{selectedExperience.basePrice}</span>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem', color: 'rgba(255, 255, 255, 0.8)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.55rem', color: 'rgba(255, 255, 255, 0.8)' }}>
                       <span>Add-ons Total</span>
                       <span>₹{addonsTotal}</span>
                     </div>
 
                     {discountAmount > 0 && (
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem', color: '#F8DC6C' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.55rem', color: '#F8DC6C' }}>
                         <span>Perk Discount ({appliedDiscount.code})</span>
                         <span>- ₹{discountAmount}</span>
                       </div>
@@ -389,25 +389,25 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                     <div
                       style={{
                         borderTop: '1px solid rgba(255, 255, 255, 0.2)',
-                        paddingTop: '1.2rem',
-                        marginTop: '1.2rem',
+                        paddingTop: '1rem',
+                        marginTop: '1rem',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'baseline'
                       }}
                     >
-                      <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>Total Estimate:</span>
-                      <span style={{ fontSize: '2.4rem', fontWeight: 900, color: '#F8DC6C' }}>
+                      <span style={{ fontSize: '1.05rem', fontWeight: 600 }}>Total Estimate:</span>
+                      <span style={{ fontSize: '2.2rem', fontWeight: 900, color: '#F8DC6C' }}>
                         ₹{finalTotal}
                       </span>
                     </div>
                   </div>
 
-                  <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  <div style={{ marginTop: '1.8rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                     <button
                       onClick={handleComplete}
                       className="btn-gold"
-                      style={{ width: '100%', padding: '0.95rem', fontSize: '1.05rem' }}
+                      style={{ width: '100%', padding: '0.9rem', fontSize: '1rem' }}
                       id="builder-confirm-btn"
                     >
                       <Calendar size={18} /> Confirm & Reserve Date
@@ -415,7 +415,7 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
                     <button
                       onClick={() => setStep(3)}
                       className="btn-pill-light"
-                      style={{ justifyContent: 'center' }}
+                      style={{ width: '100%', justifyContent: 'center' }}
                     >
                       <ArrowLeft size={16} /> Modify Selections
                     </button>
@@ -426,6 +426,15 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
           )}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .wizard-card-container {
+            padding: 1.2rem !important;
+            border-radius: 20px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

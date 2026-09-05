@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function Hero({ onOpenBooking, onOpenUnboxing }) {
@@ -16,8 +16,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
     <section
       style={{
         position: 'relative',
-        height: '100vh',
-        minHeight: '680px',
+        minHeight: '100vh',
         width: '100%',
         overflow: 'hidden',
         display: 'flex',
@@ -25,15 +24,17 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
         justifyContent: 'flex-end',
         backgroundImage: 'url(https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1920&q=85)',
         backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        paddingTop: '7rem'
       }}
+      className="hero-section"
     >
       {/* Dark & Cinematic Gradient Overlays */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.85) 100%)'
+          background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 35%, rgba(0, 0, 0, 0.88) 100%)'
         }}
       />
 
@@ -43,7 +44,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
           bottom: 0,
           left: 0,
           right: 0,
-          height: '420px',
+          height: '380px',
           backdropFilter: 'blur(8px)',
           WebkitBackdropFilter: 'blur(8px)',
           maskImage: 'linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)',
@@ -78,15 +79,16 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                background: 'rgba(0, 0, 0, 0.6)',
+                background: 'rgba(0, 0, 0, 0.65)',
                 backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
                 borderRadius: '9999px',
-                padding: '0.4rem 1rem',
+                padding: '0.35rem 0.9rem',
                 color: '#F8DC6C',
-                fontSize: '0.85rem',
+                fontSize: '0.82rem',
                 fontWeight: 700,
-                marginBottom: '0.8rem',
+                marginBottom: '0.6rem',
                 cursor: 'pointer'
               }}
               onClick={triggerConfetti}
@@ -96,7 +98,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
 
             <h1
               style={{
-                fontSize: 'clamp(4.2rem, 11vw, 9.5rem)',
+                fontSize: 'clamp(3.4rem, 11vw, 9.5rem)',
                 fontWeight: 900,
                 color: '#F8DC6C',
                 lineHeight: 0.9,
@@ -112,28 +114,28 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
           </div>
 
           {/* Right: Emotional Statement & Action CTA */}
-          <div style={{ maxWidth: '480px', justifySelf: 'end' }} className="hero-right-col">
+          <div style={{ maxWidth: '500px', justifySelf: 'end' }} className="hero-right-col">
             <h2
               style={{
-                fontSize: 'clamp(1.5rem, 2.6vw, 2.2rem)',
+                fontSize: 'clamp(1.35rem, 2.5vw, 2.2rem)',
                 color: '#FFFFFF',
                 fontWeight: 700,
                 lineHeight: 1.25,
-                marginBottom: '1rem'
+                marginBottom: '0.85rem'
               }}
             >
               Achieve Unforgettable Moments with Celebrations that Deliver Results!
             </h2>
 
-            <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.98rem', marginBottom: '1.8rem', lineHeight: 1.6 }}>
+            <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '0.94rem', marginBottom: '1.6rem', lineHeight: 1.6 }}>
               From midnight acoustic serenades and breathtaking candlelight cabanas to secret trunk reveals. We engineer pure emotional magic with 100% stealth guarantee.
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
               <a
                 href="#builder"
                 className="btn-gold"
-                style={{ padding: '0.9rem 2rem', fontSize: '1.05rem' }}
+                style={{ padding: '0.85rem 1.8rem', fontSize: '1rem' }}
                 id="hero-join-now-btn"
               >
                 Join Now <ArrowRight size={18} />
@@ -142,7 +144,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
               <button
                 onClick={onOpenUnboxing}
                 className="btn-pill-light"
-                style={{ padding: '0.85rem 1.4rem' }}
+                style={{ padding: '0.8rem 1.3rem' }}
               >
                 <Sparkles size={16} color="#F8DC6C" /> Unbox Perk
               </button>
@@ -155,6 +157,17 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
         @media (min-width: 900px) {
           .hero-grid-layout {
             grid-template-columns: 1.2fr 0.8fr !important;
+          }
+        }
+        @media (max-width: 899px) {
+          .hero-right-col {
+            justify-self: start !important;
+            max-width: 100% !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .hero-section {
+            padding-top: 6rem !important;
           }
         }
       `}</style>

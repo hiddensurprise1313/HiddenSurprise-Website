@@ -30,7 +30,7 @@
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 24px;
-  --radius-xl: 32px;
+  --radius-xl: 28px;
 
   /* Shadows */
   --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -84,7 +84,7 @@ button {
 }
 
 .section-padding {
-  padding: 6rem 0;
+  padding: 5.5rem 0;
 }
 
 .bg-bone {
@@ -110,6 +110,7 @@ button {
   border-radius: var(--radius-md);
   transition: all 0.2s ease;
   box-shadow: 0 4px 14px rgba(248, 220, 108, 0.35);
+  white-space: nowrap;
 }
 
 .btn-gold:hover {
@@ -130,6 +131,7 @@ button {
   padding: 0.75rem 1.6rem;
   border-radius: var(--radius-md);
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .btn-dark:hover {
@@ -143,13 +145,15 @@ button {
   gap: 0.5rem;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: #FFFFFF;
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: var(--radius-pill);
-  padding: 0.5rem 1.2rem;
+  padding: 0.55rem 1.25rem;
   font-weight: 600;
   font-size: 0.88rem;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .btn-pill-light:hover {
@@ -161,17 +165,26 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-pills-container::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-pill {
-  padding: 0.65rem 1.4rem;
+  padding: 0.6rem 1.3rem;
   border-radius: var(--radius-md);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   background-color: #EAEAEA;
   color: #000000;
   transition: all 0.2s ease;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tab-pill:hover {
@@ -187,14 +200,16 @@ button {
 /* Monospace Index Badge (e.g. 01, 02) */
 .mono-tag {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--color-gold);
-  padding: 0.3rem 0.65rem;
+  padding: 0.28rem 0.6rem;
   border-radius: 8px;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 /* Framer Style Card */
@@ -221,7 +236,7 @@ button {
 /* Big Stat Heading */
 .stat-number {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-size: clamp(3rem, 7vw, 6.5rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -236,4 +251,37 @@ button {
 
 .animate-pulse-subtle {
   animation: pulseSubtle 3s infinite ease-in-out;
+}
+
+/* =========================================================
+   RESPONSIVE MEDIA QUERIES (Mobile, Tablet & Small Desktops)
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.1rem;
+  }
+
+  .section-padding {
+    padding: 3.8rem 0;
+  }
+
+  .btn-gold, .btn-dark {
+    padding: 0.7rem 1.3rem;
+    font-size: 0.9rem;
+  }
+
+  .framer-card {
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.9rem;
+  }
+
+  .section-padding {
+    padding: 3.2rem 0;
+  }
 }
