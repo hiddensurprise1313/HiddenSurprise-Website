@@ -96,7 +96,7 @@ ConfettiComponent.displayName = "Confetti";
 
 export const Confetti = ConfettiComponent;
 
-// Continuous ambient floating confetti background for the Hero section
+// Rich continuous celebration confetti rain & floating particle field for Hero
 export function HeroAmbientConfetti() {
   const canvasRef = useRef(null);
 
@@ -108,47 +108,83 @@ export function HeroAmbientConfetti() {
       useWorker: true,
     });
 
-    // Gold, champagne, pearl and warm sparkle palette
-    const colors = ["#F8DC6C", "#FFFFFF", "#F59E0B", "#FFEAA7", "#E17055", "#FDCB6E"];
+    // Rich luxury party colors: Gold, Champagne, Rose Gold, Warm Amber, Pearl White, Coral
+    const colors = [
+      "#F8DC6C",
+      "#FFFFFF",
+      "#F59E0B",
+      "#FFEAA7",
+      "#FD79A8",
+      "#FF7675",
+      "#FDCB6E",
+      "#E17055",
+      "#E84393"
+    ];
 
-    // Initial burst
+    // Grand opening celebration burst
     myConfetti({
-      particleCount: 50,
-      spread: 100,
-      origin: { x: 0.5, y: 0.3 },
+      particleCount: 80,
+      spread: 120,
+      origin: { x: 0.5, y: 0.25 },
       colors,
-      gravity: 0.7,
-      scalar: 1.1,
+      gravity: 0.6,
+      scalar: 1.15,
+      ticks: 300,
     });
 
     let animationFrameId;
-    let lastFire = Date.now();
+    let lastRainTime = Date.now();
+    let lastCannonTime = Date.now();
 
     const loop = () => {
       const now = Date.now();
-      // Gentle intermittent falling confetti every 800ms
-      if (now - lastFire > 850) {
-        lastFire = now;
+
+      // Continuous gentle falling confetti shower from top every 200ms
+      if (now - lastRainTime > 220) {
+        lastRainTime = now;
+
+        // Top rain at random horizontal positions
         myConfetti({
-          particleCount: 3,
-          angle: 60,
-          spread: 45,
-          origin: { x: 0, y: Math.random() * 0.4 + 0.1 },
+          particleCount: 4,
+          angle: Math.random() * 30 + 75, // 75 to 105 degrees downwards
+          spread: 50,
+          origin: { x: Math.random(), y: -0.05 },
           colors,
-          gravity: 0.6,
+          gravity: Math.random() * 0.3 + 0.45,
           scalar: Math.random() * 0.4 + 0.8,
-          drift: 0.2,
+          drift: (Math.random() - 0.5) * 0.5,
+          ticks: 350,
+        });
+      }
+
+      // Side ambient bursts every 1.2 seconds for dynamic energy
+      if (now - lastCannonTime > 1200) {
+        lastCannonTime = now;
+
+        // Left side fountain
+        myConfetti({
+          particleCount: 6,
+          angle: 55,
+          spread: 45,
+          startVelocity: 35,
+          origin: { x: 0, y: Math.random() * 0.3 + 0.3 },
+          colors,
+          gravity: 0.55,
+          scalar: 0.9,
+          ticks: 280,
         });
 
+        // Right side fountain
         myConfetti({
-          particleCount: 3,
-          angle: 120,
+          particleCount: 6,
+          angle: 125,
           spread: 45,
-          origin: { x: 1, y: Math.random() * 0.4 + 0.1 },
+          startVelocity: 35,
+          origin: { x: 1, y: Math.random() * 0.3 + 0.3 },
           colors,
-          gravity: 0.6,
-          scalar: Math.random() * 0.4 + 0.8,
-          drift: -0.2,
+          gravity: 0.55,
+          scalar: 0.9,
+          ticks: 280,
         });
       }
 
@@ -180,26 +216,35 @@ export function HeroAmbientConfetti() {
 
 // Side Cannons trigger helper
 export function triggerSideCannons() {
-  const end = Date.now() + 2.5 * 1000;
-  const colors = ["#F8DC6C", "#FFFFFF", "#F59E0B", "#FFEAA7", "#FD79A8"];
+  const end = Date.now() + 3 * 1000;
+  const colors = [
+    "#F8DC6C",
+    "#FFFFFF",
+    "#F59E0B",
+    "#FFEAA7",
+    "#FD79A8",
+    "#FF7675",
+    "#00CEC9",
+    "#6C5CE7"
+  ];
 
   const frame = () => {
     if (Date.now() > end) return;
     confetti({
-      particleCount: 3,
+      particleCount: 4,
       angle: 60,
-      spread: 60,
-      startVelocity: 55,
-      origin: { x: 0, y: 0.65 },
+      spread: 65,
+      startVelocity: 60,
+      origin: { x: 0, y: 0.6 },
       colors: colors,
       zIndex: 9999,
     });
     confetti({
-      particleCount: 3,
+      particleCount: 4,
       angle: 120,
-      spread: 60,
-      startVelocity: 55,
-      origin: { x: 1, y: 0.65 },
+      spread: 65,
+      startVelocity: 60,
+      origin: { x: 1, y: 0.6 },
       colors: colors,
       zIndex: 9999,
     });
