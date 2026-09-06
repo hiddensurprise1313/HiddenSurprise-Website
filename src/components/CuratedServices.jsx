@@ -15,7 +15,7 @@ export default function CuratedServices({ onOpenBooking }) {
     const text = encodeURIComponent(
       `Hi Hidden Surprise! 🎁✨\n\nI want to book the *${service.title}* (${service.categoryName}).\n\nPlease let me know availability and details for my celebration date!`
     );
-    return `https://wa.me/919133143232?text=${text}`;
+    return `https://wa.me/918870740190?text=${text}`;
   };
 
   return (

@@ -148,7 +148,7 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.7)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                 <Phone size={16} color="#F8DC6C" />
-                <span>+91 91331 43232 (24/7 WhatsApp)</span>
+                <span>+91 88707 40190 (24/7 WhatsApp)</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                 <Mail size={16} color="#F8DC6C" />

@@ -53,7 +53,7 @@ export default function SpiralPhotoWall() {
   const handleWhatsAppBooking = (photo) => {
     triggerSideCannons();
     const message = `Hi Hidden Surprise! I saw this setup in your 3D Spiral Photowall: "${photo.title}" (${photo.location}). I'd like to plan a similar celebration!`;
-    const url = `https://wa.me/919133143232?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/918870740190?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
 

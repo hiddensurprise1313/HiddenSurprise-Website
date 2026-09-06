@@ -9,7 +9,7 @@ export default function AdditionalServices({ onOpenBooking }) {
     const text = encodeURIComponent(
       `Hi Hidden Surprise! 🎁✨\n\nI want to add the *${service.title}* (${service.categoryName}).\n\nPlease let me know details and availability for my celebration date!`
     );
-    return `https://wa.me/919133143232?text=${text}`;
+    return `https://wa.me/918870740190?text=${text}`;
   };
 
   return (

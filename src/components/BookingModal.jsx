@@ -39,7 +39,7 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
       `📍 *City / Venue:* ${encodeURIComponent(formData.city)} - ${encodeURIComponent(formData.venueAddress)}%0A` +
       `%0A🔒 *Stealth Protocol:* Please coordinate discreetly with me and provide a personalized package quote!`;
 
-    const whatsappUrl = `https://wa.me/919133143232?text=${message}`;
+    const whatsappUrl = `https://wa.me/918870740190?text=${message}`;
 
     confetti({
       particleCount: 80,
