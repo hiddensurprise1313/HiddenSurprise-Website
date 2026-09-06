@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import UnboxingGame from './components/UnboxingGame';
 import BookingModal from './components/BookingModal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import ScrollPill from './components/ScrollPill';
 import Toast from './components/Toast';
 
 function App() {
@@ -82,6 +83,9 @@ function App() {
         onOpenBooking={() => handleOpenBooking()}
         onOpenUnboxing={() => setUnboxingModalOpen(true)}
       />
+
+      {/* Quick Scroll Navigation Pill */}
+      <ScrollPill />
 
       {/* Floating 24/7 WhatsApp Concierge Button */}
       <FloatingWhatsApp onOpenBooking={() => handleOpenBooking()} />
