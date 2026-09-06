@@ -16,6 +16,12 @@ export const SERVICE_CATEGORIES = [
     name: 'Indoor Surprise',
     badge: '🏠 Indoor Surprise',
     description: 'Jaw-dropping room makeovers and celebrations inside homes, hotels, or venues.'
+  },
+  {
+    id: 'addons',
+    name: 'Additional Services',
+    badge: '💐 Additional Services',
+    description: 'Curated celebration enhancers, floral arrangements, chocolate bouquets & banner reveals.'
   }
 ];
 
@@ -214,5 +220,66 @@ export const CURATED_SERVICES = [
       'Cold-fire sparkler fountain blast on the "YES!" moment',
       'Professional photographer & 4K cinematic highlight video'
     ]
+  },
+
+  // ----------------- ADDITIONAL SERVICES -----------------
+  {
+    id: 'flower-bouquet',
+    category: 'addons',
+    categoryName: 'Additional Service',
+    number: '01',
+    title: 'Flower Bouquet',
+    tagline: 'Handcrafted luxury Dutch roses & exotic florals',
+    desc: 'Exquisite hand-tied bouquet crafted with fresh long-stem Dutch red roses, exotic lilies, gypsophila baby’s breath & customized wax-sealed message card.',
+    price: 999,
+    originalPrice: 1499,
+    image: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1200&q=85',
+    highlights: [
+      'Fresh premium long-stem Dutch roses & exotic florals',
+      'Luxury matte wrapping paper with gold foil edge & satin bow',
+      'Personalized handwritten wax-sealed love note',
+      'Flower hydration pack to ensure 48h freshness',
+      'Secret midnight handover by stealth concierge'
+    ]
+  },
+  {
+    id: 'chocolate-bouquet',
+    category: 'addons',
+    categoryName: 'Additional Service',
+    number: '02',
+    title: 'Chocolate Bouquet',
+    tagline: 'Decadent Ferrero Rocher & gourmet sweet hamper',
+    desc: 'Artisan sweet bouquet arranged with golden Ferrero Rocher pralines, Cadbury Dairy Milk Silk, Lindt truffles, fairy twinkle lights & gold embellishments.',
+    price: 1299,
+    originalPrice: 1899,
+    image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=1200&q=85',
+    highlights: [
+      '16+ Golden Ferrero Rocher & Cadbury Silk bars arranged as flowers',
+      'Integrated battery-operated micro fairy twinkle lights',
+      'Luxury dual-tone velvet wrap with gold ribbon garnish',
+      'Customized celebration tag with your personal photo',
+      'Keepsake gift hamper box presentation'
+    ]
+  },
+  {
+    id: 'banner-entry',
+    category: 'addons',
+    categoryName: 'Additional Service',
+    number: '03',
+    title: 'Banner Entry',
+    tagline: 'VIP red carpet reveal & grand personalized welcome banner',
+    desc: 'Breathtaking dramatic entrance featuring a customized 8ft wide high-definition celebration banner, plush red carpet walkway, 4 cold sparkler fountains & rose petal shower.',
+    price: 1999,
+    originalPrice: 2999,
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85',
+    highlights: [
+      'Customized 8ft wide HD photo celebration welcome banner',
+      'Plush VIP red carpet walkway with gold stanchions & ropes',
+      '4 Electronic cold sparkler fountain pyros upon entrance',
+      'Fresh rose petal shower cannon on the special reveal',
+      'Ambient spotlight illumination for red carpet photos'
+    ]
   }
 ];
+
+export const ADDITIONAL_SERVICES = CURATED_SERVICES.filter(s => s.category === 'addons');

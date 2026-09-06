@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBanner from './components/StatsBanner';
 import CuratedServices from './components/CuratedServices';
+import AdditionalServices from './components/AdditionalServices';
 import SpiralPhotoWall from './components/SpiralPhotoWall';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
@@ -53,6 +54,11 @@ function App() {
 
         {/* Curated Surprise Services (Outdoor, Special, Indoor) */}
         <CuratedServices
+          onOpenBooking={handleOpenBooking}
+        />
+
+        {/* Additional Celebration Add-Ons (Flower Bouquet, Chocolate Bouquet, Banner Entry) */}
+        <AdditionalServices
           onOpenBooking={handleOpenBooking}
         />
 

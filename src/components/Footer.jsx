@@ -123,6 +123,7 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.7)' }}>
               <a href="#" className="footer-link">Home</a>
               <a href="#services" className="footer-link">Curated Services</a>
+              <a href="#additional-services" className="footer-link">Additional Add-ons</a>
               <a href="#spiral-photowall" className="footer-link">3D Spiral Photowall</a>
               <a href="#reviews" className="footer-link">Client Reviews</a>
               <a href="#faq" className="footer-link">FAQ</a>
@@ -131,13 +132,13 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
 
           {/* Experiences */}
           <div>
-            <h4 style={{ fontSize: '1.05rem', marginBottom: '1.2rem', color: '#FFFFFF' }}>Experiences</h4>
+            <h4 style={{ fontSize: '1.05rem', marginBottom: '1.2rem', color: '#FFFFFF' }}>Add-ons & Gifts</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-              <a href="#services" className="footer-link">Outdoor 12 O'Clock Surprises</a>
-              <a href="#services" className="footer-link">Car Trunk Reveals</a>
+              <a href="#additional-services" className="footer-link">Flower Bouquet (Dutch Roses)</a>
+              <a href="#additional-services" className="footer-link">Chocolate Bouquet (Ferrero Rocher)</a>
+              <a href="#additional-services" className="footer-link">Banner Entry (Red Carpet Reveal)</a>
+              <a href="#services" className="footer-link">Car Trunk & Midnight Surprises</a>
               <a href="#services" className="footer-link">Candlelight Dinners</a>
-              <a href="#services" className="footer-link">Private Movie Time</a>
-              <a href="#services" className="footer-link">Indoor Celebrations</a>
             </div>
           </div>
 

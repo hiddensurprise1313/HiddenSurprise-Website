@@ -298,6 +298,17 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             Surprise Services
           </a>
           <a
+            href="#additional-services"
+            onClick={(e) => scrollToSection(e, 'additional-services', 'addons')}
+            style={{
+              fontSize: '1.05rem',
+              fontWeight: 600,
+              color: activeTab === 'addons' ? '#F8DC6C' : '#FFFFFF'
+            }}
+          >
+            Add-ons (Bouquets & Banners)
+          </a>
+          <a
             href="#spiral-photowall"
             onClick={(e) => scrollToSection(e, 'spiral-photowall', 'spiral')}
             style={{
