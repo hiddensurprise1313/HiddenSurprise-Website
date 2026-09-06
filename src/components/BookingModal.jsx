@@ -28,20 +28,20 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
     const duration = initialData?.duration || 'Standard Session';
 
     const lines = [
-      '✨ *HIDDEN SURPRISE BOOKING REQUEST* ✨',
+      '*HIDDEN SURPRISE BOOKING REQUEST*',
+      '--------------------------------',
+      `*Experience / Package:* ${experienceTitle}`,
+      `*Duration:* ${duration}`,
+      ...(initialData?.addons && initialData.addons.length > 0 ? [`*Addons:* ${initialData.addons.join(', ')}`] : []),
+      ...(initialData?.discount ? [`*Perk Applied:* ${initialData.discount}`] : []),
       '',
-      `🎁 *Experience / Package:* ${experienceTitle}`,
-      `⏱️ *Duration:* ${duration}`,
-      ...(initialData?.addons && initialData.addons.length > 0 ? [`✨ *Addons:* ${initialData.addons.join(', ')}`] : []),
-      ...(initialData?.discount ? [`🏷️ *Perk Applied:* ${initialData.discount}`] : []),
+      `*Booked By:* ${formData.yourName} (${formData.yourPhone})`,
+      `*Surprise For:* ${formData.recipientName}`,
+      `*Date:* ${formData.date}`,
+      `*Time Slot:* ${formData.timeSlot}`,
+      `*City / Venue:* ${formData.city} - ${formData.venueAddress}`,
       '',
-      `👤 *Booked By:* ${formData.yourName} (${formData.yourPhone})`,
-      `❤️ *Surprise For:* ${formData.recipientName}`,
-      `📅 *Date:* ${formData.date}`,
-      `⏰ *Time Slot:* ${formData.timeSlot}`,
-      `📍 *City / Venue:* ${formData.city} - ${formData.venueAddress}`,
-      '',
-      '🔒 *Stealth Protocol:* Please coordinate discreetly with me and provide a personalized package quote!'
+      '*Stealth Protocol:* Please coordinate discreetly with me and provide a personalized package quote!'
     ];
 
     const message = lines.join('\n');
