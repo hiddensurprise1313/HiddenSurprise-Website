@@ -114,7 +114,7 @@ const VIBRANT_CELEBRATION_COLORS = [
 export function SideConfettiCanvas({
   showSideCannons = true,
   showMainRain = true,
-  density = "high"
+  density = "medium"
 }) {
   const canvasRef = useRef(null);
 
@@ -131,7 +131,7 @@ export function SideConfettiCanvas({
     // Initial grand celebration fanfare (only if main rain is enabled)
     if (showMainRain) {
       myConfetti({
-        particleCount: density === "high" ? 65 : 40,
+        particleCount: density === "high" ? 65 : density === "medium" ? 35 : 20,
         spread: 110,
         origin: { x: 0.5, y: 0.2 },
         colors,
@@ -144,13 +144,19 @@ export function SideConfettiCanvas({
     let animationFrameId;
     let frame = 0;
 
+    // Density timing configuration
+    const mainInterval = density === "high" ? 2 : density === "medium" ? 4 : 7;
+    const mainParticleCount = density === "high" ? 2 : 1;
+    const sideInterval = density === "high" ? 3 : density === "medium" ? 6 : 9;
+    const sideParticleCount = density === "high" ? 2 : 1;
+
     const loop = () => {
       frame++;
 
-      // 1. Continuous Main Confetti Shower from Top (fired every 2 frames for a constant, smooth cascade)
-      if (showMainRain && frame % 2 === 0) {
+      // 1. Continuous Main Confetti Shower from Top
+      if (showMainRain && frame % mainInterval === 0) {
         myConfetti({
-          particleCount: density === "high" ? 2 : 1,
+          particleCount: mainParticleCount,
           angle: Math.random() * 20 + 80, // 80 to 100 degrees downward
           spread: 60,
           startVelocity: Math.random() * 8 + 6,
@@ -164,14 +170,14 @@ export function SideConfettiCanvas({
         });
       }
 
-      // 2. Continuous Celebratory Side Cannons from Left & Right (fired every 3 frames for streaming arcs)
-      if (showSideCannons && frame % 3 === 0) {
+      // 2. Continuous Celebratory Side Cannons from Left & Right
+      if (showSideCannons && frame % sideInterval === 0) {
         // Left Side Cannon (angled towards center-right)
         myConfetti({
-          particleCount: density === "high" ? 2 : 1,
+          particleCount: sideParticleCount,
           angle: 60,
           spread: 55,
-          startVelocity: Math.random() * 14 + 42,
+          startVelocity: Math.random() * 14 + 40,
           origin: { x: 0, y: 0.62 },
           colors,
           gravity: 0.65,
@@ -183,10 +189,10 @@ export function SideConfettiCanvas({
 
         // Right Side Cannon (angled towards center-left)
         myConfetti({
-          particleCount: density === "high" ? 2 : 1,
+          particleCount: sideParticleCount,
           angle: 120,
           spread: 55,
-          startVelocity: Math.random() * 14 + 42,
+          startVelocity: Math.random() * 14 + 40,
           origin: { x: 1, y: 0.62 },
           colors,
           gravity: 0.65,

@@ -48,7 +48,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
       />
 
       {/* Ambient Falling Confetti Particle Canvas */}
-      <HeroAmbientConfetti />
+      <HeroAmbientConfetti density="high" showSideCannons={true} showMainRain={true} />
 
       {/* Bottom Soft Edge Blur */}
       <div

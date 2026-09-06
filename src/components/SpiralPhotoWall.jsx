@@ -59,8 +59,8 @@ export default function SpiralPhotoWall() {
 
   return (
     <section id="spiral-photowall" className="section-padding" style={{ backgroundColor: '#07080D', color: '#FFFFFF', position: 'relative', overflow: 'hidden' }}>
-      {/* Ambient Side Confetti Particle Canvas for 3D Photowall (Side Cannons Only, Clear Center) */}
-      <SideConfettiCanvas showSideCannons={true} showMainRain={false} density="high" />
+      {/* Ambient Side Confetti Particle Canvas for 3D Photowall (Side Cannons Only, Clear Center, Medium Density) */}
+      <SideConfettiCanvas showSideCannons={true} showMainRain={false} density="medium" />
 
       {/* Background Ambient Glows */}
       <div
