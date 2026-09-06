@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sparkles } from 'lucide-react';
 import logoImg from '../assets/logo.png';
+import StarBorder from './StarBorder';
 
 export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
   const [activeTab, setActiveTab] = useState('home');
@@ -197,13 +198,19 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
 
         {/* Right: Actions Container (Book Now + Menu Button) */}
         <div className="nav-actions">
-          <button
+          <StarBorder
             onClick={() => onOpenBooking()}
-            className="btn-gold nav-book-btn"
+            color="#F8DC6C"
+            speed="3.5s"
+            thickness={2}
+            backgroundColor="#000000"
+            textColor="#F8DC6C"
+            borderColor="rgba(248, 220, 108, 0.5)"
+            innerStyle={{ padding: '0.45rem 1.15rem', fontSize: '0.85rem', fontWeight: 800 }}
             id="nav-contact-btn"
           >
             Book Now
-          </button>
+          </StarBorder>
 
           {/* Mobile Menu Toggle */}
           <button

@@ -2,6 +2,7 @@ import React from 'react';
 import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 import FoldText from './FoldText';
+import StarBorder from './StarBorder';
 
 export default function Footer({ onOpenBooking, onOpenUnboxing }) {
   return (
@@ -50,13 +51,19 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
           </div>
 
           <div style={{ justifySelf: 'start' }}>
-            <button
+            <StarBorder
               onClick={() => onOpenBooking()}
-              className="btn-dark"
-              style={{ padding: '1rem 2.2rem', fontSize: '1.1rem', borderRadius: '16px' }}
+              color="#F8DC6C"
+              speed="3.5s"
+              thickness={2}
+              backgroundColor="#000000"
+              textColor="#F8DC6C"
+              borderColor="rgba(248, 220, 108, 0.5)"
+              innerStyle={{ padding: '1rem 2.2rem', fontSize: '1.1rem', borderRadius: '16px', fontWeight: 800 }}
+              style={{ borderRadius: '16px' }}
             >
               Start Planning Now <ArrowRight size={18} />
-            </button>
+            </StarBorder>
           </div>
         </div>
 

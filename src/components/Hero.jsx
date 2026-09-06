@@ -3,6 +3,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import FoldText from './FoldText';
 import TextPressure from './TextPressure';
+import StarBorder from './StarBorder';
 
 export default function Hero({ onOpenBooking, onOpenUnboxing }) {
   const triggerConfetti = () => {
@@ -147,14 +148,19 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
             </p>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <a
-                href="#builder"
-                className="btn-gold"
-                style={{ padding: '0.85rem 1.8rem', fontSize: '1rem' }}
+              <StarBorder
+                onClick={() => onOpenBooking()}
+                color="#F8DC6C"
+                speed="3.5s"
+                thickness={2}
+                backgroundColor="#000000"
+                textColor="#F8DC6C"
+                borderColor="rgba(248, 220, 108, 0.5)"
+                innerStyle={{ padding: '0.85rem 1.8rem', fontSize: '1rem', fontWeight: 800 }}
                 id="hero-join-now-btn"
               >
-                Join Now <ArrowRight size={18} />
-              </a>
+                Book Now <ArrowRight size={18} />
+              </StarBorder>
 
               <button
                 onClick={onOpenUnboxing}
