@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Sparkles, ArrowRight, MessageCircle, Calendar, ShieldCheck, Heart } from 'lucide-react';
+import { Check, Sparkles, ArrowRight, MessageCircle, Clock, Award } from 'lucide-react';
 import { CURATED_SERVICES, SERVICE_CATEGORIES } from '../data/servicesData';
 import FoldText from './FoldText';
 import StarBorder from './StarBorder';
@@ -13,9 +13,9 @@ export default function CuratedServices({ onOpenBooking }) {
 
   const getWhatsAppUrl = (service) => {
     const text = encodeURIComponent(
-      `Hi Hidden Surprise! 🎁✨\n\nI want to book the *${service.title}* (${service.categoryName}) for ₹${service.price.toLocaleString('en-IN')}.\n\nPlease let me know availability for my celebration date!`
+      `Hi Hidden Surprise! 🎁✨\n\nI want to book the *${service.title}* (${service.categoryName}).\n\nPlease let me know availability and details for my celebration date!`
     );
-    return `https://wa.me/919876543210?text=${text}`;
+    return `https://wa.me/919133143232?text=${text}`;
   };
 
   return (
@@ -25,7 +25,7 @@ export default function CuratedServices({ onOpenBooking }) {
         <div style={{ maxWidth: '820px', marginBottom: '3rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.85rem' }}>
             <span className="mono-tag" style={{ background: '#000000', color: '#F8DC6C' }}>
-              OUR CURATED OFFERINGS
+              CURATED PACKAGES & OFFERINGS
             </span>
             <span style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B7280' }}>
               Stealth Celebration Menu
@@ -34,7 +34,7 @@ export default function CuratedServices({ onOpenBooking }) {
 
           <h2 style={{ marginBottom: '1rem' }}>
             <FoldText
-              text="Curated Surprise Experiences"
+              text="Signature Surprise Packages"
               trigger="scroll"
               splitBy="word"
               hinge="top"
@@ -46,7 +46,7 @@ export default function CuratedServices({ onOpenBooking }) {
             />
           </h2>
           <p style={{ color: '#5E6472', fontSize: '1.1rem', lineHeight: 1.6 }}>
-            Select from our signature Outdoor, Special Romantic, and Indoor surprise categories — flawlessly executed with 100% secrecy guarantee.
+            Browse our official Basic, Premium, and Elite packages along with bespoke outdoor, romantic, and celebration add-ons — flawlessly executed with 100% stealth guarantee.
           </p>
         </div>
 
@@ -123,8 +123,6 @@ export default function CuratedServices({ onOpenBooking }) {
           className="services-grid"
         >
           {filteredServices.map((service) => {
-            const discountPct = Math.round(((service.originalPrice - service.price) / service.originalPrice) * 100);
-
             return (
               <div
                 key={service.id}
@@ -141,7 +139,7 @@ export default function CuratedServices({ onOpenBooking }) {
                 }}
               >
                 {/* Photo Header with Number & Category Badges */}
-                <div style={{ position: 'relative', height: '240px', overflow: 'hidden' }}>
+                <div style={{ position: 'relative', height: '250px', overflow: 'hidden' }}>
                   <img
                     src={service.image}
                     alt={service.title}
@@ -177,7 +175,7 @@ export default function CuratedServices({ onOpenBooking }) {
                   >
                     <span
                       style={{
-                        background: 'rgba(0, 0, 0, 0.75)',
+                        background: 'rgba(0, 0, 0, 0.8)',
                         backdropFilter: 'blur(8px)',
                         color: '#F8DC6C',
                         fontWeight: 900,
@@ -185,25 +183,27 @@ export default function CuratedServices({ onOpenBooking }) {
                         fontFamily: 'var(--font-mono)',
                         padding: '0.3rem 0.75rem',
                         borderRadius: '9999px',
-                        border: '1px solid rgba(248, 220, 108, 0.3)'
+                        border: '1px solid rgba(248, 220, 108, 0.35)'
                       }}
                     >
                       {service.categoryName.toUpperCase()} • #{service.number}
                     </span>
 
-                    <span
-                      style={{
-                        background: '#F8DC6C',
-                        color: '#000000',
-                        fontWeight: 800,
-                        fontSize: '0.75rem',
-                        padding: '0.3rem 0.65rem',
-                        borderRadius: '9999px',
-                        boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
-                      }}
-                    >
-                      {discountPct}% OFF
-                    </span>
+                    {service.badgeText && (
+                      <span
+                        style={{
+                          background: '#F8DC6C',
+                          color: '#000000',
+                          fontWeight: 800,
+                          fontSize: '0.75rem',
+                          padding: '0.3rem 0.65rem',
+                          borderRadius: '9999px',
+                          boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                        }}
+                      >
+                        {service.badgeText}
+                      </span>
+                    )}
                   </div>
 
                   {/* Bottom Image Overlay Tagline */}
@@ -224,18 +224,27 @@ export default function CuratedServices({ onOpenBooking }) {
 
                 {/* Card Body */}
                 <div style={{ padding: '1.8rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                  {/* Title & Price Row */}
+                  {/* Title & Duration Row */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.8rem', marginBottom: '0.85rem' }}>
                     <h3 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#000000', lineHeight: 1.25 }}>
                       {service.title}
                     </h3>
-                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                      <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#000000', fontFamily: 'var(--font-display)' }}>
-                        ₹{service.price.toLocaleString('en-IN')}
-                      </div>
-                      <div style={{ fontSize: '0.82rem', color: '#9CA3AF', textDecoration: 'line-through' }}>
-                        ₹{service.originalPrice.toLocaleString('en-IN')}
-                      </div>
+                    <div
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                        background: 'rgba(0,0,0,0.06)',
+                        padding: '0.35rem 0.7rem',
+                        borderRadius: '100px',
+                        fontSize: '0.82rem',
+                        fontWeight: 700,
+                        color: '#000000',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      <Clock size={13} color="#F59E0B" />
+                      <span>{service.duration || 'Custom'}</span>
                     </div>
                   </div>
 
@@ -246,7 +255,7 @@ export default function CuratedServices({ onOpenBooking }) {
                   {/* Highlight Checklist */}
                   <div style={{ marginTop: 'auto', marginBottom: '1.8rem' }}>
                     <div style={{ fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#6B7280', marginBottom: '0.75rem' }}>
-                      Included in this Experience:
+                      Inclusions in this Package:
                     </div>
                     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                       {service.highlights.map((item, idx) => (
@@ -267,7 +276,7 @@ export default function CuratedServices({ onOpenBooking }) {
                         packageId: service.id,
                         title: service.title,
                         category: service.categoryName,
-                        price: service.price
+                        duration: service.duration
                       })}
                       color="#F8DC6C"
                       speed="4s"
@@ -285,7 +294,7 @@ export default function CuratedServices({ onOpenBooking }) {
                       }}
                       style={{ width: '100%', borderRadius: '14px' }}
                     >
-                      Book Now <ArrowRight size={15} />
+                      Book Experience <ArrowRight size={15} />
                     </StarBorder>
 
                     <a

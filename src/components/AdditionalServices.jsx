@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ArrowRight, MessageCircle, Check } from 'lucide-react';
+import { Sparkles, ArrowRight, MessageCircle, Check, Gift } from 'lucide-react';
 import { ADDITIONAL_SERVICES } from '../data/servicesData';
 import FoldText from './FoldText';
 import StarBorder from './StarBorder';
@@ -7,7 +7,7 @@ import StarBorder from './StarBorder';
 export default function AdditionalServices({ onOpenBooking }) {
   const getWhatsAppUrl = (service) => {
     const text = encodeURIComponent(
-      `Hi Hidden Surprise! 🎁✨\n\nI want to add the *${service.title}* (Additional Service) for ₹${service.price.toLocaleString('en-IN')}.\n\nPlease check availability for my celebration date!`
+      `Hi Hidden Surprise! 🎁✨\n\nI want to add the *${service.title}* (${service.categoryName}).\n\nPlease let me know details and availability for my celebration date!`
     );
     return `https://wa.me/919133143232?text=${text}`;
   };
@@ -64,8 +64,6 @@ export default function AdditionalServices({ onOpenBooking }) {
           className="addons-grid"
         >
           {ADDITIONAL_SERVICES.map((service) => {
-            const discountPct = Math.round(((service.originalPrice - service.price) / service.originalPrice) * 100);
-
             return (
               <div
                 key={service.id}
@@ -132,19 +130,21 @@ export default function AdditionalServices({ onOpenBooking }) {
                       ADD-ON #{service.number}
                     </span>
 
-                    <span
-                      style={{
-                        background: '#F8DC6C',
-                        color: '#000000',
-                        fontWeight: 800,
-                        fontSize: '0.75rem',
-                        padding: '0.3rem 0.65rem',
-                        borderRadius: '9999px',
-                        boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
-                      }}
-                    >
-                      {discountPct}% OFF
-                    </span>
+                    {service.badgeText && (
+                      <span
+                        style={{
+                          background: '#F8DC6C',
+                          color: '#000000',
+                          fontWeight: 800,
+                          fontSize: '0.75rem',
+                          padding: '0.3rem 0.65rem',
+                          borderRadius: '9999px',
+                          boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
+                        }}
+                      >
+                        {service.badgeText}
+                      </span>
+                    )}
                   </div>
 
                   {/* Bottom Image Overlay Tagline */}
@@ -165,19 +165,25 @@ export default function AdditionalServices({ onOpenBooking }) {
 
                 {/* Card Body */}
                 <div style={{ padding: '1.8rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                  {/* Title & Price Row */}
+                  {/* Title */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.8rem', marginBottom: '0.85rem' }}>
                     <h3 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1.25 }}>
                       {service.title}
                     </h3>
-                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                      <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#F8DC6C', fontFamily: 'var(--font-display)' }}>
-                        ₹{service.price.toLocaleString('en-IN')}
-                      </div>
-                      <div style={{ fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.4)', textDecoration: 'line-through' }}>
-                        ₹{service.originalPrice.toLocaleString('en-IN')}
-                      </div>
-                    </div>
+                    <span
+                      style={{
+                        background: 'rgba(248, 220, 108, 0.15)',
+                        border: '1px solid rgba(248, 220, 108, 0.3)',
+                        color: '#F8DC6C',
+                        fontSize: '0.78rem',
+                        fontWeight: 700,
+                        padding: '0.3rem 0.65rem',
+                        borderRadius: '100px',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {service.duration || 'Add-on'}
+                    </span>
                   </div>
 
                   <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.92rem', lineHeight: 1.55, marginBottom: '1.4rem' }}>
@@ -208,7 +214,7 @@ export default function AdditionalServices({ onOpenBooking }) {
                         packageId: service.id,
                         title: service.title,
                         category: service.categoryName,
-                        price: service.price
+                        duration: service.duration
                       })}
                       color="#F8DC6C"
                       speed="4s"

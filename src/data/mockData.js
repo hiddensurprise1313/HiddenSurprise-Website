@@ -187,10 +187,10 @@ export const PACKAGES = [
 ];
 
 export const UNBOXING_REWARDS = [
-  { code: 'SURPRISE20', discount: '20% OFF', desc: 'Valid on all Midnight Serenade & Room Decor packages!' },
-  { code: 'FREECAKE', discount: 'Free Gourmet Cake', desc: 'Complimentary 1/2 kg Chocolate Truffle Cake added to your booking!' },
-  { code: 'VIPUPGRADE', discount: 'Free Cold Sparklers', desc: 'Get 2 complimentary cold firework fountains for a dramatic reveal!' },
-  { code: 'ROSE50', discount: 'Free Rose Bouquet', desc: 'Free 20-stem Dutch Rose bouquet with any booking above ₹3000!' }
+  { code: 'VIPUPGRADE', discount: 'Free Cold Sparklers', desc: 'Complimentary 2x electronic cold sparkler fountains added to your reveal!' },
+  { code: 'FREECAKE', discount: 'Free Gourmet Cake', desc: 'Complimentary 1/2 kg Chocolate Truffle Cake added to your celebration!' },
+  { code: 'POLAROID', discount: 'Free Polaroid Garland', desc: 'Complimentary 15-photo Polaroid memory garland with wooden clips!' },
+  { code: 'ROSEBOUQUET', discount: 'Free Flower Bouquet', desc: 'Complimentary fresh hand-tied Dutch rose celebration bouquet!' }
 ];
 
 export const GALLERY_ITEMS = [

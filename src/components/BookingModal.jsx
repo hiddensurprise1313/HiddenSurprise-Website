@@ -26,21 +26,21 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
     e.preventDefault();
 
     const experienceTitle = initialData?.title || initialData?.name || 'Custom Surprise Setup';
-    const totalAmount = initialData?.price || 2999;
+    const duration = initialData?.duration || 'Standard Session';
 
     const message = `✨ *HIDDEN SURPRISE BOOKING REQUEST* ✨%0A%0A` +
-      `🎁 *Experience:* ${encodeURIComponent(experienceTitle)}%0A` +
-      `💰 *Estimated Total:* ₹${totalAmount}%0A` +
-      (initialData?.discount ? `🏷️ *Promo Applied:* ${initialData.discount}%0A` : '') +
+      `🎁 *Experience / Package:* ${encodeURIComponent(experienceTitle)}%0A` +
+      `⏱️ *Duration:* ${encodeURIComponent(duration)}%0A` +
+      (initialData?.discount ? `🏷️ *Perk Applied:* ${encodeURIComponent(initialData.discount)}%0A` : '') +
       `%0A👤 *Booked By:* ${encodeURIComponent(formData.yourName)} (${formData.yourPhone})%0A` +
       `❤️ *Surprise For:* ${encodeURIComponent(formData.recipientName)}%0A` +
       `📅 *Date:* ${formData.date}%0A` +
       `⏰ *Time Slot:* ${encodeURIComponent(formData.timeSlot)}%0A` +
       `📍 *City / Venue:* ${encodeURIComponent(formData.city)} - ${encodeURIComponent(formData.venueAddress)}%0A` +
       (formData.specialNote ? `📝 *Custom Instructions:* ${encodeURIComponent(formData.specialNote)}%0A` : '') +
-      `%0A🔒 *Stealth Protocol:* Please coordinate discreetly with me!`;
+      `%0A🔒 *Stealth Protocol:* Please coordinate discreetly with me and provide a personalized package quote!`;
 
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=919876543210&text=${message}`;
+    const whatsappUrl = `https://wa.me/919133143232?text=${message}`;
 
     confetti({
       particleCount: 80,
@@ -137,8 +137,11 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                 <span style={{ fontSize: '0.78rem', color: '#F8DC6C', fontWeight: 700, textTransform: 'uppercase' }}>Selected Setup</span>
                 <div style={{ fontSize: '1rem', fontWeight: 800, color: '#FFFFFF' }}>{initialData?.title || initialData?.name || 'Custom Surprise Experience'}</div>
               </div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#F8DC6C' }}>
-                ₹{(initialData?.price || 2999).toLocaleString('en-IN')}
+              <div style={{ textAlign: 'right' }}>
+                <span style={{ display: 'block', fontSize: '0.75rem', color: '#9CA3AF' }}>DURATION</span>
+                <span style={{ fontSize: '0.95rem', fontWeight: 800, color: '#F8DC6C' }}>
+                  {initialData?.duration || 'Bespoke'}
+                </span>
               </div>
             </div>
 

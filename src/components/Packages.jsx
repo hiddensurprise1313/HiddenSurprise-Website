@@ -179,21 +179,8 @@ export default function Packages({ onOpenBooking }) {
                     </div>
                   </div>
 
-                  {/* Pricing & CTA */}
+                  {/* Booking CTA */}
                   <div style={{ borderTop: '1px solid #E5E7EB', paddingTop: '1.2rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1rem' }}>
-                      <div>
-                        <span style={{ fontSize: '1.8rem', fontWeight: 900, color: '#000000' }}>
-                          ₹{pkg.price}
-                        </span>
-                        <span style={{ fontSize: '0.95rem', color: '#9CA3AF', textDecoration: 'line-through', marginLeft: '0.5rem' }}>
-                          ₹{pkg.originalPrice}
-                        </span>
-                      </div>
-                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#059669', background: '#ECFDF5', padding: '0.2rem 0.6rem', borderRadius: '6px' }}>
-                        SAVE {Math.round(((pkg.originalPrice - pkg.price) / pkg.originalPrice) * 100)}%
-                      </span>
-                    </div>
 
                     <button
                       onClick={() => onOpenBooking(pkg)}
