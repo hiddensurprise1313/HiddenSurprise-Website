@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Sparkles } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 
-export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
+export default function Navbar({ onOpenBooking, onOpenUnboxing, isOldRoute = false }) {
   const [activeTab, setActiveTab] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,6 +13,7 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
       const scrollPosition = window.scrollY + 200;
       setIsScrolled(window.scrollY > 20);
 
+      const servicesSection = document.getElementById('services');
       const builderSection = document.getElementById('builder');
       const packagesSection = document.getElementById('packages');
       const spiralSection = document.getElementById('spiral-photowall');
@@ -29,6 +30,8 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
         setActiveTab('packages');
       } else if (builderSection && scrollPosition >= builderSection.offsetTop) {
         setActiveTab('builder');
+      } else if (servicesSection && scrollPosition >= servicesSection.offsetTop) {
+        setActiveTab('services');
       } else {
         setActiveTab('home');
       }
@@ -68,7 +71,7 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
       <div className="nav-container">
         {/* Left: Brand Logo Capsule (collapses to focused circle on mobile scroll) */}
         <a
-          href="#"
+          href={isOldRoute ? '#/old' : '#/'}
           onClick={(e) => scrollToSection(e, 'home', 'home')}
           className={`nav-brand-capsule ${isScrolled ? 'is-scrolled' : ''}`}
           aria-label="Hidden Surprise Home"
@@ -92,7 +95,7 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
         {/* Center: Elevare Floating Capsule Navigation with Dynamic Scroll Spy */}
         <nav className="desktop-nav-capsule">
           <a
-            href="#"
+            href={isOldRoute ? '#/old' : '#/'}
             onClick={(e) => scrollToSection(e, 'home', 'home')}
             style={{
               padding: '8px 16px',
@@ -108,94 +111,185 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             Home
           </a>
 
-          <a
-            href="#builder"
-            onClick={(e) => scrollToSection(e, 'builder', 'builder')}
-            style={{
-              padding: '8px 16px',
-              borderRadius: '9999px',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-              background: activeTab === 'builder' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'builder' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'builder' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
-            }}
-          >
-            Builder
-          </a>
+          {!isOldRoute ? (
+            <>
+              <a
+                href="#services"
+                onClick={(e) => scrollToSection(e, 'services', 'services')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: activeTab === 'services' ? '#FFFFFF' : 'transparent',
+                  color: activeTab === 'services' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+                  boxShadow: activeTab === 'services' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                Services
+              </a>
 
-          <a
-            href="#packages"
-            onClick={(e) => scrollToSection(e, 'packages', 'packages')}
-            style={{
-              padding: '8px 16px',
-              borderRadius: '9999px',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-              background: activeTab === 'packages' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'packages' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'packages' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
-            }}
-          >
-            Packages
-          </a>
+              <a
+                href="#reviews"
+                onClick={(e) => scrollToSection(e, 'reviews', 'reviews')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: activeTab === 'reviews' ? '#FFFFFF' : 'transparent',
+                  color: activeTab === 'reviews' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+                  boxShadow: activeTab === 'reviews' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                Reviews
+              </a>
 
-          <a
-            href="#unboxing"
-            onClick={(e) => {
-              e.preventDefault();
-              onOpenUnboxing();
-            }}
-            style={{
-              padding: '8px 16px',
-              borderRadius: '9999px',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              transition: 'all 0.25s ease',
-              color: '#F8DC6C',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem'
-            }}
-          >
-            <Sparkles size={14} /> Mystery Box
-          </a>
+              <a
+                href="#faq"
+                onClick={(e) => scrollToSection(e, 'faq', 'faq')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: activeTab === 'faq' ? '#FFFFFF' : 'transparent',
+                  color: activeTab === 'faq' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+                  boxShadow: activeTab === 'faq' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                FAQ
+              </a>
 
-          <a
-            href="#spiral-photowall"
-            onClick={(e) => scrollToSection(e, 'spiral-photowall', 'spiral')}
-            style={{
-              padding: '8px 16px',
-              borderRadius: '9999px',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-              background: activeTab === 'spiral' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'spiral' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'spiral' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
-            }}
-          >
-            Spiral Photowall
-          </a>
+              <a
+                href="#/old"
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 700,
+                  transition: 'all 0.25s ease',
+                  color: '#F8DC6C',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem'
+                }}
+              >
+                <Sparkles size={14} /> Full Site (/old)
+              </a>
+            </>
+          ) : (
+            <>
+              <a
+                href="#/"
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 700,
+                  transition: 'all 0.25s ease',
+                  color: '#F8DC6C',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem'
+                }}
+              >
+                ✨ Curated Menu (/)
+              </a>
 
-          <a
-            href="#reviews"
-            onClick={(e) => scrollToSection(e, 'reviews', 'reviews')}
-            style={{
-              padding: '8px 16px',
-              borderRadius: '9999px',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-              background: activeTab === 'reviews' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'reviews' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'reviews' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
-            }}
-          >
-            Reviews
-          </a>
+              <a
+                href="#builder"
+                onClick={(e) => scrollToSection(e, 'builder', 'builder')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: activeTab === 'builder' ? '#FFFFFF' : 'transparent',
+                  color: activeTab === 'builder' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+                  boxShadow: activeTab === 'builder' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                Builder
+              </a>
+
+              <a
+                href="#packages"
+                onClick={(e) => scrollToSection(e, 'packages', 'packages')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: activeTab === 'packages' ? '#FFFFFF' : 'transparent',
+                  color: activeTab === 'packages' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+                  boxShadow: activeTab === 'packages' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                Packages
+              </a>
+
+              <a
+                href="#unboxing"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenUnboxing();
+                }}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  transition: 'all 0.25s ease',
+                  color: '#F8DC6C',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem'
+                }}
+              >
+                <Sparkles size={14} /> Mystery Box
+              </a>
+
+              <a
+                href="#spiral-photowall"
+                onClick={(e) => scrollToSection(e, 'spiral-photowall', 'spiral')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: activeTab === 'spiral' ? '#FFFFFF' : 'transparent',
+                  color: activeTab === 'spiral' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+                  boxShadow: activeTab === 'spiral' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                Photowall
+              </a>
+
+              <a
+                href="#reviews"
+                onClick={(e) => scrollToSection(e, 'reviews', 'reviews')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: activeTab === 'reviews' ? '#FFFFFF' : 'transparent',
+                  color: activeTab === 'reviews' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+                  boxShadow: activeTab === 'reviews' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+                }}
+              >
+                Reviews
+              </a>
+            </>
+          )}
         </nav>
 
         {/* Right: Actions Container (Book Now + Menu Button) */}

@@ -1,0 +1,380 @@
+import React, { useState } from 'react';
+import { Check, Sparkles, ArrowRight, MessageCircle, Calendar, ShieldCheck, Heart } from 'lucide-react';
+import { CURATED_SERVICES, SERVICE_CATEGORIES } from '../data/servicesData';
+import FoldText from './FoldText';
+
+export default function CuratedServices({ onOpenBooking }) {
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  const filteredServices = activeCategory === 'all'
+    ? CURATED_SERVICES
+    : CURATED_SERVICES.filter(s => s.category === activeCategory);
+
+  const getWhatsAppUrl = (service) => {
+    const text = encodeURIComponent(
+      `Hi Hidden Surprise! 🎁✨\n\nI want to book the *${service.title}* (${service.categoryName}) for ₹${service.price.toLocaleString('en-IN')}.\n\nPlease let me know availability for my celebration date!`
+    );
+    return `https://wa.me/919876543210?text=${text}`;
+  };
+
+  return (
+    <section id="services" className="section-padding bg-bone" style={{ borderBottom: '1px solid var(--color-border-light)' }}>
+      <div className="container">
+        {/* Section Header */}
+        <div style={{ maxWidth: '820px', marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.85rem' }}>
+            <span className="mono-tag" style={{ background: '#000000', color: '#F8DC6C' }}>
+              OUR CURATED OFFERINGS
+            </span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#6B7280' }}>
+              Stealth Celebration Menu
+            </span>
+          </div>
+
+          <h2 style={{ marginBottom: '1rem' }}>
+            <FoldText
+              text="Curated Surprise Experiences"
+              trigger="scroll"
+              splitBy="word"
+              hinge="top"
+              duration={0.65}
+              stagger={0.045}
+              fontSize="clamp(2.2rem, 4.5vw, 3.6rem)"
+              fontWeight={800}
+              color="#000000"
+            />
+          </h2>
+          <p style={{ color: '#5E6472', fontSize: '1.1rem', lineHeight: 1.6 }}>
+            Select from our signature Outdoor, Special Romantic, and Indoor surprise categories — flawlessly executed with 100% secrecy guarantee.
+          </p>
+        </div>
+
+        {/* Category Filter Pills */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            overflowX: 'auto',
+            paddingBottom: '1rem',
+            marginBottom: '3rem',
+            scrollbarWidth: 'none'
+          }}
+          className="services-filter-pills"
+        >
+          <button
+            onClick={() => setActiveCategory('all')}
+            className={`filter-pill ${activeCategory === 'all' ? 'active' : ''}`}
+            style={{
+              padding: '0.65rem 1.4rem',
+              borderRadius: '9999px',
+              fontWeight: 700,
+              fontSize: '0.92rem',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              transition: 'all 0.25s ease',
+              background: activeCategory === 'all' ? '#000000' : '#FFFFFF',
+              color: activeCategory === 'all' ? '#F8DC6C' : '#000000',
+              border: '1px solid',
+              borderColor: activeCategory === 'all' ? '#000000' : 'rgba(0, 0, 0, 0.12)',
+              boxShadow: activeCategory === 'all' ? '0 6px 20px rgba(0, 0, 0, 0.18)' : '0 2px 6px rgba(0, 0, 0, 0.04)'
+            }}
+          >
+            All Experiences ({CURATED_SERVICES.length})
+          </button>
+
+          {SERVICE_CATEGORIES.map(cat => {
+            const count = CURATED_SERVICES.filter(s => s.category === cat.id).length;
+            const isActive = activeCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`filter-pill ${isActive ? 'active' : ''}`}
+                style={{
+                  padding: '0.65rem 1.4rem',
+                  borderRadius: '9999px',
+                  fontWeight: 700,
+                  fontSize: '0.92rem',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.25s ease',
+                  background: isActive ? '#000000' : '#FFFFFF',
+                  color: isActive ? '#F8DC6C' : '#000000',
+                  border: '1px solid',
+                  borderColor: isActive ? '#000000' : 'rgba(0, 0, 0, 0.12)',
+                  boxShadow: isActive ? '0 6px 20px rgba(0, 0, 0, 0.18)' : '0 2px 6px rgba(0, 0, 0, 0.04)'
+                }}
+              >
+                {cat.badge} ({count})
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Services Showcase Grid */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+            gap: '2.2rem'
+          }}
+          className="services-grid"
+        >
+          {filteredServices.map((service) => {
+            const discountPct = Math.round(((service.originalPrice - service.price) / service.originalPrice) * 100);
+
+            return (
+              <div
+                key={service.id}
+                className="framer-card curated-service-card"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflow: 'hidden',
+                  background: '#FFFFFF',
+                  borderRadius: '24px',
+                  border: '1px solid rgba(0, 0, 0, 0.08)',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.06)',
+                  transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+              >
+                {/* Photo Header with Number & Category Badges */}
+                <div style={{ position: 'relative', height: '240px', overflow: 'hidden' }}>
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    loading="lazy"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
+                    className="service-card-img"
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.75) 100%)'
+                    }}
+                  />
+
+                  {/* Top Badges */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '1rem',
+                      left: '1rem',
+                      right: '1rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      zIndex: 2
+                    }}
+                  >
+                    <span
+                      style={{
+                        background: 'rgba(0, 0, 0, 0.75)',
+                        backdropFilter: 'blur(8px)',
+                        color: '#F8DC6C',
+                        fontWeight: 900,
+                        fontSize: '0.8rem',
+                        fontFamily: 'var(--font-mono)',
+                        padding: '0.3rem 0.75rem',
+                        borderRadius: '9999px',
+                        border: '1px solid rgba(248, 220, 108, 0.3)'
+                      }}
+                    >
+                      {service.categoryName.toUpperCase()} • #{service.number}
+                    </span>
+
+                    <span
+                      style={{
+                        background: '#F8DC6C',
+                        color: '#000000',
+                        fontWeight: 800,
+                        fontSize: '0.75rem',
+                        padding: '0.3rem 0.65rem',
+                        borderRadius: '9999px',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                      }}
+                    >
+                      {discountPct}% OFF
+                    </span>
+                  </div>
+
+                  {/* Bottom Image Overlay Tagline */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '0.9rem',
+                      left: '1.2rem',
+                      right: '1.2rem',
+                      zIndex: 2
+                    }}
+                  >
+                    <p style={{ color: 'rgba(255, 255, 255, 0.95)', fontSize: '0.85rem', fontWeight: 600 }}>
+                      {service.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card Body */}
+                <div style={{ padding: '1.8rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  {/* Title & Price Row */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.8rem', marginBottom: '0.85rem' }}>
+                    <h3 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#000000', lineHeight: 1.25 }}>
+                      {service.title}
+                    </h3>
+                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#000000', fontFamily: 'var(--font-display)' }}>
+                        ₹{service.price.toLocaleString('en-IN')}
+                      </div>
+                      <div style={{ fontSize: '0.82rem', color: '#9CA3AF', textDecoration: 'line-through' }}>
+                        ₹{service.originalPrice.toLocaleString('en-IN')}
+                      </div>
+                    </div>
+                  </div>
+
+                  <p style={{ color: '#5E6472', fontSize: '0.92rem', lineHeight: 1.55, marginBottom: '1.4rem' }}>
+                    {service.desc}
+                  </p>
+
+                  {/* Highlight Checklist */}
+                  <div style={{ marginTop: 'auto', marginBottom: '1.8rem' }}>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#6B7280', marginBottom: '0.75rem' }}>
+                      Included in this Experience:
+                    </div>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                      {service.highlights.map((item, idx) => (
+                        <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', fontSize: '0.86rem', color: '#1F2937' }}>
+                          <span style={{ color: '#10B981', flexShrink: 0, marginTop: '2px' }}>
+                            <Check size={14} strokeWidth={3} />
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Actions */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '0.65rem' }}>
+                    <button
+                      onClick={() => onOpenBooking({
+                        packageId: service.id,
+                        title: service.title,
+                        category: service.categoryName,
+                        price: service.price
+                      })}
+                      className="btn-gold"
+                      style={{
+                        padding: '0.85rem 1.2rem',
+                        fontSize: '0.92rem',
+                        fontWeight: 800,
+                        borderRadius: '14px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.4rem',
+                        width: '100%'
+                      }}
+                    >
+                      Book Now <ArrowRight size={15} />
+                    </button>
+
+                    <a
+                      href={getWhatsAppUrl(service)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-dark"
+                      style={{
+                        padding: '0.85rem',
+                        borderRadius: '14px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: '#25D366',
+                        borderColor: '#25D366',
+                        color: '#FFFFFF'
+                      }}
+                      title="Chat on WhatsApp"
+                      aria-label="Chat on WhatsApp"
+                    >
+                      <MessageCircle size={18} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Banner: Link to Full Experience (/old) */}
+        <div
+          style={{
+            marginTop: '4.5rem',
+            background: 'linear-gradient(135deg, #0A0D14 0%, #151A26 100%)',
+            borderRadius: '28px',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            padding: '3rem 2.5rem',
+            color: '#FFFFFF',
+            display: 'grid',
+            gridTemplateColumns: '1fr',
+            gap: '1.8rem',
+            alignItems: 'center'
+          }}
+          className="full-site-callout-grid"
+        >
+          <div>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#F8DC6C', fontWeight: 800, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
+              <Sparkles size={16} /> EXPLORE THE COMPLETE EXPERIENCE
+            </div>
+            <h3 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.6rem' }}>
+              Want Custom Decor, 3D Photowall & Mystery Box Games?
+            </h3>
+            <p style={{ color: 'rgba(255, 255, 255, 0.75)', fontSize: '1rem', maxWidth: '680px', lineHeight: 1.6 }}>
+              Experience the full interactive website featuring our 4-Step Surprise Customizer, 3D Infinite Spiral Photo Wall (57 celebration moments), and discount mystery boxes.
+            </p>
+          </div>
+
+          <div style={{ justifySelf: 'start' }}>
+            <a
+              href="#/old"
+              className="btn-gold"
+              style={{
+                padding: '0.95rem 2rem',
+                fontSize: '1rem',
+                fontWeight: 800,
+                borderRadius: '16px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}
+            >
+              Explore Full Site (/old) <ArrowRight size={18} />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        .curated-service-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        .curated-service-card:hover .service-card-img {
+          transform: scale(1.06);
+        }
+
+        @media (min-width: 900px) {
+          .full-site-callout-grid {
+            grid-template-columns: 1fr auto !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
