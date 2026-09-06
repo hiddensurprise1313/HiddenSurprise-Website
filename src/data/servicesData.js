@@ -31,7 +31,7 @@ export const CURATED_SERVICES = [
     desc: 'Surprise bell ring at 11:59 PM sharp with gourmet cake, glowing helium balloons, sparklers & live acoustic guitarist.',
     price: 2499,
     originalPrice: 3499,
-    image: '/photos/photo_1.webp',
+    image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       '11:59 PM sharp stealth doorstep arrival',
       '1kg Premium designer cake (Choco Truffle / Red Velvet)',
@@ -50,7 +50,7 @@ export const CURATED_SERVICES = [
     desc: 'Secretly decorated trunk with cascading fairy lights, glowing neon LED sign, foil balloon cloud, and personalized gift hamper.',
     price: 2999,
     originalPrice: 4299,
-    image: '/photos/photo_4.webp',
+    image: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       'Stealth trunk decor setup at your chosen location',
       'Custom glowing neon LED sign & foil balloons',
@@ -69,7 +69,7 @@ export const CURATED_SERVICES = [
     desc: 'Unannounced live musician or flashmob serenades your loved one in public, at a cafe, beach, or rooftop gathering.',
     price: 3499,
     originalPrice: 4999,
-    image: '/photos/photo_15.webp',
+    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       'Professional acoustic singer or violinist setup',
       'Customized 3-song playlist prepared in advance',
@@ -90,7 +90,7 @@ export const CURATED_SERVICES = [
     desc: 'Rooftop or garden sheer canopy cabana lined with 100+ warm LED candles, fresh rose petal pathway & 3-course private dining.',
     price: 4999,
     originalPrice: 6999,
-    image: '/photos/photo_18.webp',
+    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       'Boho sheer white canopy tent with ambient fairy curtains',
       '100+ Warm glowing LED candles & rose petal walkway',
@@ -109,7 +109,7 @@ export const CURATED_SERVICES = [
     desc: 'Intimate theater or open-air starry projection screening with plush floor cushions, fairy lights, popcorn bar & interval gift reveal.',
     price: 5499,
     originalPrice: 7499,
-    image: '/photos/photo_21.webp',
+    image: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       'HD Projector with 120-inch wide cinematic display',
       'Plush velvet floor mattresses, pillows & warm blankets',
@@ -130,7 +130,7 @@ export const CURATED_SERVICES = [
     desc: 'Full bedroom or venue makeover with metallic helium balloon ceiling spread, custom neon glow sign & 1kg designer cake.',
     price: 1999,
     originalPrice: 2999,
-    image: '/photos/photo_28.webp',
+    image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       '60+ Metallic helium balloons & ceiling streamers',
       'Personalized neon "Happy Birthday" glow sign',
@@ -149,7 +149,7 @@ export const CURATED_SERVICES = [
     desc: 'Romantic bedroom/living setup with heart balloon arches, 100+ warm LED candles, memory photo pathway & live acoustic serenade.',
     price: 2799,
     originalPrice: 3999,
-    image: '/photos/photo_32.webp',
+    image: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       'Cascading red & champagne gold heart balloon arch',
       'Glowing rose petal pathway leading to celebration space',
@@ -168,7 +168,7 @@ export const CURATED_SERVICES = [
     desc: 'Chic bachelorette & bridal shower glam setup with pastel balloon archway, custom sash, photo props & champagne floral table.',
     price: 2999,
     originalPrice: 4499,
-    image: '/photos/photo_45.webp',
+    image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       'Pastel & rose gold luxury balloon arch backdrop',
       'Custom "Bride to Be" silk sash, tiara & props set',
@@ -187,7 +187,7 @@ export const CURATED_SERVICES = [
     desc: 'Epic polaroid throwback wall, group party games hamper, late-night snack tower & cozy ambient fairy lights setup.',
     price: 2499,
     originalPrice: 3799,
-    image: '/photos/photo_52.webp',
+    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       'Throwback memory polaroid garland with decades of photos',
       'Custom party game hamper & funny quote props',
@@ -206,7 +206,7 @@ export const CURATED_SERVICES = [
     desc: 'Giant 4ft illuminated "MARRY ME" LED marquee letters, red carpet walkway with 200+ flickering candles, low fog entry & sparkler blast.',
     price: 6999,
     originalPrice: 9999,
-    image: '/photos/photo_57.webp',
+    image: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1200&q=85',
     highlights: [
       'Giant 4ft illuminated "MARRY ME" LED marquee letters',
       'Red carpet walkway lined with 200+ warm candles & roses',
