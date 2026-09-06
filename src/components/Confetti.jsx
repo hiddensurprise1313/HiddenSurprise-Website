@@ -96,8 +96,12 @@ ConfettiComponent.displayName = "Confetti";
 
 export const Confetti = ConfettiComponent;
 
-// Rich continuous celebration confetti rain & floating side fountains for Home and 3D Photowall
-export function SideConfettiCanvas({ density = "normal" }) {
+// Rich continuous celebration confetti rain & streaming side cannons for Home and 3D Photowall
+export function SideConfettiCanvas({
+  showSideCannons = true,
+  showMainRain = true,
+  density = "high"
+}) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -105,10 +109,10 @@ export function SideConfettiCanvas({ density = "normal" }) {
 
     const myConfetti = confetti.create(canvasRef.current, {
       resize: true,
-      useWorker: true,
+      useWorker: false,
     });
 
-    // Rich luxury party colors: Gold, Champagne, Rose Gold, Warm Amber, Pearl White, Coral, Violet
+    // Rich luxury celebration palette: Gold, Champagne, Rose Pink, Amber Gold, Violet, Cyan, Pearl White
     const colors = [
       "#F8DC6C",
       "#FFFFFF",
@@ -118,73 +122,74 @@ export function SideConfettiCanvas({ density = "normal" }) {
       "#FF7675",
       "#FDCB6E",
       "#A786FF",
-      "#00CEC9"
+      "#00CEC9",
+      "#E84393"
     ];
 
-    // Grand opening celebration burst
+    // Initial grand celebration fanfare
     myConfetti({
-      particleCount: density === "high" ? 80 : 50,
-      spread: 120,
-      origin: { x: 0.5, y: 0.25 },
+      particleCount: density === "high" ? 65 : 40,
+      spread: 110,
+      origin: { x: 0.5, y: 0.2 },
       colors,
       gravity: 0.6,
-      scalar: 1.15,
+      scalar: 1.1,
       ticks: 300,
     });
 
     let animationFrameId;
-    let lastRainTime = Date.now();
-    let lastCannonTime = Date.now();
+    let frame = 0;
 
     const loop = () => {
-      const now = Date.now();
+      frame++;
 
-      // Continuous gentle falling confetti shower from top every 220ms
-      if (now - lastRainTime > 220) {
-        lastRainTime = now;
-
-        // Top rain at random horizontal positions
+      // 1. Continuous Main Confetti Shower from Top (fired every 2 frames for a constant, smooth cascade)
+      if (showMainRain && frame % 2 === 0) {
         myConfetti({
-          particleCount: density === "high" ? 4 : 3,
-          angle: Math.random() * 30 + 75, // 75 to 105 degrees downwards
-          spread: 50,
+          particleCount: density === "high" ? 2 : 1,
+          angle: Math.random() * 20 + 80, // 80 to 100 degrees downward
+          spread: 60,
+          startVelocity: Math.random() * 8 + 6,
           origin: { x: Math.random(), y: -0.05 },
           colors,
-          gravity: Math.random() * 0.3 + 0.45,
-          scalar: Math.random() * 0.4 + 0.8,
-          drift: (Math.random() - 0.5) * 0.5,
-          ticks: 350,
+          gravity: Math.random() * 0.25 + 0.45,
+          scalar: Math.random() * 0.4 + 0.75,
+          drift: (Math.random() - 0.5) * 0.6,
+          ticks: 360,
+          shapes: ["square", "circle"],
         });
       }
 
-      // Side ambient bursts every 1.2 seconds for dynamic celebratory energy
-      if (now - lastCannonTime > 1200) {
-        lastCannonTime = now;
-
-        // Left side fountain
+      // 2. Continuous Celebratory Side Cannons from Left & Right (fired every 3 frames for streaming arcs)
+      if (showSideCannons && frame % 3 === 0) {
+        // Left Side Cannon (angled towards center-right)
         myConfetti({
-          particleCount: density === "high" ? 7 : 5,
-          angle: 55,
-          spread: 45,
-          startVelocity: 35,
-          origin: { x: 0, y: Math.random() * 0.3 + 0.35 },
+          particleCount: density === "high" ? 2 : 1,
+          angle: 60,
+          spread: 55,
+          startVelocity: Math.random() * 14 + 42,
+          origin: { x: 0, y: 0.62 },
           colors,
-          gravity: 0.55,
-          scalar: 0.9,
-          ticks: 280,
+          gravity: 0.65,
+          scalar: Math.random() * 0.35 + 0.8,
+          drift: 0.2,
+          ticks: 240,
+          shapes: ["square", "circle"],
         });
 
-        // Right side fountain
+        // Right Side Cannon (angled towards center-left)
         myConfetti({
-          particleCount: density === "high" ? 7 : 5,
-          angle: 125,
-          spread: 45,
-          startVelocity: 35,
-          origin: { x: 1, y: Math.random() * 0.3 + 0.35 },
+          particleCount: density === "high" ? 2 : 1,
+          angle: 120,
+          spread: 55,
+          startVelocity: Math.random() * 14 + 42,
+          origin: { x: 1, y: 0.62 },
           colors,
-          gravity: 0.55,
-          scalar: 0.9,
-          ticks: 280,
+          gravity: 0.65,
+          scalar: Math.random() * 0.35 + 0.8,
+          drift: -0.2,
+          ticks: 240,
+          shapes: ["square", "circle"],
         });
       }
 
@@ -197,7 +202,7 @@ export function SideConfettiCanvas({ density = "normal" }) {
       cancelAnimationFrame(animationFrameId);
       myConfetti.reset();
     };
-  }, [density]);
+  }, [showSideCannons, showMainRain, density]);
 
   return (
     <canvas
@@ -208,7 +213,7 @@ export function SideConfettiCanvas({ density = "normal" }) {
         width: "100%",
         height: "100%",
         pointerEvents: "none",
-        zIndex: 2,
+        zIndex: 5,
       }}
     />
   );
