@@ -1,6 +1,9 @@
-import basicPkgImg from '../assets/package-basic.jpeg';
-import premiumPkgImg from '../assets/package-premium.jpeg';
-import elitePkgImg from '../assets/package-elite.jpeg';
+import basicPkgRealImg from '../assets/pkg_basic_real.jpg';
+import premiumPkgRealImg from '../assets/pkg_premium_real.jpg';
+import elitePkgRealImg from '../assets/pkg_elite_real.jpg';
+import flowerBouquetImg from '../assets/flower_bouquet_real.jpg';
+import chocolateBouquetImg from '../assets/chocolate_bouquet_real.jpg';
+import bannerEntryImg from '../assets/banner_entry_real.jpg';
 
 export const SERVICE_CATEGORIES = [
   {
@@ -8,12 +11,6 @@ export const SERVICE_CATEGORIES = [
     name: 'Official Packages',
     badge: '👑 Official Packages',
     description: 'Our signature Basic, Premium, and Elite celebration venue experiences with all-inclusive amenities.'
-  },
-  {
-    id: 'addons',
-    name: 'Additional Services',
-    badge: '💐 Additional Add-ons',
-    description: 'Curated celebration enhancers, flower bouquets, chocolate arrangements & banner entry reveals.'
   },
   {
     id: 'outdoor',
@@ -30,7 +27,7 @@ export const SERVICE_CATEGORIES = [
 ];
 
 export const CURATED_SERVICES = [
-  // ----------------- OFFICIAL PACKAGES (FROM HIDDEN SURPRISE PHOTOS) -----------------
+  // ----------------- OFFICIAL PACKAGES (WITH REAL CELEBRATION PHOTOGRAPHY) -----------------
   {
     id: 'basic-package',
     category: 'signature',
@@ -40,8 +37,8 @@ export const CURATED_SERVICES = [
     tagline: 'Essential celebration setup with floral panel & cake',
     duration: '45 Mins',
     badgeText: 'POPULAR CHOICE',
-    desc: 'Complete private celebration setup featuring full background balloon decor, neon board, floral panel with cake table, and 1/2 kg designer cake.',
-    image: basicPkgImg,
+    desc: 'Complete private celebration space makeover featuring rich background balloon arch decor, glowing neon board, floral panel with decorated cake table, and 1/2 kg designer cake.',
+    image: basicPkgRealImg,
     highlights: [
       'Background Balloon Decor',
       'Happy Birthday / Other Occasions Neon Board',
@@ -61,7 +58,7 @@ export const CURATED_SERVICES = [
     duration: '1.5 Hours',
     badgeText: 'MOST REQUESTED',
     desc: 'Elevated luxury experience featuring warm lighting, customized big screen video project with 5.1 surround sound, welcome drinks, celebration sash & crown, fun indoor games & photo hangings.',
-    image: premiumPkgImg,
+    image: premiumPkgRealImg,
     highlights: [
       'Background Balloon Decor & Warm Light Setup',
       'Happy Birthday / Other Occasions Neon Board',
@@ -83,8 +80,8 @@ export const CURATED_SERVICES = [
     tagline: 'The ultimate VIP celebration with OTT screening & dinner for 2',
     duration: '2 Hours',
     badgeText: 'VIP SIGNATURE',
-    desc: 'The pinnacle of private luxury celebrations! Includes all Premium features plus Personalized Access to OTT Platform on big screen with 5.1 sound, 8 photo hanging timeline, and gourmet Food for 2 Persons.',
-    image: elitePkgImg,
+    desc: 'The pinnacle of private luxury celebrations! Includes all Premium features plus Personalized Access to OTT Platform on big screen with 5.1 sound, 8 photo hanging memory timeline, and gourmet dining for 2 persons.',
+    image: elitePkgRealImg,
     highlights: [
       'Background Balloon Decor & Warm Light Setup',
       'Happy Birthday / Other Occasions Neon Board & Air Conditioned Space',
@@ -99,71 +96,12 @@ export const CURATED_SERVICES = [
     ]
   },
 
-  // ----------------- ADDITIONAL SERVICES (ADD-ONS) -----------------
-  {
-    id: 'flower-bouquet',
-    category: 'addons',
-    categoryName: 'Additional Service',
-    number: '04',
-    title: 'Flower Bouquet',
-    tagline: 'Handcrafted luxury Dutch roses & exotic florals',
-    duration: 'Handcrafted Add-On',
-    badgeText: 'FRESH FLORALS',
-    desc: 'Exquisite hand-tied bouquet crafted with fresh long-stem Dutch red roses, exotic lilies, gypsophila baby’s breath & customized wax-sealed message card.',
-    image: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1200&q=85',
-    highlights: [
-      'Fresh premium long-stem Dutch roses & exotic florals',
-      'Luxury matte wrapping paper with gold foil edge & satin bow',
-      'Personalized handwritten wax-sealed love note',
-      'Flower hydration pack to ensure 48h freshness',
-      'Secret midnight handover by stealth concierge'
-    ]
-  },
-  {
-    id: 'chocolate-bouquet',
-    category: 'addons',
-    categoryName: 'Additional Service',
-    number: '05',
-    title: 'Chocolate Bouquet',
-    tagline: 'Decadent Ferrero Rocher & gourmet sweet hamper',
-    duration: 'Artisan Add-On',
-    badgeText: 'SWEET TREAT',
-    desc: 'Artisan sweet bouquet arranged with golden Ferrero Rocher pralines, Cadbury Dairy Milk Silk, Lindt truffles, fairy twinkle lights & gold embellishments.',
-    image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=1200&q=85',
-    highlights: [
-      '16+ Golden Ferrero Rocher & Cadbury Silk bars arranged as flowers',
-      'Integrated battery-operated micro fairy twinkle lights',
-      'Luxury dual-tone velvet wrap with gold ribbon garnish',
-      'Customized celebration tag with your personal photo',
-      'Keepsake gift hamper box presentation'
-    ]
-  },
-  {
-    id: 'banner-entry',
-    category: 'addons',
-    categoryName: 'Additional Service',
-    number: '06',
-    title: 'Banner Entry',
-    tagline: 'VIP red carpet reveal & grand personalized welcome banner',
-    duration: 'Grand Entrance',
-    badgeText: 'VIP REVEAL',
-    desc: 'Breathtaking dramatic entrance featuring a customized 8ft wide high-definition celebration banner, plush red carpet walkway, 4 cold sparkler fountains & rose petal shower.',
-    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85',
-    highlights: [
-      'Customized 8ft wide HD photo celebration welcome banner',
-      'Plush VIP red carpet walkway with gold stanchions & ropes',
-      '4 Electronic cold sparkler fountain pyros upon entrance',
-      'Fresh rose petal shower cannon on the special reveal',
-      'Ambient spotlight illumination for red carpet photos'
-    ]
-  },
-
   // ----------------- OUTDOOR SERVICE -----------------
   {
     id: 'door-surprise-12',
     category: 'outdoor',
     categoryName: 'Outdoor Service',
-    number: '07',
+    number: '04',
     title: "12 O'Clock Door Surprise",
     tagline: 'The magical midnight doorstep reveal',
     duration: 'Midnight Reveal',
@@ -182,7 +120,7 @@ export const CURATED_SERVICES = [
     id: 'car-trunk-surprise',
     category: 'outdoor',
     categoryName: 'Outdoor Service',
-    number: '08',
+    number: '05',
     title: 'Car Trunk Surprise',
     tagline: 'Pop the boot for an explosion of wonder',
     duration: '60 Mins',
@@ -203,7 +141,7 @@ export const CURATED_SERVICES = [
     id: 'candle-light-dinner',
     category: 'special',
     categoryName: 'Special Romantic',
-    number: '09',
+    number: '06',
     title: 'Candle Light Dinner',
     tagline: 'An intimate romantic sanctuary for two',
     duration: '2.5 Hours',
@@ -222,7 +160,7 @@ export const CURATED_SERVICES = [
     id: 'private-movie-time',
     category: 'special',
     categoryName: 'Special Romantic',
-    number: '10',
+    number: '07',
     title: 'Private Movie Time',
     tagline: 'Cinematic private screening under the stars',
     duration: '3 Hours',
@@ -241,7 +179,7 @@ export const CURATED_SERVICES = [
     id: 'love-proposal',
     category: 'special',
     categoryName: 'Special Romantic',
-    number: '11',
+    number: '08',
     title: 'Love Proposal',
     tagline: 'The fairytale proposal they will say YES to',
     duration: '2 Hours',
@@ -258,4 +196,63 @@ export const CURATED_SERVICES = [
   }
 ];
 
-export const ADDITIONAL_SERVICES = CURATED_SERVICES.filter(s => s.category === 'addons');
+// ----------------- DEDICATED ADDITIONAL SERVICES (BOUQUETS & BANNER) -----------------
+export const ADDITIONAL_SERVICES = [
+  {
+    id: 'flower-bouquet',
+    category: 'addons',
+    categoryName: 'Additional Service',
+    number: '01',
+    title: 'Flower Bouquet',
+    tagline: 'Handcrafted luxury Dutch roses & exotic florals',
+    duration: 'Handcrafted Add-On',
+    badgeText: 'FRESH FLORALS',
+    desc: 'Exquisite hand-tied bouquet crafted with fresh long-stem Dutch red roses, exotic lilies, gypsophila baby’s breath & customized wax-sealed message card.',
+    image: flowerBouquetImg,
+    highlights: [
+      'Fresh premium long-stem Dutch roses & exotic florals',
+      'Luxury matte wrapping paper with gold foil edge & satin bow',
+      'Personalized handwritten wax-sealed love note',
+      'Flower hydration pack to ensure 48h freshness',
+      'Secret midnight handover by stealth concierge'
+    ]
+  },
+  {
+    id: 'chocolate-bouquet',
+    category: 'addons',
+    categoryName: 'Additional Service',
+    number: '02',
+    title: 'Chocolate Bouquet',
+    tagline: 'Decadent Ferrero Rocher & gourmet sweet hamper',
+    duration: 'Artisan Add-On',
+    badgeText: 'SWEET TREAT',
+    desc: 'Artisan sweet bouquet arranged with golden Ferrero Rocher pralines, Cadbury Dairy Milk Silk, Lindt truffles, fairy twinkle lights & gold embellishments.',
+    image: chocolateBouquetImg,
+    highlights: [
+      '16+ Golden Ferrero Rocher & Cadbury Silk bars arranged as flowers',
+      'Integrated battery-operated micro fairy twinkle lights',
+      'Luxury dual-tone velvet wrap with gold ribbon garnish',
+      'Customized celebration tag with your personal photo',
+      'Keepsake gift hamper box presentation'
+    ]
+  },
+  {
+    id: 'banner-entry',
+    category: 'addons',
+    categoryName: 'Additional Service',
+    number: '03',
+    title: 'Banner Entry',
+    tagline: 'VIP red carpet reveal & grand personalized welcome banner',
+    duration: 'Grand Entrance',
+    badgeText: 'VIP REVEAL',
+    desc: 'Breathtaking dramatic entrance featuring a customized 8ft wide high-definition celebration banner, plush red carpet walkway, 4 cold sparkler fountains & rose petal shower.',
+    image: bannerEntryImg,
+    highlights: [
+      'Customized 8ft wide HD photo celebration welcome banner',
+      'Plush VIP red carpet walkway with gold stanchions & ropes',
+      '4 Electronic cold sparkler fountain pyros upon entrance',
+      'Fresh rose petal shower cannon on the special reveal',
+      'Ambient spotlight illumination for red carpet photos'
+    ]
+  }
+];
