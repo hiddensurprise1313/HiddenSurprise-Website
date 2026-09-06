@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import FoldText from './FoldText';
 
 export default function Hero({ onOpenBooking, onOpenUnboxing }) {
   const triggerConfetti = () => {
@@ -72,7 +73,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
           }}
           className="hero-grid-layout"
         >
-          {/* Left: Giant Elevare-Style Cutout Typography */}
+          {/* Left: Giant Elevare-Style Cutout Typography with FoldText */}
           <div>
             <div
               style={{
@@ -98,18 +99,23 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
 
             <h1
               style={{
-                fontSize: 'clamp(3.4rem, 11vw, 9.5rem)',
-                fontWeight: 900,
-                color: '#F8DC6C',
-                lineHeight: 0.9,
-                letterSpacing: '-0.04em',
                 margin: 0,
                 textTransform: 'none',
                 textShadow: '0 4px 30px rgba(0, 0, 0, 0.5)'
               }}
               className="hero-giant-title"
             >
-              Surprise
+              <FoldText
+                text="Surprise"
+                trigger="mount"
+                splitBy="char"
+                hinge="top"
+                duration={0.75}
+                stagger={0.06}
+                fontSize="clamp(3.4rem, 11vw, 9.5rem)"
+                fontWeight={900}
+                color="#F8DC6C"
+              />
             </h1>
           </div>
 
@@ -117,14 +123,20 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
           <div style={{ maxWidth: '500px', justifySelf: 'end' }} className="hero-right-col">
             <h2
               style={{
-                fontSize: 'clamp(1.35rem, 2.5vw, 2.2rem)',
-                color: '#FFFFFF',
-                fontWeight: 700,
-                lineHeight: 1.25,
                 marginBottom: '0.85rem'
               }}
             >
-              Achieve Unforgettable Moments with Celebrations that Deliver Results!
+              <FoldText
+                text="Achieve Unforgettable Moments with Celebrations that Deliver Results!"
+                trigger="mount"
+                splitBy="word"
+                hinge="top"
+                duration={0.65}
+                stagger={0.04}
+                fontSize="clamp(1.35rem, 2.5vw, 2.2rem)"
+                fontWeight={700}
+                color="#FFFFFF"
+              />
             </h2>
 
             <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '0.94rem', marginBottom: '1.6rem', lineHeight: 1.6 }}>

@@ -4,7 +4,6 @@ import Hero from './components/Hero';
 import StatsBanner from './components/StatsBanner';
 import SurpriseBuilder from './components/SurpriseBuilder';
 import Packages from './components/Packages';
-import Gallery from './components/Gallery';
 import SpiralPhotoWall from './components/SpiralPhotoWall';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
@@ -45,7 +44,7 @@ function App() {
 
       {/* Main Content */}
       <main>
-        {/* Fullscreen 100vh Hero with Giant Typography */}
+        {/* Fullscreen 100vh Hero with Giant Typography & FoldText */}
         <Hero
           onOpenBooking={handleOpenBooking}
           onOpenUnboxing={() => setUnboxingModalOpen(true)}
@@ -64,9 +63,6 @@ function App() {
         <Packages
           onOpenBooking={handleOpenBooking}
         />
-
-        {/* Moments & Gallery with React Bits DriftWall */}
-        <Gallery />
 
         {/* 3D Infinite Spiral Photowall Section */}
         <SpiralPhotoWall />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { OCCASIONS, EXPERIENCE_TYPES, ADDONS } from '../data/mockData';
 import { Check, ArrowRight, ArrowLeft, Heart, Calendar, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import FoldText from './FoldText';
 
 export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
   const [step, setStep] = useState(1);
@@ -55,8 +56,18 @@ export default function SurpriseBuilder({ onOpenBooking, appliedDiscount }) {
               Interactive Customizer
             </span>
           </div>
-          <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.4rem)', color: '#000000', marginBottom: '0.8rem' }}>
-            Why Great Surprises Change Everything
+          <h2 style={{ marginBottom: '0.8rem' }}>
+            <FoldText
+              text="Why Great Surprises Change Everything"
+              trigger="scroll"
+              splitBy="word"
+              hinge="top"
+              duration={0.65}
+              stagger={0.045}
+              fontSize="clamp(2rem, 4vw, 3.4rem)"
+              fontWeight={800}
+              color="#000000"
+            />
           </h2>
           <p style={{ color: '#5E6472', fontSize: '1.05rem', lineHeight: 1.6 }}>
             At Hidden Surprise, we recognize that every bond is unique. That’s why we design bespoke experiences tailored to each celebration's emotional goals.

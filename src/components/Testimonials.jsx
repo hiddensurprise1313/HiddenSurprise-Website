@@ -1,6 +1,7 @@
 import React from 'react';
 import { TESTIMONIALS } from '../data/mockData';
 import { Star, Quote } from 'lucide-react';
+import FoldText from './FoldText';
 
 export default function Testimonials() {
   return (
@@ -14,8 +15,18 @@ export default function Testimonials() {
               Client Proof
             </span>
           </div>
-          <h2 style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.6rem)', color: '#000000', marginBottom: '1rem' }}>
-            Loved by 1,500+ Happy Hearts
+          <h2 style={{ marginBottom: '1rem' }}>
+            <FoldText
+              text="Loved by 1,500+ Happy Hearts"
+              trigger="scroll"
+              splitBy="word"
+              hinge="top"
+              duration={0.65}
+              stagger={0.045}
+              fontSize="clamp(2.2rem, 4.5vw, 3.6rem)"
+              fontWeight={800}
+              color="#000000"
+            />
           </h2>
           <p style={{ color: '#5E6472', fontSize: '1.1rem', lineHeight: 1.6 }}>
             Hear from partners, friends, and families who trusted our stealth coordination.

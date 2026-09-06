@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import InfiniteSpiral from './InfiniteSpiral';
 import { DRIFT_WALL_PHOTOS } from '../data/driftWallPhotos';
 import { Sparkles, MoveVertical, ArrowUp, ArrowDown, MapPin, X, MessageCircle } from 'lucide-react';
+import FoldText from './FoldText';
 
 export default function SpiralPhotoWall() {
   const [direction, setDirection] = useState('up');
@@ -76,14 +77,24 @@ export default function SpiralPhotoWall() {
         {/* Section Header */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '2.5rem' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-            <span className="mono-tag" style={{ background: '#F8DC6C', color: '#000000' }}>SPIRAL 04</span>
+            <span className="mono-tag" style={{ background: '#F8DC6C', color: '#000000' }}>SPIRAL 03</span>
             <span style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#9CA3AF' }}>
               3D Vortex Experience
             </span>
           </div>
 
-          <h2 style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.6rem)', color: '#FFFFFF', marginBottom: '1rem', maxWidth: '800px' }}>
-            The Infinite Spiral Photowall
+          <h2 style={{ marginBottom: '1rem', maxWidth: '800px' }}>
+            <FoldText
+              text="The Infinite Spiral Photowall"
+              trigger="scroll"
+              splitBy="word"
+              hinge="top"
+              duration={0.65}
+              stagger={0.045}
+              fontSize="clamp(2.2rem, 4.5vw, 3.6rem)"
+              fontWeight={800}
+              color="#FFFFFF"
+            />
           </h2>
           <p style={{ color: '#9CA3AF', fontSize: '1.05rem', lineHeight: 1.6, maxWidth: '640px' }}>
             Step inside our 3D helix vortex. Drag vertically, scroll, or let it auto-drift through real moments captured across India.

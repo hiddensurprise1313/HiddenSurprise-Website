@@ -1,6 +1,7 @@
 import React from 'react';
 import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import logoImg from '../assets/logo.png';
+import FoldText from './FoldText';
 
 export default function Footer({ onOpenBooking, onOpenUnboxing }) {
   return (
@@ -30,15 +31,25 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
         >
           <div>
             <span className="mono-tag" style={{ background: '#000000', color: '#F8DC6C' }}>READY TO CELEBRATE?</span>
-            <h2 style={{ fontSize: 'clamp(2rem, 3.8vw, 3.2rem)', fontWeight: 900, marginTop: '1rem', marginBottom: '0.6rem', letterSpacing: '-0.03em' }}>
-              Let's Plan Something Unforgettable Today.
+            <h2 style={{ marginTop: '1rem', marginBottom: '0.6rem' }}>
+              <FoldText
+                text="Let's Plan Something Unforgettable Today."
+                trigger="scroll"
+                splitBy="word"
+                hinge="top"
+                duration={0.65}
+                stagger={0.045}
+                fontSize="clamp(2rem, 3.8vw, 3.2rem)"
+                fontWeight={900}
+                color="#000000"
+              />
             </h2>
             <p style={{ fontSize: '1.1rem', color: '#1F2937' }}>
               Connect with our 24/7 stealth concierge on WhatsApp to reserve your date.
             </p>
           </div>
 
-          <div style={{ justifySelf: 'start', mdJustifySelf: 'end' }}>
+          <div style={{ justifySelf: 'start' }}>
             <button
               onClick={() => onOpenBooking()}
               className="btn-dark"
@@ -106,8 +117,9 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
               <a href="#" className="footer-link">Home</a>
               <a href="#builder" className="footer-link">Surprise Builder</a>
               <a href="#packages" className="footer-link">Packages</a>
-              <a href="#gallery" className="footer-link">Gallery Moments</a>
+              <a href="#spiral-photowall" className="footer-link">Spiral Photowall</a>
               <a href="#reviews" className="footer-link">Client Reviews</a>
+              <a href="#faq" className="footer-link">FAQ</a>
             </div>
           </div>
 
@@ -129,7 +141,7 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.7)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                 <Phone size={16} color="#F8DC6C" />
-                <span>+91 98765 43210 (24/7 WhatsApp)</span>
+                <span>+91 91331 43232 (24/7 WhatsApp)</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                 <Mail size={16} color="#F8DC6C" />
@@ -137,7 +149,7 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
               </div>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem' }}>
                 <MapPin size={16} color="#F8DC6C" style={{ flexShrink: 0, marginTop: '3px' }} />
-                <span>Mumbai, Delhi NCR, Bengaluru, Pune, Goa & Pan-India.</span>
+                <span>Hyderabad, Mumbai, Delhi NCR, Bengaluru, Goa & Pan-India.</span>
               </div>
             </div>
           </div>

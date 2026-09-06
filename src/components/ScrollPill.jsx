@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, ChevronUp, Compass } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function ScrollPill() {
   const [scrollPercent, setScrollPercent] = useState(0);
@@ -19,7 +19,6 @@ export default function ScrollPill() {
         { id: 'home', name: 'Home' },
         { id: 'builder', name: 'Builder' },
         { id: 'packages', name: 'Packages' },
-        { id: 'gallery', name: 'Drift Wall' },
         { id: 'spiral-photowall', name: 'Spiral' },
         { id: 'reviews', name: 'Reviews' },
         { id: 'faq', name: 'FAQ' }
@@ -46,7 +45,7 @@ export default function ScrollPill() {
       return;
     }
 
-    const sectionIds = ['home', 'builder', 'packages', 'gallery', 'spiral-photowall', 'reviews', 'faq'];
+    const sectionIds = ['home', 'builder', 'packages', 'spiral-photowall', 'reviews', 'faq'];
     const scrollPos = window.scrollY + 250;
 
     for (let i = 0; i < sectionIds.length; i++) {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FAQS } from '../data/mockData';
 import { ChevronDown } from 'lucide-react';
+import FoldText from './FoldText';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
@@ -19,8 +20,18 @@ export default function FAQ() {
               Common Inquiries
             </span>
           </div>
-          <h2 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', color: '#000000', marginBottom: '1rem' }}>
-            Frequently Asked Questions
+          <h2 style={{ marginBottom: '1rem' }}>
+            <FoldText
+              text="Frequently Asked Questions"
+              trigger="scroll"
+              splitBy="word"
+              hinge="top"
+              duration={0.65}
+              stagger={0.045}
+              fontSize="clamp(2.2rem, 4vw, 3.2rem)"
+              fontWeight={800}
+              color="#000000"
+            />
           </h2>
           <p style={{ color: '#5E6472', fontSize: '1.05rem' }}>
             Everything you need to know about our discreet surprise setups, timings, and custom curation.

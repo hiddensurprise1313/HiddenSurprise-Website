@@ -15,16 +15,16 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
 
       const builderSection = document.getElementById('builder');
       const packagesSection = document.getElementById('packages');
-      const gallerySection = document.getElementById('gallery');
       const spiralSection = document.getElementById('spiral-photowall');
       const reviewsSection = document.getElementById('reviews');
+      const faqSection = document.getElementById('faq');
 
-      if (reviewsSection && scrollPosition >= reviewsSection.offsetTop) {
+      if (faqSection && scrollPosition >= faqSection.offsetTop) {
+        setActiveTab('faq');
+      } else if (reviewsSection && scrollPosition >= reviewsSection.offsetTop) {
         setActiveTab('reviews');
       } else if (spiralSection && scrollPosition >= spiralSection.offsetTop) {
         setActiveTab('spiral');
-      } else if (gallerySection && scrollPosition >= gallerySection.offsetTop) {
-        setActiveTab('gallery');
       } else if (packagesSection && scrollPosition >= packagesSection.offsetTop) {
         setActiveTab('packages');
       } else if (builderSection && scrollPosition >= builderSection.offsetTop) {
@@ -164,23 +164,6 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           </a>
 
           <a
-            href="#gallery"
-            onClick={(e) => scrollToSection(e, 'gallery', 'gallery')}
-            style={{
-              padding: '8px 16px',
-              borderRadius: '9999px',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-              background: activeTab === 'gallery' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'gallery' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'gallery' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
-            }}
-          >
-            Drift Wall
-          </a>
-
-          <a
             href="#spiral-photowall"
             onClick={(e) => scrollToSection(e, 'spiral-photowall', 'spiral')}
             style={{
@@ -194,7 +177,7 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
               boxShadow: activeTab === 'spiral' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
             }}
           >
-            Spiral Wall
+            Spiral Photowall
           </a>
 
           <a
@@ -296,17 +279,6 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             style={{ fontSize: '1.05rem', fontWeight: 600, color: '#F8DC6C', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
           >
             <Sparkles size={16} /> Open Mystery Box
-          </a>
-          <a
-            href="#gallery"
-            onClick={(e) => scrollToSection(e, 'gallery', 'gallery')}
-            style={{
-              fontSize: '1.05rem',
-              fontWeight: 600,
-              color: activeTab === 'gallery' ? '#F8DC6C' : '#FFFFFF'
-            }}
-          >
-            Drift Wall Moments
           </a>
           <a
             href="#spiral-photowall"

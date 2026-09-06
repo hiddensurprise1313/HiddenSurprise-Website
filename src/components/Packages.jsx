@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PACKAGES } from '../data/mockData';
 import { Star, Check, ArrowRight, Calendar } from 'lucide-react';
+import FoldText from './FoldText';
 
 export default function Packages({ onOpenBooking }) {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -29,8 +30,18 @@ export default function Packages({ onOpenBooking }) {
               Curated Signatures
             </span>
           </div>
-          <h2 style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.6rem)', color: '#000000', marginBottom: '1rem' }}>
-            All-Inclusive Celebration Packages
+          <h2 style={{ marginBottom: '1rem' }}>
+            <FoldText
+              text="All-Inclusive Celebration Packages"
+              trigger="scroll"
+              splitBy="word"
+              hinge="top"
+              duration={0.65}
+              stagger={0.045}
+              fontSize="clamp(2.2rem, 4.5vw, 3.6rem)"
+              fontWeight={800}
+              color="#000000"
+            />
           </h2>
           <p style={{ color: '#5E6472', fontSize: '1.1rem', lineHeight: 1.6 }}>
             Designed to deliver breathtaking reactions and cherished lifetime memories across India.
