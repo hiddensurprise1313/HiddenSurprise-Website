@@ -111,26 +111,23 @@ export const VIBRANT_CELEBRATION_COLORS = [
   "#FFAA00"  // Radiant Deep Gold
 ];
 
-// Rich Multi-Color Rainbow Celebration Palette for Home Page
-export const HOME_RAINBOW_CELEBRATION_COLORS = [
-  "#FFD700", // Radiant Gold
-  "#FFAA00", // Deep Amber Gold
-  "#FF007F", // Electric Neon Pink
-  "#FF1493", // Deep Party Pink
-  "#00F2FE", // Electric Bright Cyan
-  "#0072FF", // Sapphire Blue
-  "#7928CA", // Neon Royal Violet
-  "#9B51E0", // Vibrant Lavender Purple
-  "#FF3366", // Ruby Crimson
-  "#FF5722", // Flame Tangerine
-  "#00FF87", // Spring Lime Green
+// Pure High-Contrast Electric Rainbow Celebration Palette (Red, Orange, Yellow, Green, Cyan, Blue, Purple, Pink)
+export const HERO_TRUE_RAINBOW_COLORS = [
+  "#FF0033", // Vivid Electric Red
+  "#FF007F", // Neon Magenta Pink
+  "#FF00E5", // Hot Fuchsia
+  "#8A00FF", // Vivid Royal Purple
+  "#0055FF", // Electric Blue
+  "#00D4FF", // Bright Electric Cyan
   "#00E676", // Vivid Emerald Green
-  "#FF7675", // Coral Glow
-  "#FDCB6E", // Sunshine Marigold
-  "#FD79A8", // Flamingo Rose
-  "#A786FF", // Sparkle Violet
-  "#E84393"  // Raspberry Pink
+  "#00FF66", // Bright Neon Green
+  "#FFDD00", // Pure Sunshine Yellow
+  "#FF6A00", // Vivid Electric Orange
+  "#FF1493", // Party Pink
+  "#A786FF"  // Sparkle Lavender Violet
 ];
+
+export const HOME_RAINBOW_CELEBRATION_COLORS = HERO_TRUE_RAINBOW_COLORS;
 
 // Rich continuous celebration confetti rain & streaming side cannons for Home and 3D Photowall
 export function SideConfettiCanvas({
@@ -177,8 +174,8 @@ export function SideConfettiCanvas({
     // Density timing configuration
     const mainInterval = density === "high" ? 2 : density === "medium" ? 4 : 7;
     const mainParticleCount = density === "high" ? 2 : 1;
-    const sideInterval = density === "high" ? 3 : density === "medium" ? 5 : 8;
-    const sideParticleCount = density === "high" ? 3 : density === "medium" ? 2 : 1;
+    const sideInterval = density === "high" ? 3 : density === "medium" ? 6 : 9;
+    const sideParticleCount = density === "high" ? 4 : density === "medium" ? 3 : 1;
 
     const loop = () => {
       frame++;
