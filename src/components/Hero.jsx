@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import FoldText from './FoldText';
+import TextPressure from './TextPressure';
 
 export default function Hero({ onOpenBooking, onOpenUnboxing }) {
   const triggerConfetti = () => {
@@ -73,8 +74,8 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
           }}
           className="hero-grid-layout"
         >
-          {/* Left: Giant Elevare-Style Cutout Typography with FoldText */}
-          <div>
+          {/* Left: Giant Elevare-Style Cutout Typography with TextPressure */}
+          <div style={{ maxWidth: '620px', width: '100%' }}>
             <div
               style={{
                 display: 'inline-flex',
@@ -97,26 +98,28 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
               <Sparkles size={14} /> #1 Bespoke Surprise Planner
             </div>
 
-            <h1
+            <div
               style={{
-                margin: 0,
-                textTransform: 'none',
-                textShadow: '0 4px 30px rgba(0, 0, 0, 0.5)'
+                position: 'relative',
+                height: 'clamp(95px, 15vw, 155px)',
+                width: '100%',
+                filter: 'drop-shadow(0 6px 30px rgba(0, 0, 0, 0.6))',
+                cursor: 'pointer'
               }}
               className="hero-giant-title"
             >
-              <FoldText
+              <TextPressure
                 text="Surprise"
-                trigger="mount"
-                splitBy="char"
-                hinge="top"
-                duration={0.75}
-                stagger={0.06}
-                fontSize="clamp(3.4rem, 11vw, 9.5rem)"
-                fontWeight={900}
-                color="#F8DC6C"
+                flex={true}
+                alpha={false}
+                stroke={false}
+                width={true}
+                weight={true}
+                italic={true}
+                textColor="#F8DC6C"
+                minFontSize={48}
               />
-            </h1>
+            </div>
           </div>
 
           {/* Right: Emotional Statement & Action CTA */}

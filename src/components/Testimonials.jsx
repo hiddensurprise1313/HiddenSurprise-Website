@@ -17,7 +17,7 @@ export default function Testimonials() {
           </div>
           <h2 style={{ marginBottom: '1rem' }}>
             <FoldText
-              text="Loved by 1,500+ Happy Hearts"
+              text="Loved by 48+ Happy Hearts"
               trigger="scroll"
               splitBy="word"
               hinge="top"

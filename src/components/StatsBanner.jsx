@@ -15,7 +15,7 @@ export default function StatsBanner() {
         >
           {/* Left: Giant Stat Number */}
           <div>
-            <div className="stat-number">1,500+</div>
+            <div className="stat-number">48+</div>
             <p
               style={{
                 fontSize: '1.25rem',
@@ -24,7 +24,7 @@ export default function StatsBanner() {
                 marginTop: '0.4rem'
               }}
             >
-              Celebrations Executed Since 2018
+              Happy Customers Since May 2026
             </p>
           </div>
 
@@ -39,7 +39,7 @@ export default function StatsBanner() {
                 letterSpacing: '-0.03em'
               }}
             >
-              Since 2018, Hidden Surprise has helped over 1,500 clients elevate their celebrations with flawless stealth.
+              Since May 2026, Hidden Surprise has helped 48+ happy customers elevate their celebrations with flawless stealth.
             </h2>
           </div>
         </div>
