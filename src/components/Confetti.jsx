@@ -96,6 +96,20 @@ ConfettiComponent.displayName = "Confetti";
 
 export const Confetti = ConfettiComponent;
 
+// Ultra-vibrant, high-saturation celebration colors
+const VIBRANT_CELEBRATION_COLORS = [
+  "#FFD700", // Vivid Pure Gold
+  "#FF007F", // Electric Neon Pink / Magenta
+  "#00F2FE", // Electric Cyan
+  "#7928CA", // Neon Royal Purple
+  "#FF3366", // Radiant Crimson
+  "#FF6B00", // Vivid Amber Orange
+  "#00FF87", // Neon Green
+  "#FF0055", // Bright Fuchsia
+  "#9B51E0", // Vibrant Violet
+  "#FFAA00"  // Radiant Deep Gold
+];
+
 // Rich continuous celebration confetti rain & streaming side cannons for Home and 3D Photowall
 export function SideConfettiCanvas({
   showSideCannons = true,
@@ -112,30 +126,20 @@ export function SideConfettiCanvas({
       useWorker: false,
     });
 
-    // Rich luxury celebration palette: Gold, Champagne, Rose Pink, Amber Gold, Violet, Cyan, Pearl White
-    const colors = [
-      "#F8DC6C",
-      "#FFFFFF",
-      "#F59E0B",
-      "#FFEAA7",
-      "#FD79A8",
-      "#FF7675",
-      "#FDCB6E",
-      "#A786FF",
-      "#00CEC9",
-      "#E84393"
-    ];
+    const colors = VIBRANT_CELEBRATION_COLORS;
 
-    // Initial grand celebration fanfare
-    myConfetti({
-      particleCount: density === "high" ? 65 : 40,
-      spread: 110,
-      origin: { x: 0.5, y: 0.2 },
-      colors,
-      gravity: 0.6,
-      scalar: 1.1,
-      ticks: 300,
-    });
+    // Initial grand celebration fanfare (only if main rain is enabled)
+    if (showMainRain) {
+      myConfetti({
+        particleCount: density === "high" ? 65 : 40,
+        spread: 110,
+        origin: { x: 0.5, y: 0.2 },
+        colors,
+        gravity: 0.6,
+        scalar: 1.15,
+        ticks: 300,
+      });
+    }
 
     let animationFrameId;
     let frame = 0;
@@ -153,7 +157,7 @@ export function SideConfettiCanvas({
           origin: { x: Math.random(), y: -0.05 },
           colors,
           gravity: Math.random() * 0.25 + 0.45,
-          scalar: Math.random() * 0.4 + 0.75,
+          scalar: Math.random() * 0.4 + 0.85,
           drift: (Math.random() - 0.5) * 0.6,
           ticks: 360,
           shapes: ["square", "circle"],
@@ -171,7 +175,7 @@ export function SideConfettiCanvas({
           origin: { x: 0, y: 0.62 },
           colors,
           gravity: 0.65,
-          scalar: Math.random() * 0.35 + 0.8,
+          scalar: Math.random() * 0.35 + 0.9,
           drift: 0.2,
           ticks: 240,
           shapes: ["square", "circle"],
@@ -186,7 +190,7 @@ export function SideConfettiCanvas({
           origin: { x: 1, y: 0.62 },
           colors,
           gravity: 0.65,
-          scalar: Math.random() * 0.35 + 0.8,
+          scalar: Math.random() * 0.35 + 0.9,
           drift: -0.2,
           ticks: 240,
           shapes: ["square", "circle"],
@@ -224,38 +228,32 @@ export const HeroAmbientConfetti = SideConfettiCanvas;
 // Side Cannons trigger helper
 export function triggerSideCannons() {
   const end = Date.now() + 3 * 1000;
-  const colors = [
-    "#F8DC6C",
-    "#FFFFFF",
-    "#F59E0B",
-    "#FFEAA7",
-    "#FD79A8",
-    "#FF7675",
-    "#00CEC9",
-    "#6C5CE7"
-  ];
+  const colors = VIBRANT_CELEBRATION_COLORS;
 
   const frame = () => {
     if (Date.now() > end) return;
     confetti({
-      particleCount: 4,
+      particleCount: 5,
       angle: 60,
       spread: 65,
       startVelocity: 60,
       origin: { x: 0, y: 0.6 },
       colors: colors,
+      scalar: 1.1,
       zIndex: 9999,
     });
     confetti({
-      particleCount: 4,
+      particleCount: 5,
       angle: 120,
       spread: 65,
       startVelocity: 60,
       origin: { x: 1, y: 0.6 },
       colors: colors,
+      scalar: 1.1,
       zIndex: 9999,
     });
     requestAnimationFrame(frame);
   };
   frame();
 }
+
