@@ -27,19 +27,25 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
     const experienceTitle = initialData?.title || initialData?.name || 'Custom Surprise Setup';
     const duration = initialData?.duration || 'Standard Session';
 
-    const message = `✨ *HIDDEN SURPRISE BOOKING REQUEST* ✨%0A%0A` +
-      `🎁 *Experience / Package:* ${encodeURIComponent(experienceTitle)}%0A` +
-      `⏱️ *Duration:* ${encodeURIComponent(duration)}%0A` +
-      (initialData?.addons && initialData.addons.length > 0 ? `✨ *Addons:* ${encodeURIComponent(initialData.addons.join(', '))}%0A` : '') +
-      (initialData?.discount ? `🏷️ *Perk Applied:* ${encodeURIComponent(initialData.discount)}%0A` : '') +
-      `%0A👤 *Booked By:* ${encodeURIComponent(formData.yourName)} (${formData.yourPhone})%0A` +
-      `❤️ *Surprise For:* ${encodeURIComponent(formData.recipientName)}%0A` +
-      `📅 *Date:* ${formData.date}%0A` +
-      `⏰ *Time Slot:* ${encodeURIComponent(formData.timeSlot)}%0A` +
-      `📍 *City / Venue:* ${encodeURIComponent(formData.city)} - ${encodeURIComponent(formData.venueAddress)}%0A` +
-      `%0A🔒 *Stealth Protocol:* Please coordinate discreetly with me and provide a personalized package quote!`;
+    const lines = [
+      '✨ *HIDDEN SURPRISE BOOKING REQUEST* ✨',
+      '',
+      `🎁 *Experience / Package:* ${experienceTitle}`,
+      `⏱️ *Duration:* ${duration}`,
+      ...(initialData?.addons && initialData.addons.length > 0 ? [`✨ *Addons:* ${initialData.addons.join(', ')}`] : []),
+      ...(initialData?.discount ? [`🏷️ *Perk Applied:* ${initialData.discount}`] : []),
+      '',
+      `👤 *Booked By:* ${formData.yourName} (${formData.yourPhone})`,
+      `❤️ *Surprise For:* ${formData.recipientName}`,
+      `📅 *Date:* ${formData.date}`,
+      `⏰ *Time Slot:* ${formData.timeSlot}`,
+      `📍 *City / Venue:* ${formData.city} - ${formData.venueAddress}`,
+      '',
+      '🔒 *Stealth Protocol:* Please coordinate discreetly with me and provide a personalized package quote!'
+    ];
 
-    const whatsappUrl = `https://wa.me/918870740190?text=${message}`;
+    const message = lines.join('\n');
+    const whatsappUrl = `https://wa.me/918870740190?text=${encodeURIComponent(message)}`;
 
     confetti({
       particleCount: 80,
