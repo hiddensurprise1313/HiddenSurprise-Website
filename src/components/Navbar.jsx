@@ -11,7 +11,7 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
-      setIsScrolled(window.scrollY > 30);
+      setIsScrolled(window.scrollY > 25);
 
       const builderSection = document.getElementById('builder');
       const packagesSection = document.getElementById('packages');
@@ -67,11 +67,11 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
     <header
       style={{
         position: 'fixed',
-        top: '14px',
+        top: '12px',
         left: 0,
         right: 0,
         zIndex: 100,
-        padding: '0 1.2rem',
+        padding: '0 1rem',
         pointerEvents: 'none'
       }}
     >
@@ -84,45 +84,24 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           pointerEvents: 'auto'
         }}
       >
-        {/* Left: Brand Logo & Name with Solid Black Background Capsule */}
+        {/* Left: Brand Logo Capsule (collapses to focused circle on mobile scroll) */}
         <a
           href="#"
           onClick={(e) => scrollToSection(e, 'home', 'home')}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.75rem',
-            textDecoration: 'none',
-            background: 'rgba(0, 0, 0, 0.85)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.18)',
-            borderRadius: '9999px',
-            padding: '5px 16px 5px 6px',
-            boxShadow: '0 10px 28px rgba(0, 0, 0, 0.55)',
-            transition: 'all 0.25s ease'
-          }}
-          className="nav-brand-capsule"
+          className={`nav-brand-capsule ${isScrolled ? 'is-scrolled' : ''}`}
+          aria-label="Hidden Surprise Home"
         >
           <img
             src={logoImg}
             alt="Hidden Surprise Logo"
-            style={{
-              width: '42px',
-              height: '42px',
-              borderRadius: '50%',
-              objectFit: 'cover',
-              border: '2px solid #F8DC6C',
-              boxShadow: '0 0 12px rgba(248, 220, 108, 0.45)',
-              display: 'block'
-            }}
+            className="nav-brand-logo"
           />
 
-          <div>
+          <div className="nav-brand-text">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
               <span
                 style={{
-                  fontSize: '1.25rem',
+                  fontSize: '1.2rem',
                   fontWeight: 900,
                   letterSpacing: '-0.03em',
                   color: '#FFFFFF',
@@ -148,21 +127,7 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
         </a>
 
         {/* Center: Elevare Floating Capsule Navigation with Dynamic Scroll Spy */}
-        <nav
-          style={{
-            display: 'none',
-            mdDisplay: 'flex',
-            alignItems: 'center',
-            background: 'rgba(0, 0, 0, 0.85)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.18)',
-            borderRadius: '9999px',
-            padding: '4px 6px',
-            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5)'
-          }}
-          className="desktop-nav-capsule"
-        >
+        <nav className="desktop-nav-capsule">
           <a
             href="#"
             onClick={(e) => scrollToSection(e, 'home', 'home')}
@@ -287,11 +252,11 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           </a>
         </nav>
 
-        {/* Right: Golden Pill CTA Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        {/* Right: Golden Pill CTA Button & Mobile Menu Toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <button
             onClick={() => onOpenBooking()}
-            className="btn-gold"
+            className="btn-gold nav-book-btn"
             id="nav-contact-btn"
           >
             Book Now
@@ -300,20 +265,10 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{
-              background: 'rgba(0, 0, 0, 0.85)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              borderRadius: '12px',
-              color: '#FFFFFF',
-              padding: '0.55rem',
-              display: 'flex',
-              alignItems: 'center'
-            }}
             className="mobile-nav-toggle"
             aria-label="Toggle Menu"
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
@@ -328,10 +283,10 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             WebkitBackdropFilter: 'blur(20px)',
             borderRadius: '20px',
             border: '1px solid rgba(255, 255, 255, 0.15)',
-            padding: '1.5rem',
+            padding: '1.4rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.1rem',
+            gap: '1rem',
             pointerEvents: 'auto',
             boxShadow: '0 20px 40px rgba(0, 0, 0, 0.7)'
           }}
@@ -416,6 +371,68 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
       )}
 
       <style>{`
+        .nav-brand-capsule {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.7rem;
+          text-decoration: none;
+          background: rgba(0, 0, 0, 0.88);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          border-radius: 9999px;
+          padding: 5px 16px 5px 6px;
+          box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          overflow: hidden;
+          flex-shrink: 0;
+        }
+
+        .nav-brand-logo {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid #F8DC6C;
+          box-shadow: 0 0 12px rgba(248, 220, 108, 0.45);
+          display: block;
+          flex-shrink: 0;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-brand-text {
+          transition: opacity 0.25s ease, max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          max-width: 220px;
+          opacity: 1;
+          white-space: nowrap;
+        }
+
+        .desktop-nav-capsule {
+          display: none;
+          align-items: center;
+          background: rgba(0, 0, 0, 0.85);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          border-radius: 9999px;
+          padding: 4px 6px;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-nav-toggle {
+          background: rgba(0, 0, 0, 0.85);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 12px;
+          color: '#FFFFFF';
+          padding: 0.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+
         @media (min-width: 980px) {
           .desktop-nav-capsule {
             display: flex !important;
@@ -423,7 +440,12 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           .mobile-nav-toggle {
             display: none !important;
           }
+          .nav-brand-capsule:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7);
+          }
         }
+
         @media (max-width: 979px) {
           .desktop-nav-capsule {
             display: none !important;
@@ -431,10 +453,37 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           .mobile-nav-toggle {
             display: flex !important;
           }
+          .nav-book-btn {
+            padding: 0.55rem 1rem !important;
+            font-size: 0.85rem !important;
+          }
         }
-        .nav-brand-capsule:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7);
+
+        /* Mobile Scroll State: Collapse Brand Capsule into a Focused Circle */
+        @media (max-width: 768px) {
+          .nav-brand-capsule.is-scrolled {
+            width: 44px;
+            height: 44px;
+            padding: 2px;
+            gap: 0;
+            border-radius: 50%;
+            justify-content: center;
+            border-color: rgba(248, 220, 108, 0.6);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(248, 220, 108, 0.4);
+          }
+
+          .nav-brand-capsule.is-scrolled .nav-brand-text {
+            max-width: 0;
+            opacity: 0;
+            display: none;
+          }
+
+          .nav-brand-capsule.is-scrolled .nav-brand-logo {
+            width: 38px;
+            height: 38px;
+            border-width: 1.5px;
+            box-shadow: none;
+          }
         }
       `}</style>
     </header>

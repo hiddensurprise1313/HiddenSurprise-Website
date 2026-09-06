@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import InfiniteSpiral from './InfiniteSpiral';
 import { DRIFT_WALL_PHOTOS } from '../data/driftWallPhotos';
-import { Sparkles, MoveVertical, ArrowUp, ArrowDown, Zap, MapPin, X, MessageCircle, RotateCcw } from 'lucide-react';
+import { Sparkles, MoveVertical, ArrowUp, ArrowDown, MapPin, X, MessageCircle } from 'lucide-react';
 
 export default function SpiralPhotoWall() {
   const [direction, setDirection] = useState('up');
@@ -9,17 +9,21 @@ export default function SpiralPhotoWall() {
   const [activeImage, setActiveImage] = useState(null);
   const [spiralRadius, setSpiralRadius] = useState(200);
   const [cardDim, setCardDim] = useState({ w: 160, h: 160 });
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const updateDimensions = () => {
       const w = window.innerWidth;
       if (w < 640) {
-        setSpiralRadius(130);
-        setCardDim({ w: 120, h: 120 });
+        setIsMobile(true);
+        setSpiralRadius(125);
+        setCardDim({ w: 115, h: 115 });
       } else if (w < 1024) {
-        setSpiralRadius(170);
+        setIsMobile(false);
+        setSpiralRadius(165);
         setCardDim({ w: 140, h: 140 });
       } else {
+        setIsMobile(false);
         setSpiralRadius(220);
         setCardDim({ w: 160, h: 160 });
       }
@@ -30,15 +34,19 @@ export default function SpiralPhotoWall() {
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
-  const spiralItems = DRIFT_WALL_PHOTOS.map((item) => ({
-    src: item.image,
-    alt: item.title,
-    title: item.title,
-    location: item.location,
-    tag: item.tag,
-    category: item.category,
-    id: item.id
-  }));
+  // Performance: Slice items on mobile for 60fps lag-free rendering
+  const spiralItems = useMemo(() => {
+    const all = DRIFT_WALL_PHOTOS.map((item) => ({
+      src: item.image,
+      alt: item.title,
+      title: item.title,
+      location: item.location,
+      tag: item.tag,
+      category: item.category,
+      id: item.id
+    }));
+    return isMobile ? all.slice(0, 20) : all.slice(0, 36);
+  }, [isMobile]);
 
   const handleWhatsAppBooking = (photo) => {
     const message = `Hi Hidden Surprise! I saw this setup in your 3D Spiral Photowall: "${photo.title}" (${photo.location}). I'd like to plan a similar celebration!`;
@@ -66,7 +74,7 @@ export default function SpiralPhotoWall() {
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         {/* Section Header */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '3rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '2.5rem' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
             <span className="mono-tag" style={{ background: '#F8DC6C', color: '#000000' }}>SPIRAL 04</span>
             <span style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#9CA3AF' }}>
@@ -77,8 +85,8 @@ export default function SpiralPhotoWall() {
           <h2 style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.6rem)', color: '#FFFFFF', marginBottom: '1rem', maxWidth: '800px' }}>
             The Infinite Spiral Photowall
           </h2>
-          <p style={{ color: '#9CA3AF', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '640px' }}>
-            Step inside our 3D helix vortex. Drag vertically, scroll, or let it auto-drift through 50+ real moments captured across India.
+          <p style={{ color: '#9CA3AF', fontSize: '1.05rem', lineHeight: 1.6, maxWidth: '640px' }}>
+            Step inside our 3D helix vortex. Drag vertically, scroll, or let it auto-drift through real moments captured across India.
           </p>
 
           {/* Interactive Control Pill */}
@@ -87,7 +95,7 @@ export default function SpiralPhotoWall() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.8rem',
-              marginTop: '1.5rem',
+              marginTop: '1.2rem',
               padding: '0.4rem 1.2rem',
               background: 'rgba(255, 255, 255, 0.06)',
               border: '1px solid rgba(255, 255, 255, 0.12)',
@@ -100,7 +108,7 @@ export default function SpiralPhotoWall() {
             {/* Drag Gesture Hint */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#F8DC6C', fontSize: '0.82rem', fontWeight: 600 }}>
               <MoveVertical size={15} />
-              <span>Drag or Scroll Helix</span>
+              <span>Drag / Scroll Helix</span>
             </div>
 
             <span style={{ color: 'rgba(255,255,255,0.2)' }}>|</span>
@@ -158,9 +166,9 @@ export default function SpiralPhotoWall() {
         <div
           style={{
             position: 'relative',
-            height: '640px',
+            height: '620px',
             width: '100%',
-            borderRadius: '32px',
+            borderRadius: '28px',
             background: 'radial-gradient(ellipse at center, #11131C 0%, #06070A 100%)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             boxShadow: '0 30px 80px rgba(0, 0, 0, 0.6)',
@@ -171,9 +179,9 @@ export default function SpiralPhotoWall() {
           <div
             style={{
               position: 'absolute',
-              top: '18px',
-              left: '20px',
-              right: '20px',
+              top: '16px',
+              left: '18px',
+              right: '18px',
               zIndex: 20,
               display: 'flex',
               justifyContent: 'space-between',
@@ -192,7 +200,7 @@ export default function SpiralPhotoWall() {
                 borderRadius: '100px',
                 border: '1px solid rgba(248, 220, 108, 0.3)',
                 color: '#FFFFFF',
-                fontSize: '0.8rem',
+                fontSize: '0.78rem',
                 fontWeight: 600
               }}
             >
@@ -213,7 +221,7 @@ export default function SpiralPhotoWall() {
                 fontFamily: 'monospace'
               }}
             >
-              57 REAL SETUPS
+              {DRIFT_WALL_PHOTOS.length} REAL SETUPS
             </div>
           </div>
 
@@ -228,11 +236,11 @@ export default function SpiralPhotoWall() {
             cardHeight={cardDim.h}
             verticalSpacing={65}
             perspective={1100}
-            cardsPerTurn={8}
+            cardsPerTurn={7}
             cardRadius={16}
-            centerScale={1.3}
+            centerScale={1.25}
             edgeFade={0.32}
-            edgeBlur={5}
+            edgeBlur={4}
             pauseOnHover={true}
             onCardClick={(item) => setActiveImage(item)}
           />

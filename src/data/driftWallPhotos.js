@@ -1,4 +1,4 @@
-// 57 Real Celebration Photos from Hidden Surprise
+// 57 Real Celebration Photos from Hidden Surprise (Optimized WebP)
 export const DRIFT_WALL_PHOTOS = Array.from({ length: 57 }, (_, i) => {
   const id = i + 1;
   const categories = [
@@ -41,7 +41,7 @@ export const DRIFT_WALL_PHOTOS = Array.from({ length: 57 }, (_, i) => {
 
   return {
     id,
-    image: `${cleanBase}photos/photo_${id}.jpg`,
+    image: `${cleanBase}photos/photo_${id}.webp`,
     title,
     category: meta.cat,
     tag: meta.tag,
