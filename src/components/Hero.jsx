@@ -21,37 +21,30 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
       }}
       className="hero-section"
     >
-      {/* Dreamy Celebration Blurred Bokeh Background */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: '-25px',
-          backgroundImage: 'url(https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1920&q=80)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'blur(38px) brightness(0.48) saturate(1.5)',
-          transform: 'scale(1.15)',
-          pointerEvents: 'none',
-          zIndex: 0
-        }}
-      />
-
-      {/* Warm Ambient Celebration Glow Spheres */}
+      {/* Dreamy Multi-Color Celebration Ambient Background */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(circle at 25% 30%, rgba(248, 220, 108, 0.25) 0%, transparent 45%), radial-gradient(circle at 80% 35%, rgba(253, 121, 168, 0.18) 0%, transparent 45%), radial-gradient(circle at 50% 85%, rgba(245, 158, 11, 0.2) 0%, transparent 55%), linear-gradient(180deg, rgba(7, 9, 14, 0.5) 0%, rgba(7, 9, 14, 0.2) 40%, rgba(7, 9, 14, 0.96) 100%)',
+          background: `
+            radial-gradient(circle at 20% 25%, rgba(255, 0, 127, 0.14) 0%, transparent 45%),
+            radial-gradient(circle at 80% 20%, rgba(0, 242, 254, 0.12) 0%, transparent 45%),
+            radial-gradient(circle at 50% 40%, rgba(248, 220, 108, 0.15) 0%, transparent 55%),
+            radial-gradient(circle at 15% 80%, rgba(121, 40, 202, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 85% 75%, rgba(255, 87, 34, 0.12) 0%, transparent 50%),
+            linear-gradient(180deg, rgba(7, 9, 14, 0.7) 0%, rgba(7, 9, 14, 0.3) 40%, rgba(7, 9, 14, 0.98) 100%),
+            #07090E
+          `,
           pointerEvents: 'none',
           zIndex: 1
         }}
       />
 
-      {/* Rich Multi-Color Rainbow Confetti at Medium Flutter Speed (Home Exclusive) */}
+      {/* Rich Multi-Color Rainbow Confetti at Medium Density & Speed (Home Exclusive) */}
       <HeroAmbientConfetti
         colors={HOME_RAINBOW_CELEBRATION_COLORS}
         speed="medium"
-        density="high"
+        density="medium"
         showSideCannons={true}
         showMainRain={true}
       />
