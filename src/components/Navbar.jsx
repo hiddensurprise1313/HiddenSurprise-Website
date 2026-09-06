@@ -93,14 +93,20 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             href="#"
             onClick={(e) => scrollToSection(e, 'home', 'home')}
             style={{
-              padding: '8px 16px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '6px 14px',
+              lineHeight: 1.2,
               borderRadius: '9999px',
-              fontSize: '0.88rem',
+              fontSize: '0.86rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'home' ? '#FFFFFF' : 'transparent',
               color: activeTab === 'home' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'home' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+              boxShadow: activeTab === 'home' ? '0 2px 8px rgba(0,0,0,0.25)' : 'none',
+              textDecoration: 'none',
+              cursor: 'pointer'
             }}
           >
             Home
@@ -110,14 +116,20 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             href="#services"
             onClick={(e) => scrollToSection(e, 'services', 'services')}
             style={{
-              padding: '8px 16px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '6px 14px',
+              lineHeight: 1.2,
               borderRadius: '9999px',
-              fontSize: '0.88rem',
+              fontSize: '0.86rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'services' ? '#FFFFFF' : 'transparent',
               color: activeTab === 'services' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'services' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+              boxShadow: activeTab === 'services' ? '0 2px 8px rgba(0,0,0,0.25)' : 'none',
+              textDecoration: 'none',
+              cursor: 'pointer'
             }}
           >
             Services
@@ -127,14 +139,20 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             href="#spiral-photowall"
             onClick={(e) => scrollToSection(e, 'spiral-photowall', 'spiral')}
             style={{
-              padding: '8px 16px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '6px 14px',
+              lineHeight: 1.2,
               borderRadius: '9999px',
-              fontSize: '0.88rem',
+              fontSize: '0.86rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'spiral' ? '#FFFFFF' : 'transparent',
               color: activeTab === 'spiral' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'spiral' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+              boxShadow: activeTab === 'spiral' ? '0 2px 8px rgba(0,0,0,0.25)' : 'none',
+              textDecoration: 'none',
+              cursor: 'pointer'
             }}
           >
             3D Photowall
@@ -147,15 +165,19 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
               onOpenUnboxing();
             }}
             style={{
-              padding: '8px 16px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '6px 14px',
+              lineHeight: 1.2,
               borderRadius: '9999px',
-              fontSize: '0.88rem',
+              fontSize: '0.86rem',
               fontWeight: 600,
               transition: 'all 0.25s ease',
               color: '#F8DC6C',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem'
+              gap: '0.35rem',
+              textDecoration: 'none',
+              cursor: 'pointer'
             }}
           >
             <Sparkles size={14} /> Mystery Box
@@ -165,14 +187,20 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             href="#reviews"
             onClick={(e) => scrollToSection(e, 'reviews', 'reviews')}
             style={{
-              padding: '8px 16px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '6px 14px',
+              lineHeight: 1.2,
               borderRadius: '9999px',
-              fontSize: '0.88rem',
+              fontSize: '0.86rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'reviews' ? '#FFFFFF' : 'transparent',
               color: activeTab === 'reviews' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'reviews' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+              boxShadow: activeTab === 'reviews' ? '0 2px 8px rgba(0,0,0,0.25)' : 'none',
+              textDecoration: 'none',
+              cursor: 'pointer'
             }}
           >
             Reviews
@@ -182,14 +210,20 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             href="#faq"
             onClick={(e) => scrollToSection(e, 'faq', 'faq')}
             style={{
-              padding: '8px 16px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '6px 14px',
+              lineHeight: 1.2,
               borderRadius: '9999px',
-              fontSize: '0.88rem',
+              fontSize: '0.86rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'faq' ? '#FFFFFF' : 'transparent',
               color: activeTab === 'faq' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
-              boxShadow: activeTab === 'faq' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+              boxShadow: activeTab === 'faq' ? '0 2px 8px rgba(0,0,0,0.25)' : 'none',
+              textDecoration: 'none',
+              cursor: 'pointer'
             }}
           >
             FAQ
@@ -388,12 +422,13 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
         .desktop-nav-capsule {
           display: none;
           align-items: center;
+          gap: 3px;
           background: rgba(0, 0, 0, 0.85);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border: 1px solid rgba(255, 255, 255, 0.18);
           border-radius: 9999px;
-          padding: 4px 6px;
+          padding: 4px;
           box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
         }
 
