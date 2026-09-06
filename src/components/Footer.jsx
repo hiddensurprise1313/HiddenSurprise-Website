@@ -122,9 +122,8 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
             <h4 style={{ fontSize: '1.05rem', marginBottom: '1.2rem', color: '#FFFFFF' }}>Navigation</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.7)' }}>
               <a href="#" className="footer-link">Home</a>
-              <a href="#builder" className="footer-link">Surprise Builder</a>
-              <a href="#packages" className="footer-link">Packages</a>
-              <a href="#spiral-photowall" className="footer-link">Spiral Photowall</a>
+              <a href="#services" className="footer-link">Curated Services</a>
+              <a href="#spiral-photowall" className="footer-link">3D Spiral Photowall</a>
               <a href="#reviews" className="footer-link">Client Reviews</a>
               <a href="#faq" className="footer-link">FAQ</a>
             </div>
@@ -134,11 +133,11 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
           <div>
             <h4 style={{ fontSize: '1.05rem', marginBottom: '1.2rem', color: '#FFFFFF' }}>Experiences</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-              <a href="#packages" className="footer-link">Midnight Starfall</a>
-              <a href="#packages" className="footer-link">Candlelight Cabanas</a>
-              <a href="#packages" className="footer-link">Secret Trunk Reveals</a>
-              <a href="#packages" className="footer-link">Royal "Marry Me" Extravaganza</a>
-              <a href="#packages" className="footer-link">Luxury Mystery Trunks</a>
+              <a href="#services" className="footer-link">Outdoor 12 O'Clock Surprises</a>
+              <a href="#services" className="footer-link">Car Trunk Reveals</a>
+              <a href="#services" className="footer-link">Candlelight Dinners</a>
+              <a href="#services" className="footer-link">Private Movie Time</a>
+              <a href="#services" className="footer-link">Indoor Celebrations</a>
             </div>
           </div>
 
@@ -189,6 +188,13 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
         @media (min-width: 900px) {
           .footer-cta-grid {
             grid-template-columns: 1.3fr 0.7fr !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .footer-cta-grid {
+            padding: 2rem 1.4rem !important;
+            border-radius: 20px !important;
+            margin-bottom: 3.5rem !important;
           }
         }
         .footer-link:hover {

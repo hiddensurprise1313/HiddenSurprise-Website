@@ -35,6 +35,7 @@ export default function Testimonials() {
 
         {/* Testimonials Grid */}
         <div
+          className="testimonials-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
@@ -46,7 +47,7 @@ export default function Testimonials() {
             return (
               <div
                 key={t.id}
-                className="framer-card"
+                className="framer-card testimonial-card"
                 style={{
                   padding: '2.5rem',
                   backgroundColor: '#FFFFFF',
@@ -90,6 +91,19 @@ export default function Testimonials() {
           })}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .testimonials-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.2rem !important;
+          }
+          .testimonial-card {
+            padding: 1.5rem !important;
+            border-radius: 20px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

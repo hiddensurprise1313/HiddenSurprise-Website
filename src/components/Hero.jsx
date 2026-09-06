@@ -3,7 +3,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import FoldText from './FoldText';
 import TextPressure from './TextPressure';
 import StarBorder from './StarBorder';
-import { HeroAmbientConfetti, triggerSideCannons } from './Confetti';
+import { HeroAmbientConfetti, triggerSideCannons, HOME_RAINBOW_CELEBRATION_COLORS } from './Confetti';
 
 export default function Hero({ onOpenBooking, onOpenUnboxing }) {
   return (
@@ -47,8 +47,14 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
         }}
       />
 
-      {/* Ambient Falling Confetti Particle Canvas */}
-      <HeroAmbientConfetti density="high" showSideCannons={true} showMainRain={true} />
+      {/* Rich Multi-Color Rainbow Confetti at Medium Flutter Speed (Home Exclusive) */}
+      <HeroAmbientConfetti
+        colors={HOME_RAINBOW_CELEBRATION_COLORS}
+        speed="medium"
+        density="high"
+        showSideCannons={true}
+        showMainRain={true}
+      />
 
       {/* Bottom Soft Edge Blur */}
       <div
@@ -105,7 +111,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
                 marginBottom: '0.6rem',
                 cursor: 'pointer'
               }}
-              onClick={triggerSideCannons}
+              onClick={() => triggerSideCannons(HOME_RAINBOW_CELEBRATION_COLORS)}
             >
               <Sparkles size={14} /> #1 Bespoke Surprise Planner
             </div>
@@ -113,7 +119,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
             <div
               style={{
                 position: 'relative',
-                height: 'clamp(95px, 15vw, 155px)',
+                height: 'clamp(90px, 15vw, 155px)',
                 width: '100%',
                 filter: 'drop-shadow(0 6px 30px rgba(0, 0, 0, 0.6))',
                 cursor: 'pointer'
@@ -129,7 +135,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
                 weight={true}
                 italic={true}
                 textColor="#F8DC6C"
-                minFontSize={48}
+                minFontSize={42}
               />
             </div>
           </div>
@@ -148,7 +154,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
                 hinge="top"
                 duration={0.65}
                 stagger={0.04}
-                fontSize="clamp(1.35rem, 2.5vw, 2.2rem)"
+                fontSize="clamp(1.25rem, 2.5vw, 2.2rem)"
                 fontWeight={700}
                 color="#FFFFFF"
               />
@@ -158,7 +164,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
               From midnight acoustic serenades and breathtaking candlelight cabanas to secret trunk reveals. We engineer pure emotional magic with 100% stealth guarantee.
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }} className="hero-cta-btns">
               <StarBorder
                 onClick={() => onOpenBooking()}
                 color="#F8DC6C"
@@ -169,16 +175,17 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
                 borderColor="rgba(248, 220, 108, 0.5)"
                 innerStyle={{ padding: '0.85rem 1.8rem', fontSize: '1rem', fontWeight: 800 }}
                 id="hero-join-now-btn"
+                className="hero-btn-star"
               >
                 Book Now <ArrowRight size={18} />
               </StarBorder>
 
               <button
                 onClick={() => {
-                  triggerSideCannons();
+                  triggerSideCannons(HOME_RAINBOW_CELEBRATION_COLORS);
                   onOpenUnboxing();
                 }}
-                className="btn-pill-light"
+                className="btn-pill-light hero-btn-unbox"
                 style={{ padding: '0.8rem 1.3rem' }}
               >
                 <Sparkles size={16} color="#F8DC6C" /> Unbox Perk
@@ -200,9 +207,21 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
             max-width: 100% !important;
           }
         }
+        @media (max-width: 640px) {
+          .hero-section {
+            padding-top: 5.5rem !important;
+            min-height: 92vh !important;
+          }
+          .hero-cta-btns {
+            width: 100% !important;
+          }
+          .hero-btn-star {
+            flex: 1 1 auto !important;
+          }
+        }
         @media (max-width: 480px) {
           .hero-section {
-            padding-top: 6rem !important;
+            padding-top: 5rem !important;
           }
         }
       `}</style>

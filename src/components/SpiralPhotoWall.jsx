@@ -184,9 +184,9 @@ export default function SpiralPhotoWall() {
 
         {/* 3D InfiniteSpiral Stage */}
         <div
+          className="spiral-stage"
           style={{
             position: 'relative',
-            height: '620px',
             width: '100%',
             borderRadius: '28px',
             background: 'radial-gradient(ellipse at center, #11131C 0%, #06070A 100%)',
@@ -197,6 +197,7 @@ export default function SpiralPhotoWall() {
         >
           {/* Top Floating Badge */}
           <div
+            className="spiral-top-badge"
             style={{
               position: 'absolute',
               top: '16px',
@@ -377,6 +378,31 @@ export default function SpiralPhotoWall() {
           </div>
         </div>
       )}
+
+      <style>{`
+        .spiral-stage {
+          height: 620px;
+        }
+        @media (max-width: 768px) {
+          .spiral-stage {
+            height: 520px !important;
+            border-radius: 20px !important;
+          }
+          .spiral-top-badge {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 0.4rem !important;
+            top: 12px !important;
+            left: 12px !important;
+            right: 12px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .spiral-stage {
+            height: 460px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

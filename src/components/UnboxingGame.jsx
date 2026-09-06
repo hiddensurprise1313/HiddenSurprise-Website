@@ -41,14 +41,15 @@ export default function UnboxingGame({ isOpen, onClose, onApplyDiscount, applied
   const handleUseDiscount = () => {
     onApplyDiscount(reward);
     onClose();
-    const builderEl = document.getElementById('builder');
-    if (builderEl) {
-      builderEl.scrollIntoView({ behavior: 'smooth' });
+    const servicesEl = document.getElementById('services');
+    if (servicesEl) {
+      servicesEl.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <div
+      className="unboxing-modal-overlay"
       style={{
         position: 'fixed',
         inset: 0,
@@ -63,6 +64,7 @@ export default function UnboxingGame({ isOpen, onClose, onApplyDiscount, applied
       onClick={onClose}
     >
       <div
+        className="unboxing-modal-card"
         style={{
           width: '100%',
           maxWidth: '520px',
@@ -118,65 +120,111 @@ export default function UnboxingGame({ isOpen, onClose, onApplyDiscount, applied
                 height: '140px',
                 borderRadius: '28px',
                 background: '#F8DC6C',
+                color: '#000000',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 40px rgba(248, 220, 108, 0.5)',
-                transition: 'all 0.3s ease'
+                boxShadow: '0 12px 35px rgba(248, 220, 108, 0.45)',
+                transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                transform: isOpening ? 'scale(1.1) rotate(6deg)' : 'scale(1)',
+                position: 'relative'
               }}
-              className={isOpening ? 'animate-pulse-subtle' : ''}
-              id="mystery-box-trigger"
+              className="hover-lift animate-pulse-subtle"
             >
-              <Gift size={68} color="#000000" />
+              <Gift size={64} />
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-10px',
+                  right: '-10px',
+                  background: '#000000',
+                  color: '#F8DC6C',
+                  padding: '0.3rem 0.6rem',
+                  borderRadius: '100px',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  border: '1px solid #F8DC6C'
+                }}
+              >
+                TAP ME!
+              </div>
             </div>
 
             <button
               onClick={handleOpenBox}
               disabled={isOpening}
               className="btn-gold"
-              style={{ width: '100%', padding: '0.9rem', fontSize: '1.05rem' }}
+              style={{ width: '100%', padding: '0.9rem', fontSize: '1rem' }}
+              id="unbox-tap-btn"
             >
-              {isOpening ? 'Opening Mystery Box...' : 'Tap to Open Box'}
+              {isOpening ? (
+                <>
+                  <Sparkles size={18} className="animate-spin" /> Unlocking Secret Perk...
+                </>
+              ) : (
+                <>
+                  <Gift size={18} /> Open My Mystery Perk
+                </>
+              )}
             </button>
           </div>
         ) : (
           <div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-              <span className="mono-tag" style={{ background: '#F8DC6C', color: '#000000' }}>PERK UNLOCKED</span>
+              <span className="mono-tag" style={{ background: '#22C55E', color: '#FFFFFF' }}>PERK UNLOCKED</span>
             </div>
 
-            <h3 style={{ fontSize: '2.4rem', fontWeight: 900, marginTop: '0.5rem', marginBottom: '0.4rem', color: '#F8DC6C' }}>
-              {reward.discount}
+            <div
+              style={{
+                width: '90px',
+                height: '90px',
+                borderRadius: '24px',
+                background: 'rgba(248, 220, 108, 0.15)',
+                color: '#F8DC6C',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 1.5rem',
+                border: '1px solid rgba(248, 220, 108, 0.3)'
+              }}
+            >
+              <Gift size={48} />
+            </div>
+
+            <h3 style={{ fontSize: '1.8rem', color: '#FFFFFF', marginBottom: '0.5rem' }}>
+              {reward?.name}
             </h3>
 
-            <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '1rem', marginBottom: '1.8rem' }}>
-              {reward.desc}
+            <p style={{ color: '#F8DC6C', fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.8rem' }}>
+              {reward?.discount}
+            </p>
+
+            <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.92rem', marginBottom: '1.8rem' }}>
+              {reward?.description}
             </p>
 
             {/* Promo Code Box */}
             <div
               style={{
                 background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px dashed #F8DC6C',
+                border: '1px dashed rgba(248, 220, 108, 0.4)',
                 borderRadius: '16px',
-                padding: '1.2rem',
+                padding: '1rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 marginBottom: '1.8rem'
               }}
             >
-              <div>
-                <div style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)', textAlign: 'left', fontFamily: 'var(--font-mono)' }}>PROMO CODE</div>
-                <div style={{ fontSize: '1.3rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '0.08em' }}>
-                  {reward.code}
-                </div>
-              </div>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.2rem', fontWeight: 800, letterSpacing: '0.1em', color: '#FFFFFF' }}>
+                {reward?.code}
+              </span>
 
               <button
                 onClick={handleCopyCode}
                 className="btn-gold"
                 style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}
+                id="copy-reward-code"
               >
                 {copied ? <Check size={16} /> : <Copy size={16} />}
                 {copied ? 'Applied!' : 'Apply Code'}
@@ -185,12 +233,12 @@ export default function UnboxingGame({ isOpen, onClose, onApplyDiscount, applied
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
               <button
-                onClick={handleUseDiscount}
+                onClick={onClose}
                 className="btn-gold"
                 style={{ width: '100%', padding: '0.9rem' }}
                 id="apply-reward-builder"
               >
-                Apply to Surprise Builder <ArrowRight size={18} />
+                Explore Curated Services <ArrowRight size={18} />
               </button>
 
               <button
@@ -204,6 +252,18 @@ export default function UnboxingGame({ isOpen, onClose, onApplyDiscount, applied
           </div>
         )}
       </div>
+
+      <style>{`
+        @media (max-width: 600px) {
+          .unboxing-modal-overlay {
+            padding: 0.75rem !important;
+          }
+          .unboxing-modal-card {
+            padding: 1.5rem 1.2rem !important;
+            border-radius: 20px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

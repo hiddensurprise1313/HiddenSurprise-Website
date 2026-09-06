@@ -55,6 +55,7 @@ export default function FAQ() {
               >
                 <button
                   onClick={() => toggleFAQ(idx)}
+                  className="faq-button"
                   style={{
                     width: '100%',
                     padding: '1.6rem 2rem',
@@ -85,6 +86,7 @@ export default function FAQ() {
 
                 {isOpen && (
                   <div
+                    className="faq-answer"
                     style={{
                       padding: '0 2rem 1.6rem',
                       paddingLeft: '3.6rem',
@@ -102,6 +104,19 @@ export default function FAQ() {
           })}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .faq-button {
+            padding: 1.2rem 1.2rem !important;
+            font-size: 1rem !important;
+          }
+          .faq-answer {
+            padding: 0 1.2rem 1.2rem !important;
+            font-size: 0.92rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

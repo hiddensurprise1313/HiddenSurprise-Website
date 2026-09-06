@@ -325,6 +325,17 @@ export default function CuratedServices({ onOpenBooking }) {
         .curated-service-card:hover .service-card-img {
           transform: scale(1.06);
         }
+
+        @media (max-width: 680px) {
+          .services-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem !important;
+          }
+          .services-filter-pills {
+            padding-bottom: 0.6rem !important;
+            margin-bottom: 2rem !important;
+          }
+        }
       `}</style>
     </section>
   );
