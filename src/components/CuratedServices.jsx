@@ -310,53 +310,6 @@ export default function CuratedServices({ onOpenBooking }) {
             );
           })}
         </div>
-
-        {/* Bottom Banner: Link to Full Experience (/old) */}
-        <div
-          style={{
-            marginTop: '4.5rem',
-            background: 'linear-gradient(135deg, #0A0D14 0%, #151A26 100%)',
-            borderRadius: '28px',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            padding: '3rem 2.5rem',
-            color: '#FFFFFF',
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '1.8rem',
-            alignItems: 'center'
-          }}
-          className="full-site-callout-grid"
-        >
-          <div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#F8DC6C', fontWeight: 800, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
-              <Sparkles size={16} /> EXPLORE THE COMPLETE EXPERIENCE
-            </div>
-            <h3 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.6rem' }}>
-              Want Custom Decor, 3D Photowall & Mystery Box Games?
-            </h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.75)', fontSize: '1rem', maxWidth: '680px', lineHeight: 1.6 }}>
-              Experience the full interactive website featuring our 4-Step Surprise Customizer, 3D Infinite Spiral Photo Wall (57 celebration moments), and discount mystery boxes.
-            </p>
-          </div>
-
-          <div style={{ justifySelf: 'start' }}>
-            <a
-              href="#/old"
-              className="btn-gold"
-              style={{
-                padding: '0.95rem 2rem',
-                fontSize: '1rem',
-                fontWeight: 800,
-                borderRadius: '16px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}
-            >
-              Explore Full Site (/old) <ArrowRight size={18} />
-            </a>
-          </div>
-        </div>
       </div>
 
       <style>{`
@@ -367,12 +320,6 @@ export default function CuratedServices({ onOpenBooking }) {
 
         .curated-service-card:hover .service-card-img {
           transform: scale(1.06);
-        }
-
-        @media (min-width: 900px) {
-          .full-site-callout-grid {
-            grid-template-columns: 1fr auto !important;
-          }
         }
       `}</style>
     </section>

@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
-import CuratedHome from './components/CuratedHome';
-import OldExperience from './components/OldExperience';
+import Hero from './components/Hero';
+import StatsBanner from './components/StatsBanner';
+import CuratedServices from './components/CuratedServices';
+import SpiralPhotoWall from './components/SpiralPhotoWall';
+import Testimonials from './components/Testimonials';
+import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import UnboxingGame from './components/UnboxingGame';
 import BookingModal from './components/BookingModal';
@@ -14,27 +18,6 @@ function App() {
   const [unboxingModalOpen, setUnboxingModalOpen] = useState(false);
   const [appliedDiscount, setAppliedDiscount] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
-  const [isOldRoute, setIsOldRoute] = useState(() => {
-    const path = window.location.pathname.toLowerCase();
-    const hash = window.location.hash.toLowerCase();
-    return path.endsWith('/old') || path.includes('/old/') || hash.includes('old');
-  });
-
-  useEffect(() => {
-    const handleRouteChange = () => {
-      const path = window.location.pathname.toLowerCase();
-      const hash = window.location.hash.toLowerCase();
-      const isOld = path.endsWith('/old') || path.includes('/old/') || hash.includes('old');
-      setIsOldRoute(isOld);
-    };
-
-    window.addEventListener('popstate', handleRouteChange);
-    window.addEventListener('hashchange', handleRouteChange);
-    return () => {
-      window.removeEventListener('popstate', handleRouteChange);
-      window.removeEventListener('hashchange', handleRouteChange);
-    };
-  }, []);
 
   const handleOpenBooking = (data = null) => {
     setSelectedBookingData(data);
@@ -55,22 +38,33 @@ function App() {
       <Navbar
         onOpenBooking={() => handleOpenBooking()}
         onOpenUnboxing={() => setUnboxingModalOpen(true)}
-        isOldRoute={isOldRoute}
       />
 
-      {/* Render Curated Services Home (/) or Full Classic Experience (/old) */}
-      {isOldRoute ? (
-        <OldExperience
-          onOpenBooking={handleOpenBooking}
-          onOpenUnboxing={() => setUnboxingModalOpen(true)}
-          appliedDiscount={appliedDiscount}
-        />
-      ) : (
-        <CuratedHome
+      {/* Main Content */}
+      <main>
+        {/* Fullscreen 100vh Hero with TextPressure */}
+        <Hero
           onOpenBooking={handleOpenBooking}
           onOpenUnboxing={() => setUnboxingModalOpen(true)}
         />
-      )}
+
+        {/* Elevare Style Stats & Statement Callout */}
+        <StatsBanner />
+
+        {/* Curated Surprise Services (Outdoor, Special, Indoor) */}
+        <CuratedServices
+          onOpenBooking={handleOpenBooking}
+        />
+
+        {/* 3D Infinite Spiral Gallery (Celebration Moments) */}
+        <SpiralPhotoWall />
+
+        {/* Loved by 48+ Happy Hearts Testimonials */}
+        <Testimonials />
+
+        {/* Frequently Asked Questions */}
+        <FAQ />
+      </main>
 
       {/* Footer with Top CTA Card */}
       <Footer
@@ -101,4 +95,5 @@ function App() {
 }
 
 export default App;
+
 
