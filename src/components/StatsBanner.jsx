@@ -1,4 +1,5 @@
 import React from 'react';
+import CountUp from './CountUp';
 
 export default function StatsBanner() {
   return (
@@ -15,7 +16,9 @@ export default function StatsBanner() {
         >
           {/* Left: Giant Stat Number */}
           <div>
-            <div className="stat-number">48+</div>
+            <div className="stat-number">
+              <CountUp from={0} to={48} duration={3.5} />+
+            </div>
             <p
               style={{
                 fontSize: '1.25rem',
