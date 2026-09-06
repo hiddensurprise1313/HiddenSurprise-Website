@@ -1,20 +1,11 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import FoldText from './FoldText';
 import TextPressure from './TextPressure';
 import StarBorder from './StarBorder';
+import { HeroAmbientConfetti, triggerSideCannons } from './Confetti';
 
 export default function Hero({ onOpenBooking, onOpenUnboxing }) {
-  const triggerConfetti = () => {
-    confetti({
-      particleCount: 90,
-      spread: 80,
-      origin: { y: 0.6 },
-      colors: ['#F8DC6C', '#FFFFFF', '#F59E0B', '#000000']
-    });
-  };
-
   return (
     <section
       style={{
@@ -25,19 +16,22 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
-        backgroundImage: 'url(https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1920&q=85)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        background: 'radial-gradient(circle at 50% 25%, rgba(248, 220, 108, 0.09) 0%, transparent 55%), radial-gradient(circle at 15% 80%, rgba(245, 158, 11, 0.06) 0%, transparent 45%), #07090E',
         paddingTop: '7rem'
       }}
       className="hero-section"
     >
-      {/* Dark & Cinematic Gradient Overlays */}
+      {/* Ambient Falling Confetti Particle Canvas */}
+      <HeroAmbientConfetti />
+
+      {/* Subtle Glow Overlays */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 35%, rgba(0, 0, 0, 0.88) 100%)'
+          background: 'linear-gradient(180deg, rgba(7, 9, 14, 0.2) 0%, transparent 40%, rgba(7, 9, 14, 0.95) 100%)',
+          pointerEvents: 'none',
+          zIndex: 1
         }}
       />
 
@@ -47,12 +41,13 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
           bottom: 0,
           left: 0,
           right: 0,
-          height: '380px',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
+          height: '240px',
+          backdropFilter: 'blur(4px)',
+          WebkitBackdropFilter: 'blur(4px)',
           maskImage: 'linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)',
           WebkitMaskImage: 'linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)',
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          zIndex: 1
         }}
       />
 
@@ -94,7 +89,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
                 marginBottom: '0.6rem',
                 cursor: 'pointer'
               }}
-              onClick={triggerConfetti}
+              onClick={triggerSideCannons}
             >
               <Sparkles size={14} /> #1 Bespoke Surprise Planner
             </div>
@@ -163,7 +158,10 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
               </StarBorder>
 
               <button
-                onClick={onOpenUnboxing}
+                onClick={() => {
+                  triggerSideCannons();
+                  onOpenUnboxing();
+                }}
                 className="btn-pill-light"
                 style={{ padding: '0.8rem 1.3rem' }}
               >
