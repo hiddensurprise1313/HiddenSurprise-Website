@@ -96,8 +96,8 @@ ConfettiComponent.displayName = "Confetti";
 
 export const Confetti = ConfettiComponent;
 
-// Rich continuous celebration confetti rain & floating particle field for Hero
-export function HeroAmbientConfetti() {
+// Rich continuous celebration confetti rain & floating side fountains for Home and 3D Photowall
+export function SideConfettiCanvas({ density = "normal" }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -108,7 +108,7 @@ export function HeroAmbientConfetti() {
       useWorker: true,
     });
 
-    // Rich luxury party colors: Gold, Champagne, Rose Gold, Warm Amber, Pearl White, Coral
+    // Rich luxury party colors: Gold, Champagne, Rose Gold, Warm Amber, Pearl White, Coral, Violet
     const colors = [
       "#F8DC6C",
       "#FFFFFF",
@@ -117,13 +117,13 @@ export function HeroAmbientConfetti() {
       "#FD79A8",
       "#FF7675",
       "#FDCB6E",
-      "#E17055",
-      "#E84393"
+      "#A786FF",
+      "#00CEC9"
     ];
 
     // Grand opening celebration burst
     myConfetti({
-      particleCount: 80,
+      particleCount: density === "high" ? 80 : 50,
       spread: 120,
       origin: { x: 0.5, y: 0.25 },
       colors,
@@ -139,13 +139,13 @@ export function HeroAmbientConfetti() {
     const loop = () => {
       const now = Date.now();
 
-      // Continuous gentle falling confetti shower from top every 200ms
+      // Continuous gentle falling confetti shower from top every 220ms
       if (now - lastRainTime > 220) {
         lastRainTime = now;
 
         // Top rain at random horizontal positions
         myConfetti({
-          particleCount: 4,
+          particleCount: density === "high" ? 4 : 3,
           angle: Math.random() * 30 + 75, // 75 to 105 degrees downwards
           spread: 50,
           origin: { x: Math.random(), y: -0.05 },
@@ -157,17 +157,17 @@ export function HeroAmbientConfetti() {
         });
       }
 
-      // Side ambient bursts every 1.2 seconds for dynamic energy
+      // Side ambient bursts every 1.2 seconds for dynamic celebratory energy
       if (now - lastCannonTime > 1200) {
         lastCannonTime = now;
 
         // Left side fountain
         myConfetti({
-          particleCount: 6,
+          particleCount: density === "high" ? 7 : 5,
           angle: 55,
           spread: 45,
           startVelocity: 35,
-          origin: { x: 0, y: Math.random() * 0.3 + 0.3 },
+          origin: { x: 0, y: Math.random() * 0.3 + 0.35 },
           colors,
           gravity: 0.55,
           scalar: 0.9,
@@ -176,11 +176,11 @@ export function HeroAmbientConfetti() {
 
         // Right side fountain
         myConfetti({
-          particleCount: 6,
+          particleCount: density === "high" ? 7 : 5,
           angle: 125,
           spread: 45,
           startVelocity: 35,
-          origin: { x: 1, y: Math.random() * 0.3 + 0.3 },
+          origin: { x: 1, y: Math.random() * 0.3 + 0.35 },
           colors,
           gravity: 0.55,
           scalar: 0.9,
@@ -197,7 +197,7 @@ export function HeroAmbientConfetti() {
       cancelAnimationFrame(animationFrameId);
       myConfetti.reset();
     };
-  }, []);
+  }, [density]);
 
   return (
     <canvas
@@ -213,6 +213,8 @@ export function HeroAmbientConfetti() {
     />
   );
 }
+
+export const HeroAmbientConfetti = SideConfettiCanvas;
 
 // Side Cannons trigger helper
 export function triggerSideCannons() {

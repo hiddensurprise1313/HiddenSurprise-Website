@@ -3,6 +3,7 @@ import InfiniteSpiral from './InfiniteSpiral';
 import { DRIFT_WALL_PHOTOS } from '../data/driftWallPhotos';
 import { Sparkles, MoveVertical, ArrowUp, ArrowDown, MapPin, X, MessageCircle } from 'lucide-react';
 import FoldText from './FoldText';
+import { SideConfettiCanvas, triggerSideCannons } from './Confetti';
 
 export default function SpiralPhotoWall() {
   const [direction, setDirection] = useState('up');
@@ -50,6 +51,7 @@ export default function SpiralPhotoWall() {
   }, [isMobile]);
 
   const handleWhatsAppBooking = (photo) => {
+    triggerSideCannons();
     const message = `Hi Hidden Surprise! I saw this setup in your 3D Spiral Photowall: "${photo.title}" (${photo.location}). I'd like to plan a similar celebration!`;
     const url = `https://wa.me/919133143232?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
@@ -57,6 +59,9 @@ export default function SpiralPhotoWall() {
 
   return (
     <section id="spiral-photowall" className="section-padding" style={{ backgroundColor: '#07080D', color: '#FFFFFF', position: 'relative', overflow: 'hidden' }}>
+      {/* Ambient Side Confetti Particle Canvas for 3D Photowall */}
+      <SideConfettiCanvas />
+
       {/* Background Ambient Glows */}
       <div
         style={{
@@ -76,7 +81,11 @@ export default function SpiralPhotoWall() {
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         {/* Section Header */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '2.5rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+          <div
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', cursor: 'pointer' }}
+            onClick={triggerSideCannons}
+            title="Click to celebrate!"
+          >
             <span className="mono-tag" style={{ background: '#F8DC6C', color: '#000000' }}>SPIRAL 03</span>
             <span style={{ fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#9CA3AF' }}>
               3D Vortex Experience
@@ -253,7 +262,10 @@ export default function SpiralPhotoWall() {
             edgeFade={0.32}
             edgeBlur={4}
             pauseOnHover={true}
-            onCardClick={(item) => setActiveImage(item)}
+            onCardClick={(item) => {
+              setActiveImage(item);
+              triggerSideCannons();
+            }}
           />
         </div>
       </div>
