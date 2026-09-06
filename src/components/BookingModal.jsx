@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, Send, CheckCircle2 } from 'lucide-react';
+import { X, Send, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function BookingModal({ isOpen, onClose, initialData, onBookingSuccess }) {
@@ -12,8 +12,7 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
     date: '',
     timeSlot: '11:59 PM (Midnight Surprise)',
     city: 'Mumbai',
-    venueAddress: '',
-    specialNote: initialData?.addons ? `Addons: ${initialData.addons.join(', ')}` : ''
+    venueAddress: ''
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -31,13 +30,13 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
     const message = `✨ *HIDDEN SURPRISE BOOKING REQUEST* ✨%0A%0A` +
       `🎁 *Experience / Package:* ${encodeURIComponent(experienceTitle)}%0A` +
       `⏱️ *Duration:* ${encodeURIComponent(duration)}%0A` +
+      (initialData?.addons && initialData.addons.length > 0 ? `✨ *Addons:* ${encodeURIComponent(initialData.addons.join(', '))}%0A` : '') +
       (initialData?.discount ? `🏷️ *Perk Applied:* ${encodeURIComponent(initialData.discount)}%0A` : '') +
       `%0A👤 *Booked By:* ${encodeURIComponent(formData.yourName)} (${formData.yourPhone})%0A` +
       `❤️ *Surprise For:* ${encodeURIComponent(formData.recipientName)}%0A` +
       `📅 *Date:* ${formData.date}%0A` +
       `⏰ *Time Slot:* ${encodeURIComponent(formData.timeSlot)}%0A` +
       `📍 *City / Venue:* ${encodeURIComponent(formData.city)} - ${encodeURIComponent(formData.venueAddress)}%0A` +
-      (formData.specialNote ? `📝 *Custom Instructions:* ${encodeURIComponent(formData.specialNote)}%0A` : '') +
       `%0A🔒 *Stealth Protocol:* Please coordinate discreetly with me and provide a personalized package quote!`;
 
     const whatsappUrl = `https://wa.me/919133143232?text=${message}`;
@@ -243,19 +242,6 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                   value={formData.venueAddress}
                   onChange={handleChange}
                   className="modal-input"
-                />
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>Custom Note / Secret Hints (Optional)</label>
-                <textarea
-                  name="specialNote"
-                  rows={2}
-                  placeholder="e.g. She loves white lilies and fairy lights. Keep car hidden behind the gate!"
-                  value={formData.specialNote}
-                  onChange={handleChange}
-                  className="modal-input"
-                  style={{ resize: 'none' }}
                 />
               </div>
 
