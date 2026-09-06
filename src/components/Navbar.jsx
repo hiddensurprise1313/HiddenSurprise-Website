@@ -16,10 +16,13 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
       const builderSection = document.getElementById('builder');
       const packagesSection = document.getElementById('packages');
       const gallerySection = document.getElementById('gallery');
+      const spiralSection = document.getElementById('spiral-photowall');
       const reviewsSection = document.getElementById('reviews');
 
       if (reviewsSection && scrollPosition >= reviewsSection.offsetTop) {
         setActiveTab('reviews');
+      } else if (spiralSection && scrollPosition >= spiralSection.offsetTop) {
+        setActiveTab('spiral');
       } else if (gallerySection && scrollPosition >= gallerySection.offsetTop) {
         setActiveTab('gallery');
       } else if (packagesSection && scrollPosition >= packagesSection.offsetTop) {
@@ -164,9 +167,9 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             href="#"
             onClick={(e) => scrollToSection(e, 'home', 'home')}
             style={{
-              padding: '8px 18px',
+              padding: '8px 16px',
               borderRadius: '9999px',
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'home' ? '#FFFFFF' : 'transparent',
@@ -181,9 +184,9 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             href="#builder"
             onClick={(e) => scrollToSection(e, 'builder', 'builder')}
             style={{
-              padding: '8px 18px',
+              padding: '8px 16px',
               borderRadius: '9999px',
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'builder' ? '#FFFFFF' : 'transparent',
@@ -191,16 +194,16 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
               boxShadow: activeTab === 'builder' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
             }}
           >
-            Surprise Builder
+            Builder
           </a>
 
           <a
             href="#packages"
             onClick={(e) => scrollToSection(e, 'packages', 'packages')}
             style={{
-              padding: '8px 18px',
+              padding: '8px 16px',
               borderRadius: '9999px',
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'packages' ? '#FFFFFF' : 'transparent',
@@ -218,9 +221,9 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
               onOpenUnboxing();
             }}
             style={{
-              padding: '8px 18px',
+              padding: '8px 16px',
               borderRadius: '9999px',
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               fontWeight: 600,
               transition: 'all 0.25s ease',
               color: '#F8DC6C',
@@ -236,9 +239,9 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
             href="#gallery"
             onClick={(e) => scrollToSection(e, 'gallery', 'gallery')}
             style={{
-              padding: '8px 18px',
+              padding: '8px 16px',
               borderRadius: '9999px',
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'gallery' ? '#FFFFFF' : 'transparent',
@@ -246,16 +249,33 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
               boxShadow: activeTab === 'gallery' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
             }}
           >
-            Gallery
+            Drift Wall
+          </a>
+
+          <a
+            href="#spiral-photowall"
+            onClick={(e) => scrollToSection(e, 'spiral-photowall', 'spiral')}
+            style={{
+              padding: '8px 16px',
+              borderRadius: '9999px',
+              fontSize: '0.88rem',
+              fontWeight: 600,
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+              background: activeTab === 'spiral' ? '#FFFFFF' : 'transparent',
+              color: activeTab === 'spiral' ? '#000000' : 'rgba(255, 255, 255, 0.85)',
+              boxShadow: activeTab === 'spiral' ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'
+            }}
+          >
+            Spiral Wall
           </a>
 
           <a
             href="#reviews"
             onClick={(e) => scrollToSection(e, 'reviews', 'reviews')}
             style={{
-              padding: '8px 18px',
+              padding: '8px 16px',
               borderRadius: '9999px',
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               fontWeight: 600,
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               background: activeTab === 'reviews' ? '#FFFFFF' : 'transparent',
@@ -368,7 +388,18 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
               color: activeTab === 'gallery' ? '#F8DC6C' : '#FFFFFF'
             }}
           >
-            Moments & Gallery
+            Drift Wall Moments
+          </a>
+          <a
+            href="#spiral-photowall"
+            onClick={(e) => scrollToSection(e, 'spiral-photowall', 'spiral')}
+            style={{
+              fontSize: '1.05rem',
+              fontWeight: 600,
+              color: activeTab === 'spiral' ? '#F8DC6C' : '#FFFFFF'
+            }}
+          >
+            3D Spiral Photowall
           </a>
           <a
             href="#reviews"
@@ -385,12 +416,20 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
       )}
 
       <style>{`
-        @media (min-width: 868px) {
+        @media (min-width: 980px) {
           .desktop-nav-capsule {
             display: flex !important;
           }
           .mobile-nav-toggle {
             display: none !important;
+          }
+        }
+        @media (max-width: 979px) {
+          .desktop-nav-capsule {
+            display: none !important;
+          }
+          .mobile-nav-toggle {
+            display: flex !important;
           }
         }
         .nav-brand-capsule:hover {

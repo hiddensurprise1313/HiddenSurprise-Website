@@ -5,6 +5,7 @@ import StatsBanner from './components/StatsBanner';
 import SurpriseBuilder from './components/SurpriseBuilder';
 import Packages from './components/Packages';
 import Gallery from './components/Gallery';
+import SpiralPhotoWall from './components/SpiralPhotoWall';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
@@ -63,8 +64,11 @@ function App() {
           onOpenBooking={handleOpenBooking}
         />
 
-        {/* Gallery / Moments Grid */}
+        {/* Moments & Gallery with React Bits DriftWall */}
         <Gallery />
+
+        {/* 3D Infinite Spiral Photowall Section */}
+        <SpiralPhotoWall />
 
         {/* Client Stories & Testimonials */}
         <Testimonials />
