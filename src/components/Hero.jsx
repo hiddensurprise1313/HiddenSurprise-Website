@@ -43,6 +43,7 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
       {/* Rich Multi-Color Rainbow Confetti at Medium Density & Speed (Home Exclusive) */}
       <HeroAmbientConfetti
         colors={HOME_RAINBOW_CELEBRATION_COLORS}
+        sideColors={HOME_RAINBOW_CELEBRATION_COLORS}
         speed="medium"
         density="medium"
         showSideCannons={true}

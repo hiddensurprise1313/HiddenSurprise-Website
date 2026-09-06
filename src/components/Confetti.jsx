@@ -138,9 +138,11 @@ export function SideConfettiCanvas({
   showMainRain = true,
   density = "medium",
   speed = "medium",
-  colors = VIBRANT_CELEBRATION_COLORS
+  colors = VIBRANT_CELEBRATION_COLORS,
+  sideColors = null
 }) {
   const canvasRef = useRef(null);
+  const activeSideColors = sideColors || colors;
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -175,8 +177,8 @@ export function SideConfettiCanvas({
     // Density timing configuration
     const mainInterval = density === "high" ? 2 : density === "medium" ? 4 : 7;
     const mainParticleCount = density === "high" ? 2 : 1;
-    const sideInterval = density === "high" ? 3 : density === "medium" ? 6 : 9;
-    const sideParticleCount = density === "high" ? 2 : 1;
+    const sideInterval = density === "high" ? 3 : density === "medium" ? 5 : 8;
+    const sideParticleCount = density === "high" ? 3 : density === "medium" ? 2 : 1;
 
     const loop = () => {
       frame++;
@@ -198,20 +200,20 @@ export function SideConfettiCanvas({
         });
       }
 
-      // 2. Continuous Celebratory Side Cannons from Left & Right
+      // 2. Continuous Celebratory Colorful Side Cannons from Left & Right
       if (showSideCannons && frame % sideInterval === 0) {
         // Left Side Cannon (angled towards center-right)
         myConfetti({
           particleCount: sideParticleCount,
           angle: 60,
-          spread: 55,
+          spread: 60,
           startVelocity: Math.random() * 10 + startVelCannon,
           origin: { x: 0, y: 0.62 },
-          colors,
-          gravity: gravityVal + 0.1,
-          scalar: Math.random() * 0.35 + 0.9,
+          colors: activeSideColors,
+          gravity: gravityVal + 0.08,
+          scalar: Math.random() * 0.35 + 0.95,
           drift: 0.18,
-          ticks: 260,
+          ticks: 280,
           shapes: ["square", "circle"],
         });
 
@@ -219,14 +221,14 @@ export function SideConfettiCanvas({
         myConfetti({
           particleCount: sideParticleCount,
           angle: 120,
-          spread: 55,
+          spread: 60,
           startVelocity: Math.random() * 10 + startVelCannon,
           origin: { x: 1, y: 0.62 },
-          colors,
-          gravity: gravityVal + 0.1,
-          scalar: Math.random() * 0.35 + 0.9,
+          colors: activeSideColors,
+          gravity: gravityVal + 0.08,
+          scalar: Math.random() * 0.35 + 0.95,
           drift: -0.18,
-          ticks: 260,
+          ticks: 280,
           shapes: ["square", "circle"],
         });
       }
@@ -240,7 +242,7 @@ export function SideConfettiCanvas({
       cancelAnimationFrame(animationFrameId);
       myConfetti.reset();
     };
-  }, [showSideCannons, showMainRain, density, speed, colors]);
+  }, [showSideCannons, showMainRain, density, speed, colors, activeSideColors]);
 
   return (
     <canvas
