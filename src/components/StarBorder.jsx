@@ -26,19 +26,19 @@ const StarBorder = ({
       <div
         className="border-gradient-bottom"
         style={{
-          background: `radial-gradient(circle, ${color}, transparent 12%)`,
+          background: `radial-gradient(circle, ${color}, transparent 14%)`,
           animationDuration: speed
         }}
       />
       <div
         className="border-gradient-top"
         style={{
-          background: `radial-gradient(circle, ${color}, transparent 12%)`,
+          background: `radial-gradient(circle, ${color}, transparent 14%)`,
           animationDuration: speed
         }}
       />
       <div
-        className="inner-content"
+        className="inner-content star-border-inner"
         style={{
           background: backgroundColor,
           color: textColor,
