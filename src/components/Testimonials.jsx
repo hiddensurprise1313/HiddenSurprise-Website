@@ -113,27 +113,28 @@ export default function Testimonials() {
         style={{
           width: '390px',
           minWidth: '390px',
-          height: isExpanded ? 'auto' : '275px',
-          minHeight: '275px',
+          minHeight: '295px',
           backgroundColor: isExpanded ? '#FFFDF5' : '#FFFFFF',
           borderRadius: '24px',
-          padding: '1.75rem 2rem',
+          padding: '1.75rem 1.85rem 1.6rem 1.85rem',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           border: isExpanded ? '2px solid #F8DC6C' : '1.5px solid #E5E7EB',
           boxShadow: isExpanded
-            ? '0 30px 60px -12px rgba(248, 220, 108, 0.38), 0 18px 36px -8px rgba(0, 0, 0, 0.15)'
+            ? '0 28px 56px -12px rgba(248, 220, 108, 0.38), 0 16px 32px -8px rgba(0, 0, 0, 0.12)'
             : '0 4px 20px rgba(0, 0, 0, 0.03)',
           position: 'relative',
           cursor: 'pointer',
-          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-          transform: isExpanded ? 'translateY(-10px) scale(1.03)' : 'none',
-          zIndex: isExpanded ? 50 : 1
+          transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease, background-color 0.3s ease',
+          transform: isExpanded ? 'translateY(-12px) scale(1.03)' : 'translateY(0) scale(1)',
+          zIndex: isExpanded ? 50 : 1,
+          boxSizing: 'border-box'
         }}
       >
-        {/* Top Header info */}
-        <div>
+        {/* Top Header & Quote info */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          {/* Header info */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
               <span
@@ -172,52 +173,73 @@ export default function Testimonials() {
             {renderRatingStars(t.rating, 13, isExpanded)}
           </div>
 
-          {/* Quote Icon & Text */}
-          <div style={{ position: 'relative' }}>
+          {/* Quote Icon & Fluid Expanding Text */}
+          <div style={{ position: 'relative', marginTop: '0.2rem' }}>
             <Quote
               size={22}
               style={{
                 color: isExpanded ? '#F8DC6C' : '#E5E7EB',
-                marginBottom: '0.3rem',
-                transition: 'all 0.3s ease',
-                transform: isExpanded ? 'rotate(-6deg) scale(1.1)' : 'none'
+                marginBottom: '0.35rem',
+                transition: 'all 0.4s ease',
+                transform: isExpanded ? 'rotate(-6deg) scale(1.12)' : 'none'
               }}
             />
-            <p
-              className="review-comment-text"
+            {/* Smooth Expanding Text Area */}
+            <div
+              className="review-text-container"
               style={{
-                fontSize: '0.96rem',
-                color: isExpanded ? '#000000' : '#374151',
-                lineHeight: 1.6,
-                fontWeight: isExpanded ? 500 : 450,
-                letterSpacing: '-0.01em',
-                display: isExpanded ? 'block' : '-webkit-box',
-                WebkitLineClamp: isExpanded ? 'unset' : 4,
-                WebkitBoxOrient: 'vertical',
-                overflow: isExpanded ? 'visible' : 'hidden',
-                textOverflow: isExpanded ? 'clip' : 'ellipsis',
-                transition: 'color 0.2s ease',
-                marginBottom: '0.5rem'
+                maxHeight: isExpanded ? '380px' : '88px',
+                overflow: 'hidden',
+                transition: 'max-height 0.48s cubic-bezier(0.16, 1, 0.3, 1)',
+                position: 'relative'
               }}
             >
-              "{t.comment}"
-            </p>
+              <p
+                className="review-comment-text"
+                style={{
+                  fontSize: '0.96rem',
+                  color: isExpanded ? '#000000' : '#374151',
+                  lineHeight: 1.62,
+                  fontWeight: isExpanded ? 500 : 450,
+                  letterSpacing: '-0.01em',
+                  margin: 0,
+                  transition: 'color 0.25s ease'
+                }}
+              >
+                "{t.comment}"
+              </p>
+              {/* Subtle bottom fade when collapsed */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: '24px',
+                  background: isExpanded ? 'transparent' : 'linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.95))',
+                  pointerEvents: 'none',
+                  transition: 'opacity 0.3s ease',
+                  opacity: isExpanded ? 0 : 1
+                }}
+              />
+            </div>
           </div>
         </div>
 
-        {/* Bottom Author Section */}
+        {/* Bottom Author Section (Always has generous bottom padding) */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             borderTop: '1px solid #F3F4F6',
-            paddingTop: '0.9rem',
-            marginTop: '0.75rem'
+            paddingTop: '0.95rem',
+            marginTop: '1rem',
+            flexShrink: 0
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            {/* Avatar Container with perfectly aligned badge inside perimeter */}
+            {/* Avatar Container with perfectly nested online dot */}
             <div style={{ position: 'relative', width: '42px', height: '42px', flexShrink: 0 }}>
               <img
                 src={t.avatar}
@@ -237,8 +259,8 @@ export default function Testimonials() {
               <span
                 style={{
                   position: 'absolute',
-                  bottom: '1px',
-                  right: '1px',
+                  bottom: '2px',
+                  right: '2px',
                   width: '10px',
                   height: '10px',
                   backgroundColor: '#10B981',
