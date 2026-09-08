@@ -11,6 +11,94 @@ export default function Testimonials() {
   const row1 = TESTIMONIALS.slice(0, 8);
   const row2 = TESTIMONIALS.slice(8);
 
+  // Helper to render 3 star types: 5, 4.5, and 4 with half-star precision
+  const renderRatingStars = (rating, size = 14, isExpanded = false) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    const stars = [];
+
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        // Full Golden Star
+        stars.push(
+          <Star
+            key={i}
+            size={size}
+            fill="#F8DC6C"
+            stroke="#EAB308"
+            style={{
+              filter: isExpanded ? 'drop-shadow(0 0 3px rgba(248, 220, 108, 0.9))' : 'none',
+              transition: 'all 0.2s ease'
+            }}
+          />
+        );
+      } else if (i === fullStars && hasHalfStar) {
+        // Half Golden Star (Precision 50% Clip)
+        stars.push(
+          <div
+            key={i}
+            style={{
+              position: 'relative',
+              display: 'inline-flex',
+              width: `${size}px`,
+              height: `${size}px`,
+              flexShrink: 0
+            }}
+          >
+            <Star size={size} fill="#E5E7EB" stroke="#D1D5DB" />
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '50%',
+                overflow: 'hidden',
+                display: 'flex'
+              }}
+            >
+              <Star
+                size={size}
+                fill="#F8DC6C"
+                stroke="#EAB308"
+                style={{
+                  filter: isExpanded ? 'drop-shadow(0 0 3px rgba(248, 220, 108, 0.9))' : 'none',
+                  minWidth: `${size}px`
+                }}
+              />
+            </div>
+          </div>
+        );
+      } else {
+        // Empty / Gray Star
+        stars.push(
+          <Star
+            key={i}
+            size={size}
+            fill="#E5E7EB"
+            stroke="#D1D5DB"
+            style={{ transition: 'all 0.2s ease' }}
+          />
+        );
+      }
+    }
+
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.12rem' }}>{stars}</div>
+        <span
+          style={{
+            fontSize: '0.78rem',
+            fontWeight: 700,
+            color: isExpanded ? '#000000' : '#4B5563',
+            marginLeft: '0.15rem'
+          }}
+        >
+          {rating.toFixed(1)}
+        </span>
+      </div>
+    );
+  };
+
   const renderReviewCard = (t, trackIndex) => {
     const isExpanded = activeCardId === `${trackIndex}-${t.id}`;
     const formattedIndex = String(t.id).padStart(2, '0');
@@ -80,18 +168,8 @@ export default function Testimonials() {
               </span>
             </div>
 
-            {/* Star Rating */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.15rem' }}>
-              {[...Array(t.rating)].map((_, i) => (
-                <Star
-                  key={i}
-                  size={14}
-                  fill="#F8DC6C"
-                  stroke="#EAB308"
-                  style={{ filter: isExpanded ? 'drop-shadow(0 0 3px rgba(248, 220, 108, 0.9))' : 'none' }}
-                />
-              ))}
-            </div>
+            {/* 3 Types of Star Ratings: 4, 4.5, 5 */}
+            {renderRatingStars(t.rating, 13, isExpanded)}
           </div>
 
           {/* Quote Icon & Text */}
@@ -246,7 +324,7 @@ export default function Testimonials() {
                   <Star key={i} size={16} fill="#F8DC6C" stroke="#EAB308" />
                 ))}
               </div>
-              <span style={{ fontWeight: 800, fontSize: '1.05rem', color: '#000000', marginLeft: '0.3rem' }}>5.0</span>
+              <span style={{ fontWeight: 800, fontSize: '1.05rem', color: '#000000', marginLeft: '0.3rem' }}>4.9</span>
             </div>
             <span style={{ color: '#D1D5DB' }}>|</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.88rem', fontWeight: 600, color: '#374151' }}>
@@ -350,10 +428,8 @@ export default function Testimonials() {
                 <CheckCircle2 size={13} color="#10B981" />
                 {selectedReviewModal.badge || 'Verified Client Story'}
               </span>
-              <div style={{ display: 'flex', marginLeft: 'auto', marginRight: '2.5rem', gap: '0.2rem' }}>
-                {[...Array(selectedReviewModal.rating)].map((_, i) => (
-                  <Star key={i} size={16} fill="#F8DC6C" stroke="#EAB308" />
-                ))}
+              <div style={{ marginLeft: 'auto', marginRight: '2.5rem' }}>
+                {renderRatingStars(selectedReviewModal.rating, 16, true)}
               </div>
             </div>
 
