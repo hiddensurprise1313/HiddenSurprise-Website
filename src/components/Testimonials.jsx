@@ -329,29 +329,31 @@ export default function Testimonials() {
 
           {/* Social Proof Summary Capsule */}
           <div
+            className="social-proof-capsule"
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '1rem',
+              gap: '0.85rem',
               background: '#FFFFFF',
-              padding: '0.8rem 1.4rem',
+              padding: '0.75rem 1.3rem',
               borderRadius: '999px',
               border: '1px solid #E5E7EB',
-              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)'
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
+              flexWrap: 'wrap'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
               <div style={{ display: 'flex' }}>
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={16} fill="#F8DC6C" stroke="#EAB308" />
+                  <Star key={i} size={15} fill="#F8DC6C" stroke="#EAB308" />
                 ))}
               </div>
-              <span style={{ fontWeight: 800, fontSize: '1.05rem', color: '#000000', marginLeft: '0.3rem' }}>4.9</span>
+              <span style={{ fontWeight: 800, fontSize: '1rem', color: '#000000', marginLeft: '0.3rem' }}>4.9</span>
             </div>
-            <span style={{ color: '#D1D5DB' }}>|</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.88rem', fontWeight: 600, color: '#374151' }}>
+            <span className="capsule-divider" style={{ color: '#D1D5DB' }}>|</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', fontWeight: 600, color: '#374151' }}>
               <Sparkles size={14} color="#F59E0B" />
-              <span>Hover card to view full message</span>
+              <span className="capsule-hint-text">Tap or hover card for full story</span>
             </div>
           </div>
         </div>
@@ -368,7 +370,7 @@ export default function Testimonials() {
         </div>
 
         {/* Row 2: Scrolling Right (Reversed) */}
-        <div className="marquee-row marquee-row-bottom" style={{ marginTop: '2rem' }}>
+        <div className="marquee-row marquee-row-bottom" style={{ marginTop: '1.5rem' }}>
           <div className="marquee-track track-right">
             {row2.map((t) => renderReviewCard(t, 'r2-a'))}
             {row2.map((t) => renderReviewCard(t, 'r2-b'))}
@@ -379,31 +381,38 @@ export default function Testimonials() {
       {/* Full Review Focused Modal */}
       {selectedReviewModal && (
         <div
+          className="review-modal-overlay"
           style={{
             position: 'fixed',
             inset: 0,
             zIndex: 9999,
-            backgroundColor: 'rgba(0, 0, 0, 0.65)',
-            backdropFilter: 'blur(8px)',
+            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '1.5rem',
-            animation: 'fadeIn 0.2s ease-out'
+            padding: '1rem',
+            animation: 'fadeIn 0.2s ease-out',
+            overflowY: 'auto'
           }}
           onClick={() => setSelectedReviewModal(null)}
         >
           <div
+            className="review-modal-card"
             style={{
               backgroundColor: '#FFFFFF',
-              borderRadius: '28px',
+              borderRadius: '24px',
               maxWidth: '540px',
               width: '100%',
-              padding: '2.5rem',
+              maxHeight: '88vh',
+              overflowY: 'auto',
+              padding: '2rem 2.2rem',
               border: '2px solid #F8DC6C',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.3)',
+              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.35)',
               position: 'relative',
-              animation: 'scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+              animation: 'scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+              margin: 'auto'
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -412,8 +421,8 @@ export default function Testimonials() {
               onClick={() => setSelectedReviewModal(null)}
               style={{
                 position: 'absolute',
-                top: '1.5rem',
-                right: '1.5rem',
+                top: '1.2rem',
+                right: '1.2rem',
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
@@ -423,42 +432,44 @@ export default function Testimonials() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                color: '#1F2937'
+                color: '#1F2937',
+                zIndex: 10
               }}
+              aria-label="Close review"
             >
               <X size={18} />
             </button>
 
             {/* Modal Header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.2rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.2rem', paddingRight: '2.5rem' }}>
               <span className="mono-tag" style={{ background: '#000000', color: '#F8DC6C' }}>
                 #{String(selectedReviewModal.id).padStart(2, '0')}
               </span>
               <span
                 style={{
-                  fontSize: '0.78rem',
+                  fontSize: '0.75rem',
                   fontWeight: 600,
                   color: '#4B5563',
                   backgroundColor: '#F3F4F6',
-                  padding: '0.3rem 0.75rem',
+                  padding: '0.25rem 0.65rem',
                   borderRadius: '999px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.35rem'
+                  gap: '0.3rem'
                 }}
               >
-                <CheckCircle2 size={13} color="#10B981" />
-                {selectedReviewModal.badge || 'Verified Client Story'}
+                <CheckCircle2 size={12} color="#10B981" />
+                {selectedReviewModal.badge || 'Verified Client'}
               </span>
-              <div style={{ marginLeft: 'auto', marginRight: '2.5rem' }}>
-                {renderRatingStars(selectedReviewModal.rating, 16, true)}
+              <div style={{ marginLeft: 'auto' }}>
+                {renderRatingStars(selectedReviewModal.rating, 15, true)}
               </div>
             </div>
 
             {/* Full Quote */}
-            <div style={{ position: 'relative', margin: '1.2rem 0 1.8rem 0' }}>
-              <Quote size={28} style={{ color: '#F8DC6C', marginBottom: '0.5rem' }} />
-              <p style={{ fontSize: '1.08rem', color: '#111827', lineHeight: 1.7, fontWeight: 450 }}>
+            <div style={{ position: 'relative', margin: '1rem 0 1.5rem 0' }}>
+              <Quote size={24} style={{ color: '#F8DC6C', marginBottom: '0.4rem' }} />
+              <p style={{ fontSize: '1.02rem', color: '#111827', lineHeight: 1.7, fontWeight: 450, margin: 0 }}>
                 "{selectedReviewModal.comment}"
               </p>
             </div>
@@ -468,18 +479,18 @@ export default function Testimonials() {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '1rem',
+                gap: '0.85rem',
                 borderTop: '1px solid #F3F4F6',
-                paddingTop: '1.2rem'
+                paddingTop: '1rem'
               }}
             >
-              <div style={{ position: 'relative', width: '48px', height: '48px', flexShrink: 0 }}>
+              <div style={{ position: 'relative', width: '44px', height: '44px', flexShrink: 0 }}>
                 <img
                   src={selectedReviewModal.avatar}
                   alt={selectedReviewModal.name}
                   style={{
-                    width: '48px',
-                    height: '48px',
+                    width: '44px',
+                    height: '44px',
                     borderRadius: '50%',
                     objectFit: 'cover',
                     display: 'block',
@@ -491,20 +502,20 @@ export default function Testimonials() {
                     position: 'absolute',
                     bottom: '1px',
                     right: '1px',
-                    width: '12px',
-                    height: '12px',
+                    width: '11px',
+                    height: '11px',
                     backgroundColor: '#10B981',
                     border: '2px solid #FFFFFF',
                     borderRadius: '50%'
                   }}
                 />
               </div>
-              <div>
-                <h4 style={{ fontSize: '1.05rem', color: '#000000', fontWeight: 700, margin: 0 }}>
+              <div style={{ overflow: 'hidden' }}>
+                <h4 style={{ fontSize: '1rem', color: '#000000', fontWeight: 700, margin: 0, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                   {selectedReviewModal.name}
                 </h4>
-                <div style={{ fontSize: '0.85rem', color: '#6B7280', display: 'flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.15rem' }}>
-                  <MapPin size={12} color="#9CA3AF" />
+                <div style={{ fontSize: '0.82rem', color: '#6B7280', display: 'flex', alignItems: 'center', gap: '0.25rem', marginTop: '0.1rem', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                  <MapPin size={11} color="#9CA3AF" />
                   <span>{selectedReviewModal.city}</span>
                   <span>•</span>
                   <span style={{ color: '#374151', fontWeight: 500 }}>{selectedReviewModal.occasion}</span>
@@ -520,8 +531,8 @@ export default function Testimonials() {
         .reviews-marquee-wrapper {
           position: relative;
           width: 100%;
-          overflow: visible;
-          padding: 2.5rem 0 3.5rem 0;
+          overflow: hidden;
+          padding: 2rem 0 3rem 0;
           mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 6%, rgba(0,0,0,1) 94%, transparent 100%);
           -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 6%, rgba(0,0,0,1) 94%, transparent 100%);
         }
@@ -531,13 +542,13 @@ export default function Testimonials() {
           width: 100%;
           overflow: visible;
           position: relative;
-          padding: 1rem 0;
+          padding: 0.75rem 0;
           align-items: flex-start;
         }
 
         .marquee-track {
           display: flex;
-          gap: 1.6rem;
+          gap: 1.5rem;
           width: max-content;
           will-change: transform;
           align-items: flex-start;
@@ -588,22 +599,57 @@ export default function Testimonials() {
 
         /* Responsive Breakpoints */
         @media (max-width: 768px) {
+          .reviews-marquee-wrapper {
+            padding: 1.25rem 0 2rem 0;
+            mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 4%, rgba(0,0,0,1) 96%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 4%, rgba(0,0,0,1) 96%, transparent 100%);
+          }
+          .marquee-track {
+            gap: 1rem !important;
+          }
           .review-card {
-            width: 310px !important;
-            min-width: 310px !important;
-            min-height: 260px !important;
-            padding: 1.4rem !important;
+            width: 290px !important;
+            min-width: 290px !important;
+            min-height: 255px !important;
+            padding: 1.35rem 1.35rem 1.25rem 1.35rem !important;
             border-radius: 20px !important;
           }
           .track-left {
-            animation-duration: 36s !important;
+            animation-duration: 34s !important;
           }
           .track-right {
-            animation-duration: 38s !important;
+            animation-duration: 36s !important;
           }
-          .reviews-marquee-wrapper {
-            mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 3%, rgba(0,0,0,1) 97%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 3%, rgba(0,0,0,1) 97%, transparent 100%);
+          .social-proof-capsule {
+            padding: 0.6rem 1rem !important;
+            border-radius: 16px !important;
+            width: 100%;
+            justify-content: space-between;
+          }
+          .review-modal-card {
+            padding: 1.5rem 1.3rem !important;
+            border-radius: 20px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .review-card {
+            width: 275px !important;
+            min-width: 275px !important;
+            min-height: 245px !important;
+            padding: 1.15rem 1.15rem 1.1rem 1.15rem !important;
+            border-radius: 18px !important;
+          }
+          .social-proof-capsule {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 0.4rem !important;
+          }
+          .capsule-divider {
+            display: none !important;
+          }
+          .review-modal-card {
+            padding: 1.35rem 1.15rem !important;
           }
         }
       `}</style>

@@ -259,7 +259,7 @@ button {
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 1.1rem;
+    padding: 0 1.15rem;
   }
 
   .section-padding {
@@ -274,14 +274,30 @@ button {
   .framer-card {
     border-radius: 20px;
   }
+
+  /* Safe tap sizes for buttons & inputs */
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 0.9rem;
+    padding: 0 1rem;
   }
 
   .section-padding {
-    padding: 3.2rem 0;
+    padding: 3rem 0;
+  }
+
+  .mono-tag {
+    font-size: 0.72rem;
+    padding: 0.22rem 0.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 0.75rem;
   }
 }

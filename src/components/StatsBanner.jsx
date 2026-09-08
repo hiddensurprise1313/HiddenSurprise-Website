@@ -80,6 +80,14 @@ export default function StatsBanner() {
             grid-template-columns: 0.85fr 1.15fr !important;
           }
         }
+        @media (max-width: 600px) {
+          .stats-grid-layout {
+            gap: 1.5rem !important;
+          }
+          .stat-number {
+            font-size: 3.2rem !important;
+          }
+        }
       `}</style>
     </section>
   );

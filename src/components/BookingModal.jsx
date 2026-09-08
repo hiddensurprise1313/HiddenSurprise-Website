@@ -313,6 +313,7 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
           font-family: inherit;
           font-size: 16px;
           outline: none;
+          box-sizing: border-box;
         }
         .modal-input:focus {
           border-color: #F8DC6C;
@@ -324,11 +325,13 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
         }
         @media (max-width: 600px) {
           .booking-modal-overlay {
-            padding: 0.75rem !important;
+            padding: 0.5rem !important;
           }
           .booking-modal-card {
-            padding: 1.5rem 1.2rem !important;
+            padding: 1.4rem 1.15rem !important;
             border-radius: 20px !important;
+            max-height: 92vh !important;
+            overflow-y: auto !important;
           }
         }
       `}</style>

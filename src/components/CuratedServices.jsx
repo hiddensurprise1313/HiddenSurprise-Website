@@ -338,11 +338,31 @@ export default function CuratedServices({ onOpenBooking }) {
         @media (max-width: 680px) {
           .services-grid {
             grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
+            gap: 1.35rem !important;
           }
           .services-filter-pills {
             padding-bottom: 0.6rem !important;
             margin-bottom: 2rem !important;
+            gap: 0.5rem !important;
+          }
+          .filter-pill {
+            padding: 0.55rem 1.1rem !important;
+            font-size: 0.85rem !important;
+          }
+          .curated-service-card > div:first-child {
+            height: 210px !important;
+          }
+          .curated-service-card > div:last-child {
+            padding: 1.35rem 1.15rem !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .curated-service-card > div:first-child {
+            height: 195px !important;
+          }
+          .curated-service-card > div:last-child {
+            padding: 1.2rem 1rem !important;
           }
         }
       `}</style>

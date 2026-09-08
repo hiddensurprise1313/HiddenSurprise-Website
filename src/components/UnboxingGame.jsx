@@ -256,11 +256,13 @@ export default function UnboxingGame({ isOpen, onClose, onApplyDiscount, applied
       <style>{`
         @media (max-width: 600px) {
           .unboxing-modal-overlay {
-            padding: 0.75rem !important;
+            padding: 0.5rem !important;
           }
           .unboxing-modal-card {
-            padding: 1.5rem 1.2rem !important;
+            padding: 1.4rem 1.15rem !important;
             border-radius: 20px !important;
+            max-height: 92vh !important;
+            overflow-y: auto !important;
           }
         }
       `}</style>

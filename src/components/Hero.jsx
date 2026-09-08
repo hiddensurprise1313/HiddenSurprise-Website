@@ -203,19 +203,38 @@ export default function Hero({ onOpenBooking, onOpenUnboxing }) {
         }
         @media (max-width: 640px) {
           .hero-section {
-            padding-top: 5.5rem !important;
-            min-height: 92vh !important;
+            padding-top: 5.2rem !important;
+            min-height: 90vh !important;
           }
           .hero-cta-btns {
             width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.65rem !important;
           }
           .hero-btn-star {
-            flex: 1 1 auto !important;
+            width: 100% !important;
+          }
+          .hero-btn-star .star-border-inner {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 0.85rem 1.4rem !important;
+          }
+          .hero-btn-unbox {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 0.85rem 1.4rem !important;
+          }
+          .hero-giant-title {
+            height: 85px !important;
           }
         }
         @media (max-width: 480px) {
           .hero-section {
-            padding-top: 5rem !important;
+            padding-top: 4.8rem !important;
+          }
+          .hero-giant-title {
+            height: 75px !important;
           }
         }
       `}</style>

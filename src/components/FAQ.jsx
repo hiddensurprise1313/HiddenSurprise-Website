@@ -108,12 +108,24 @@ export default function FAQ() {
       <style>{`
         @media (max-width: 640px) {
           .faq-button {
-            padding: 1.2rem 1.2rem !important;
-            font-size: 1rem !important;
+            padding: 1.15rem 1.15rem !important;
+            font-size: 0.98rem !important;
           }
           .faq-answer {
-            padding: 0 1.2rem 1.2rem !important;
+            padding: 0 1.15rem 1.15rem !important;
+            padding-left: 1.15rem !important;
             font-size: 0.92rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .faq-button {
+            padding: 1rem 0.9rem !important;
+            font-size: 0.92rem !important;
+          }
+          .faq-answer {
+            padding: 0 0.9rem 1rem !important;
+            padding-left: 0.9rem !important;
+            font-size: 0.88rem !important;
           }
         }
       `}</style>

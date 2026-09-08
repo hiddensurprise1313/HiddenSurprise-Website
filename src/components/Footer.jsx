@@ -193,9 +193,26 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
         }
         @media (max-width: 640px) {
           .footer-cta-grid {
-            padding: 2rem 1.4rem !important;
+            padding: 2rem 1.35rem !important;
             border-radius: 20px !important;
-            margin-bottom: 3.5rem !important;
+            margin-bottom: 3rem !important;
+            gap: 1.5rem !important;
+          }
+          .footer-cta-grid > div:last-child {
+            width: 100% !important;
+          }
+          .footer-cta-grid .star-border-container {
+            width: 100% !important;
+          }
+          .footer-cta-grid .star-border-inner {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 0.9rem 1.4rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .footer-cta-grid {
+            padding: 1.6rem 1.1rem !important;
           }
         }
         .footer-link:hover {

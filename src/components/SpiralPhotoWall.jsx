@@ -330,6 +330,7 @@ export default function SpiralPhotoWall() {
 
             {/* Bottom Actions Bar */}
             <div
+              className="spiral-lightbox-footer"
               style={{
                 padding: '1.5rem 2rem',
                 background: '#0B0D13',
@@ -354,12 +355,13 @@ export default function SpiralPhotoWall() {
                 </div>
               </div>
 
-              <div>
+              <div style={{ width: '100%', maxWidth: '300px' }} className="spiral-lightbox-btn-wrap">
                 <button
                   onClick={() => handleWhatsAppBooking(activeImage)}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
+                    justifyContent: 'center',
                     gap: '0.5rem',
                     background: '#25D366',
                     color: '#000000',
@@ -367,11 +369,12 @@ export default function SpiralPhotoWall() {
                     padding: '0.75rem 1.4rem',
                     borderRadius: '100px',
                     fontSize: '0.92rem',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    width: '100%'
                   }}
                   className="hover-lift"
                 >
-                  <MessageCircle size={17} /> Plan This Setup on WhatsApp
+                  <MessageCircle size={17} /> Plan on WhatsApp
                 </button>
               </div>
             </div>
@@ -395,6 +398,14 @@ export default function SpiralPhotoWall() {
             top: 12px !important;
             left: 12px !important;
             right: 12px !important;
+          }
+          .spiral-lightbox-footer {
+            padding: 1.2rem 1.2rem !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+          .spiral-lightbox-btn-wrap {
+            max-width: 100% !important;
           }
         }
         @media (max-width: 480px) {

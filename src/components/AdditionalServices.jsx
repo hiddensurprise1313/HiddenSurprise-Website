@@ -277,7 +277,22 @@ export default function AdditionalServices({ onOpenBooking }) {
         @media (max-width: 680px) {
           .addons-grid {
             grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
+            gap: 1.35rem !important;
+          }
+          .addon-service-card > div:first-child {
+            height: 210px !important;
+          }
+          .addon-service-card > div:last-child {
+            padding: 1.35rem 1.15rem !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .addon-service-card > div:first-child {
+            height: 195px !important;
+          }
+          .addon-service-card > div:last-child {
+            padding: 1.2rem 1rem !important;
           }
         }
       `}</style>

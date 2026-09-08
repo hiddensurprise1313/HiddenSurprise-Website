@@ -9,6 +9,7 @@ export default function FloatingWhatsApp({ onOpenBooking }) {
 
   return (
     <div
+      className="floating-whatsapp-container"
       style={{
         position: 'fixed',
         bottom: '24px',
@@ -38,13 +39,23 @@ export default function FloatingWhatsApp({ onOpenBooking }) {
         aria-label="Chat on WhatsApp"
         id="floating-whatsapp-btn"
       >
-        <MessageCircle size={30} />
+        <MessageCircle size={28} />
       </button>
 
       <style>{`
         .whatsapp-float-btn:hover {
           transform: scale(1.1) translateY(-4px);
           box-shadow: 0 12px 30px rgba(37, 211, 102, 0.65);
+        }
+        @media (max-width: 600px) {
+          .floating-whatsapp-container {
+            bottom: 16px !important;
+            right: 16px !important;
+          }
+          .whatsapp-float-btn {
+            width: 48px !important;
+            height: 48px !important;
+          }
         }
       `}</style>
     </div>

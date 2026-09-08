@@ -505,14 +505,37 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           }
         }
 
-        /* Mobile Scroll State: Collapse Brand Capsule into a Focused Circle */
+        /* Mobile Scroll State & Small Screens */
         @media (max-width: 768px) {
           .site-header {
             padding: 0 8px;
+            top: 6px;
+          }
+          .nav-brand-capsule {
+            padding: 3px 10px 3px 3px;
+            gap: 0.45rem;
+          }
+          .nav-brand-logo {
+            width: 34px;
+            height: 34px;
+          }
+          .nav-brand-title {
+            font-size: 0.88rem !important;
+          }
+          #nav-contact-btn {
+            font-size: 0.78rem !important;
+          }
+          #nav-contact-btn .star-border-inner {
+            padding: 0.38rem 0.8rem !important;
+            font-size: 0.78rem !important;
+          }
+          .mobile-nav-toggle {
+            width: 36px;
+            height: 36px;
           }
           .nav-brand-capsule.is-scrolled {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             padding: 0;
             gap: 0;
             border-radius: 50%;
@@ -528,10 +551,20 @@ export default function Navbar({ onOpenBooking, onOpenUnboxing }) {
           }
 
           .nav-brand-capsule.is-scrolled .nav-brand-logo {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-width: 1.5px;
             box-shadow: none;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .nav-brand-title {
+            font-size: 0.8rem !important;
+          }
+          #nav-contact-btn .star-border-inner {
+            padding: 0.35rem 0.6rem !important;
+            font-size: 0.72rem !important;
           }
         }
       `}</style>
