@@ -129,24 +129,26 @@ export default function Testimonials() {
           transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease, background-color 0.3s ease',
           transform: isExpanded ? 'translateY(-12px) scale(1.03)' : 'translateY(0) scale(1)',
           zIndex: isExpanded ? 50 : 1,
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          overflow: 'hidden'
         }}
       >
         {/* Top Header & Quote info */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflow: 'hidden' }}>
           {/* Header info */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', gap: '0.5rem', minWidth: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', minWidth: 0, flex: 1, overflow: 'hidden' }}>
               <span
                 className="mono-tag"
                 style={{
                   background: isExpanded ? '#000000' : '#0F172A',
                   color: '#F8DC6C',
                   fontSize: '0.72rem',
-                  padding: '0.25rem 0.6rem',
+                  padding: '0.25rem 0.55rem',
                   fontWeight: 700,
                   borderRadius: '6px',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  flexShrink: 0
                 }}
               >
                 #{formattedIndex}
@@ -161,20 +163,26 @@ export default function Testimonials() {
                   borderRadius: '999px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.25rem'
+                  gap: '0.25rem',
+                  minWidth: 0,
+                  overflow: 'hidden'
                 }}
               >
-                <CheckCircle2 size={11} color="#10B981" />
-                {t.badge || 'Verified Client'}
+                <CheckCircle2 size={11} color="#10B981" style={{ flexShrink: 0 }} />
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {t.badge || 'Verified Client'}
+                </span>
               </span>
             </div>
 
             {/* 3 Types of Star Ratings: 4, 4.5, 5 */}
-            {renderRatingStars(t.rating, 13, isExpanded)}
+            <div style={{ flexShrink: 0 }}>
+              {renderRatingStars(t.rating, 13, isExpanded)}
+            </div>
           </div>
 
           {/* Quote Icon & Fluid Expanding Text */}
-          <div style={{ position: 'relative', marginTop: '0.2rem' }}>
+          <div style={{ position: 'relative', marginTop: '0.2rem', minWidth: 0, overflow: 'hidden' }}>
             <Quote
               size={22}
               style={{
@@ -197,13 +205,15 @@ export default function Testimonials() {
               <p
                 className="review-comment-text"
                 style={{
-                  fontSize: '0.96rem',
+                  fontSize: '0.95rem',
                   color: isExpanded ? '#000000' : '#374151',
-                  lineHeight: 1.62,
+                  lineHeight: 1.6,
                   fontWeight: isExpanded ? 500 : 450,
                   letterSpacing: '-0.01em',
                   margin: 0,
-                  transition: 'color 0.25s ease'
+                  transition: 'color 0.25s ease',
+                  wordBreak: 'break-word',
+                  overflowWrap: 'break-word'
                 }}
               >
                 "{t.comment}"
@@ -226,28 +236,33 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Bottom Author Section (Always has generous bottom padding) */}
+        {/* Bottom Author Section (Always has generous bottom padding & never overflows) */}
         <div
+          className="review-author-row"
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             borderTop: '1px solid #F3F4F6',
-            paddingTop: '0.95rem',
-            marginTop: '1rem',
-            flexShrink: 0
+            paddingTop: '0.9rem',
+            marginTop: '0.9rem',
+            flexShrink: 0,
+            gap: '0.5rem',
+            width: '100%',
+            minWidth: 0,
+            overflow: 'hidden'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', minWidth: 0, flex: 1, overflow: 'hidden' }}>
             {/* Avatar Container with perfectly nested online dot */}
-            <div style={{ position: 'relative', width: '42px', height: '42px', flexShrink: 0 }}>
+            <div style={{ position: 'relative', width: '40px', height: '40px', flexShrink: 0 }}>
               <img
                 src={t.avatar}
                 alt={t.name}
                 loading="lazy"
                 style={{
-                  width: '42px',
-                  height: '42px',
+                  width: '40px',
+                  height: '40px',
                   borderRadius: '50%',
                   objectFit: 'cover',
                   display: 'block',
@@ -261,8 +276,8 @@ export default function Testimonials() {
                   position: 'absolute',
                   bottom: '2px',
                   right: '2px',
-                  width: '10px',
-                  height: '10px',
+                  width: '9px',
+                  height: '9px',
                   backgroundColor: '#10B981',
                   border: '2px solid #FFFFFF',
                   borderRadius: '50%',
@@ -271,23 +286,23 @@ export default function Testimonials() {
               />
             </div>
 
-            <div style={{ overflow: 'hidden' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <h4 style={{ fontSize: '0.95rem', color: '#000000', fontWeight: 700, margin: 0, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                  {t.name}
-                </h4>
-              </div>
-              <div style={{ fontSize: '0.78rem', color: '#6B7280', display: 'flex', alignItems: 'center', gap: '0.25rem', marginTop: '0.1rem', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                <MapPin size={10} color="#9CA3AF" />
-                <span>{t.city}</span>
-                <span>•</span>
-                <span style={{ color: '#374151', fontWeight: 500 }}>{t.occasion}</span>
+            <div style={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
+              <h4 style={{ fontSize: '0.92rem', color: '#000000', fontWeight: 700, margin: 0, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                {t.name}
+              </h4>
+              <div style={{ fontSize: '0.76rem', color: '#6B7280', display: 'flex', alignItems: 'center', gap: '0.25rem', marginTop: '0.1rem', minWidth: 0, overflow: 'hidden' }}>
+                <MapPin size={10} color="#9CA3AF" style={{ flexShrink: 0 }} />
+                <span style={{ whiteSpace: 'nowrap', flexShrink: 0 }}>{t.city}</span>
+                <span style={{ flexShrink: 0 }}>•</span>
+                <span style={{ color: '#374151', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>
+                  {t.occasion}
+                </span>
               </div>
             </div>
           </div>
 
           <Heart
-            size={17}
+            size={16}
             fill={isExpanded ? '#EF4444' : 'transparent'}
             color={isExpanded ? '#EF4444' : '#D1D5DB'}
             style={{ transition: 'all 0.3s ease', flexShrink: 0 }}
@@ -598,6 +613,10 @@ export default function Testimonials() {
         }
 
         /* Responsive Breakpoints */
+        .review-card {
+          overflow: hidden !important;
+        }
+
         @media (max-width: 768px) {
           .reviews-marquee-wrapper {
             padding: 1.25rem 0 2rem 0;
@@ -613,6 +632,7 @@ export default function Testimonials() {
             min-height: 255px !important;
             padding: 1.35rem 1.35rem 1.25rem 1.35rem !important;
             border-radius: 20px !important;
+            overflow: hidden !important;
           }
           .track-left {
             animation-duration: 34s !important;
@@ -639,6 +659,7 @@ export default function Testimonials() {
             min-height: 245px !important;
             padding: 1.15rem 1.15rem 1.1rem 1.15rem !important;
             border-radius: 18px !important;
+            overflow: hidden !important;
           }
           .social-proof-capsule {
             flex-direction: column;
