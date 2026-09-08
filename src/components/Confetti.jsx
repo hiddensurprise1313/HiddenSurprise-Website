@@ -96,7 +96,6 @@ ConfettiComponent.displayName = "Confetti";
 
 export const Confetti = ConfettiComponent;
 
-// Ultra-vibrant, high-saturation celebration colors
 // Ultra-vibrant, high-saturation celebration colors (Default & Photowall)
 export const VIBRANT_CELEBRATION_COLORS = [
   "#FFD700", // Vivid Pure Gold
@@ -111,7 +110,7 @@ export const VIBRANT_CELEBRATION_COLORS = [
   "#FFAA00"  // Radiant Deep Gold
 ];
 
-// Pure High-Contrast Electric Rainbow Celebration Palette (Red, Orange, Yellow, Green, Cyan, Blue, Purple, Pink)
+// Pure High-Contrast Electric Rainbow Celebration Palette
 export const HERO_TRUE_RAINBOW_COLORS = [
   "#FF0033", // Vivid Electric Red
   "#FF007F", // Neon Magenta Pink
@@ -129,7 +128,9 @@ export const HERO_TRUE_RAINBOW_COLORS = [
 
 export const HOME_RAINBOW_CELEBRATION_COLORS = HERO_TRUE_RAINBOW_COLORS;
 
-// Rich continuous celebration confetti rain & streaming side cannons for Home and 3D Photowall
+// Celebratory Confetti Canvas:
+// - On Mobile: Fires ONLY a single, clean center confetti burst once when in view (No side cannons, zero clutter)
+// - On Desktop: Runs rich ambient flutter / side cannons as configured
 export function SideConfettiCanvas({
   showSideCannons = true,
   showMainRain = true,
@@ -140,6 +141,7 @@ export function SideConfettiCanvas({
 }) {
   const canvasRef = useRef(null);
   const activeSideColors = sideColors || colors;
+  const hasFiredMobileRef = useRef(false);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -149,13 +151,56 @@ export function SideConfettiCanvas({
       useWorker: false,
     });
 
-    // Speed configurations:
-    // 'medium' -> gentle, graceful, celebratory flutter
+    const isMobile = window.innerWidth <= 768;
+
+    // === MOBILE MODE: ONE-TIME CENTER CONFETTI ONLY ===
+    if (isMobile) {
+      const fireMobileCenterOnce = () => {
+        if (hasFiredMobileRef.current) return;
+        hasFiredMobileRef.current = true;
+
+        myConfetti({
+          particleCount: density === "high" ? 40 : 28,
+          spread: 75,
+          origin: { x: 0.5, y: 0.35 },
+          colors: colors,
+          gravity: 0.45,
+          scalar: 1.0,
+          ticks: 220,
+          shapes: ["square", "circle"],
+        });
+      };
+
+      // Fire when section enters viewport or immediately if already visible
+      let observer;
+      if (typeof IntersectionObserver !== "undefined") {
+        observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                fireMobileCenterOnce();
+                observer?.disconnect();
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        observer.observe(canvasRef.current);
+      } else {
+        fireMobileCenterOnce();
+      }
+
+      return () => {
+        observer?.disconnect();
+        myConfetti.reset();
+      };
+    }
+
+    // === DESKTOP MODE: CONTINUOUS FLUTTER & SIDE CANNONS ===
     const gravityVal = speed === "medium" ? 0.38 : speed === "slow" ? 0.28 : 0.58;
     const startVelRain = speed === "medium" ? 6 : speed === "slow" ? 4 : 8;
     const startVelCannon = speed === "medium" ? 36 : speed === "slow" ? 28 : 46;
 
-    // Initial grand celebration fanfare (only if main rain is enabled)
     if (showMainRain) {
       myConfetti({
         particleCount: density === "high" ? 65 : density === "medium" ? 35 : 20,
@@ -171,7 +216,6 @@ export function SideConfettiCanvas({
     let animationFrameId;
     let frame = 0;
 
-    // Density timing configuration
     const mainInterval = density === "high" ? 2 : density === "medium" ? 4 : 7;
     const mainParticleCount = density === "high" ? 2 : 1;
     const sideInterval = density === "high" ? 3 : density === "medium" ? 6 : 9;
@@ -184,7 +228,7 @@ export function SideConfettiCanvas({
       if (showMainRain && frame % mainInterval === 0) {
         myConfetti({
           particleCount: mainParticleCount,
-          angle: Math.random() * 20 + 80, // 80 to 100 degrees downward
+          angle: Math.random() * 20 + 80,
           spread: 60,
           startVelocity: Math.random() * 6 + startVelRain,
           origin: { x: Math.random(), y: -0.05 },
@@ -197,9 +241,9 @@ export function SideConfettiCanvas({
         });
       }
 
-      // 2. Continuous Celebratory Colorful Side Cannons from Left & Right
+      // 2. Continuous Colorful Side Cannons from Left & Right
       if (showSideCannons && frame % sideInterval === 0) {
-        // Left Side Cannon (angled towards center-right)
+        // Left Side Cannon
         myConfetti({
           particleCount: sideParticleCount,
           angle: 60,
@@ -214,7 +258,7 @@ export function SideConfettiCanvas({
           shapes: ["square", "circle"],
         });
 
-        // Right Side Cannon (angled towards center-left)
+        // Right Side Cannon
         myConfetti({
           particleCount: sideParticleCount,
           angle: 120,
@@ -258,11 +302,30 @@ export function SideConfettiCanvas({
 
 export const HeroAmbientConfetti = SideConfettiCanvas;
 
-// Side Cannons trigger helper
+// Interactive Cannons / Celebration trigger:
+// - On Mobile: Fires a single, clean center burst one time (NO dual side cannons)
+// - On Desktop: Fires dynamic celebratory side cannons for 2.5s
 export function triggerSideCannons(customColors = HOME_RAINBOW_CELEBRATION_COLORS) {
-  const end = Date.now() + 3 * 1000;
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
   const colors = customColors;
 
+  if (isMobile) {
+    // Single clean center burst on mobile
+    confetti({
+      particleCount: 32,
+      spread: 75,
+      origin: { x: 0.5, y: 0.45 },
+      colors: colors,
+      scalar: 1.0,
+      gravity: 0.48,
+      ticks: 200,
+      zIndex: 9999,
+    });
+    return;
+  }
+
+  // Desktop: Dual side cannons
+  const end = Date.now() + 2.5 * 1000;
   const frame = () => {
     if (Date.now() > end) return;
     confetti({
@@ -291,4 +354,3 @@ export function triggerSideCannons(customColors = HOME_RAINBOW_CELEBRATION_COLOR
   };
   frame();
 }
-
