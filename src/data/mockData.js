@@ -247,30 +247,153 @@ export const GALLERY_ITEMS = [
 export const TESTIMONIALS = [
   {
     id: 1,
-    name: 'Aarav & Simran',
-    occasion: '1st Wedding Anniversary',
+    name: 'Priya',
+    occasion: 'Special Birthday Surprise & Video',
     rating: 5,
-    comment: 'The team pulled off the most magical rooftop surprise! My wife had tears of joy when the guitarist started playing our wedding song. Every single detail from the candles to the customized photo cards was perfection.',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-    city: 'Mumbai'
+    comment: 'Thank you so much to the Hidden Surprises Team for making my special day so memorable! Honestly, I had absolutely no idea about this surprise, and it was truly unexpected! I was so happy and completely impressed with the amazing decoration, beautiful setup and the lovely songs. The video was also so beautifully done. I really enjoyed every single moment of my celebration! This will definitely be one of the most special moments of my life! Wishing your team lots of success and many more beautiful surprises in the future!',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Verified Client Story'
   },
   {
     id: 2,
-    name: 'Rohan Mehta',
-    occasion: 'Surprise Proposal',
+    name: 'Karthikeyan',
+    occasion: "Mother's Surprise Celebration",
     rating: 5,
-    comment: 'She said YES! The 4-foot giant MARRY ME marquee letters on the beach with the cold sparklers looked straight out of a movie. Hidden Surprise handled everything discreetly without her suspecting a thing!',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-    city: 'Goa'
+    comment: "I would like to express my sincere gratitude for helping me create a beautiful surprise for my mother. The entire experience was truly wonderful, and every detail was handled with so much care and perfection. Seeing the happiness, surprise, and joy on my mother's face was priceless. You turned a simple celebration into a cherished memory that our family will treasure forever. Your dedication, creativity, and professionalism made the day extra special. I highly recommend Hidden Surprise Karaikal to anyone looking to create unforgettable moments for their loved ones.",
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Family Milestone'
   },
   {
     id: 3,
-    name: 'Pooja Verma',
-    occasion: 'Midnight Birthday for Bestie',
+    name: 'Divya',
+    occasion: 'Hidden Room Decor & Fun Games',
     rating: 5,
-    comment: 'At 11:59 PM they rang the bell with a gorgeous cake, balloon cloud and the singer was so talented. Best birthday surprise ever. Their customer support on WhatsApp was responsive 24/7.',
+    comment: 'No words... Thank you so much! You decorated your hidden place so beautifully, and honestly, everything was so unexpected and special. The fun games were so much fun, and I enjoyed every moment of it! Thank you so much for putting in so much effort and making it such a beautiful and memorable surprise!',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Secret Room Setup'
+  },
+  {
+    id: 4,
+    name: 'Arun',
+    occasion: 'Special Event & Memory Setup',
+    rating: 5,
+    comment: 'Thank you for making this event so special and turning this special day into a beautiful memory. Your effort, creativity, and support made this celebration truly unforgettable. Thank you so much brother!',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Verified Client Story'
+  },
+  {
+    id: 5,
+    name: 'Suresh',
+    occasion: 'Surprise Birthday Party',
+    rating: 5,
+    comment: 'Ellarum romba happy ah iruthaga mukiyamaa birthday boy la romba happy unexpected! Outstanding arrangements and super friendly team.',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Birthday Special'
+  },
+  {
+    id: 6,
+    name: 'Meena',
+    occasion: 'Comfort & Tailored Decor',
+    rating: 5,
+    comment: 'Ellame neega nalla panniga anna so enaku personal mistake ethum illa enaku comfort la ellame panni kuduthiga. Truly personalized hospitality and aesthetic setup!',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Custom Celebration'
+  },
+  {
+    id: 7,
+    name: 'Shoaa!',
+    occasion: 'Midnight Surprise',
+    rating: 5,
+    comment: "Such a Beautiful Surprise! Loved Every Lil' Detail. Tysm! The ambient lighting, music and decor made the entire evening feel magical.",
+    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Direct WhatsApp Review'
+  },
+  {
+    id: 8,
+    name: 'Santhosh',
+    occasion: 'Private Milestone Celebration',
+    rating: 5,
+    comment: 'Thank you very much, I Truly loved it! It is a very Beautiful moment that you have given and I am grateful for that. THANK YOU.....',
+    avatar: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Verified Client Story'
+  },
+  {
+    id: 9,
+    name: 'Marvin Varsha',
+    occasion: 'Romantic Birthday Surprise',
+    rating: 5,
+    comment: 'Thank you so much for making my birthday so special. I am very lucky to have you in my life. Decoration was too good. Thank you Hidden Surprise.',
+    avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Romantic Special'
+  },
+  {
+    id: 10,
+    name: 'Nithya',
+    occasion: 'Magical Secret Room Surprise',
+    rating: 5,
+    comment: 'Hidden Surprise. Magical word = inside the room! An absolute wonder and breathtaking surprise from start to finish.',
+    avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Secret Room Experience'
+  },
+  {
+    id: 11,
+    name: 'Vignesh',
+    occasion: 'Heartfelt Birthday Moment',
+    rating: 5,
+    comment: 'Thanks for this wonderful moment and making me all happy with this day. The stealth execution and personal touch were beyond expectations!',
+    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Handwritten Note'
+  },
+  {
+    id: 12,
+    name: 'Anitha',
+    occasion: 'Romantic Couple Celebration',
+    rating: 5,
+    comment: "I enjoyed a lot. I didn't expect this memory. I am so lucky I have this man in my life. Thanks a lot to the Hidden Surprise team for crafting such a romantic dream setting!",
+    avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Handwritten Note'
+  },
+  {
+    id: 13,
+    name: 'Praveen',
+    occasion: 'Birthday Party & Fun Games',
+    rating: 5,
+    comment: 'Today we came for the birthday celebration, they gave wonderful welcoming & the decoration and good play time. Thanks to the owner and team!',
+    avatar: 'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Group Celebration'
+  },
+  {
+    id: 14,
+    name: 'Harini',
+    occasion: '5-Star Celebration',
+    rating: 5,
+    comment: 'I Love Hidden Surprise ⭐⭐⭐⭐⭐! 5-star experience all the way. The surprise reveal, setup speed and lighting created unmatched memories.',
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
-    city: 'Bengaluru'
+    city: 'Karaikal',
+    badge: '5-Star Rating'
+  },
+  {
+    id: 15,
+    name: 'Sangeetha',
+    occasion: 'Grand Surprise Reveal',
+    rating: 5,
+    comment: 'It was a very amazing surprise. Never seen anything like this! Thank you Hidden Surprise for your creativity and dedication.',
+    avatar: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=200&q=80',
+    city: 'Karaikal',
+    badge: 'Handwritten Note'
   }
 ];
 
