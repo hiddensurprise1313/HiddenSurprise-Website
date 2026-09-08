@@ -103,28 +103,38 @@ export default function AdditionalServices({ onOpenBooking }) {
 
                   {/* Top Badges */}
                   <div
+                    className="addon-card-top-badges"
                     style={{
                       position: 'absolute',
-                      top: '1rem',
-                      left: '1rem',
-                      right: '1rem',
+                      top: '0.85rem',
+                      left: '0.85rem',
+                      right: '0.85rem',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
+                      gap: '0.4rem',
                       zIndex: 2
                     }}
                   >
                     <span
+                      className="addon-category-badge"
                       style={{
-                        background: 'rgba(0, 0, 0, 0.8)',
+                        background: 'rgba(0, 0, 0, 0.85)',
                         backdropFilter: 'blur(8px)',
+                        WebkitBackdropFilter: 'blur(8px)',
                         color: '#F8DC6C',
-                        fontWeight: 900,
-                        fontSize: '0.8rem',
+                        fontWeight: 800,
+                        fontSize: '0.74rem',
                         fontFamily: 'var(--font-mono)',
-                        padding: '0.3rem 0.75rem',
+                        padding: '0.32rem 0.65rem',
                         borderRadius: '9999px',
-                        border: '1px solid rgba(248, 220, 108, 0.35)'
+                        border: '1px solid rgba(248, 220, 108, 0.35)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        whiteSpace: 'nowrap',
+                        lineHeight: 1.2,
+                        textAlign: 'center'
                       }}
                     >
                       ADD-ON #{service.number}
@@ -132,14 +142,21 @@ export default function AdditionalServices({ onOpenBooking }) {
 
                     {service.badgeText && (
                       <span
+                        className="addon-pill-badge"
                         style={{
                           background: '#F8DC6C',
                           color: '#000000',
                           fontWeight: 800,
-                          fontSize: '0.75rem',
-                          padding: '0.3rem 0.65rem',
+                          fontSize: '0.72rem',
+                          padding: '0.32rem 0.65rem',
                           borderRadius: '9999px',
-                          boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
+                          boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          whiteSpace: 'nowrap',
+                          lineHeight: 1.2,
+                          textAlign: 'center'
                         }}
                       >
                         {service.badgeText}
@@ -293,6 +310,20 @@ export default function AdditionalServices({ onOpenBooking }) {
           }
           .addon-service-card > div:last-child {
             padding: 1.2rem 1rem !important;
+          }
+          .addon-card-top-badges {
+            top: 0.7rem !important;
+            left: 0.7rem !important;
+            right: 0.7rem !important;
+            gap: 0.35rem !important;
+          }
+          .addon-category-badge {
+            font-size: 0.68rem !important;
+            padding: 0.28rem 0.5rem !important;
+          }
+          .addon-pill-badge {
+            font-size: 0.68rem !important;
+            padding: 0.28rem 0.5rem !important;
           }
         }
       `}</style>
