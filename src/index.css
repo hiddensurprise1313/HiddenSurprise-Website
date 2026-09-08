@@ -212,6 +212,12 @@ button {
   white-space: nowrap;
 }
 
+/* Section Anchors & Smooth Scroll Offset */
+section[id],
+div[id] {
+  scroll-margin-top: 96px;
+}
+
 /* Framer Style Card */
 .framer-card {
   border-radius: var(--radius-xl);
@@ -219,18 +225,24 @@ button {
   position: relative;
   background-color: var(--color-bone);
   border: 1px solid var(--color-border-light);
-  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
 .framer-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+  border-color: rgba(248, 220, 108, 0.4);
 }
 
 .framer-card-dark {
   background-color: var(--color-card-dark);
   border: 1px solid var(--color-border-dark);
   color: var(--color-white);
+}
+
+.framer-card-dark:hover {
+  border-color: rgba(248, 220, 108, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(248, 220, 108, 0.1);
 }
 
 /* Big Stat Heading */

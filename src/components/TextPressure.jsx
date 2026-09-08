@@ -6,10 +6,11 @@ const dist = (a, b) => {
   return Math.sqrt(dx * dx + dy * dy);
 };
 
-// Smooth normalized interpolation: returns maxVal when distance=0, minVal when distance >= maxDist
+// Smooth cubic ease-out interpolation for dramatic, tactile elastic pressure
 const getAttr = (distance, maxDist, minVal, maxVal) => {
   const norm = Math.max(0, Math.min(1, 1 - distance / maxDist));
-  return minVal + norm * (maxVal - minVal);
+  const ease = 1 - Math.pow(1 - norm, 3);
+  return minVal + ease * (maxVal - minVal);
 };
 
 const debounce = (func, delay) => {
@@ -46,9 +47,10 @@ const TextPressure = ({
   const titleRef = useRef(null);
   const spansRef = useRef([]);
 
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const cursorRef = useRef({ x: 0, y: 0 });
-  const hasInteractedRef = useRef(false);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const cursorRef = useRef({ x: -9999, y: -9999 });
+  const isHoveringRef = useRef(false);
+  const lastInteractionTimeRef = useRef(0);
 
   const [fontSize, setFontSize] = useState(minFontSize);
   const [scaleY, setScaleY] = useState(1);
@@ -56,10 +58,11 @@ const TextPressure = ({
 
   const chars = useMemo(() => text.split(''), [text]);
 
-  // Track global mouse position for fluid interaction across the page
+  // Global mouse & touch tracking
   useEffect(() => {
     const handleMouseMove = e => {
-      hasInteractedRef.current = true;
+      isHoveringRef.current = true;
+      lastInteractionTimeRef.current = Date.now();
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;
     };
@@ -67,39 +70,50 @@ const TextPressure = ({
     const handleTouchMove = e => {
       const t = e.touches[0];
       if (t) {
-        hasInteractedRef.current = true;
+        isHoveringRef.current = true;
+        lastInteractionTimeRef.current = Date.now();
         cursorRef.current.x = t.clientX;
         cursorRef.current.y = t.clientY;
       }
     };
 
+    const handleTouchStart = e => {
+      const t = e.touches[0];
+      if (t) {
+        isHoveringRef.current = true;
+        lastInteractionTimeRef.current = Date.now();
+        cursorRef.current.x = t.clientX;
+        cursorRef.current.y = t.clientY;
+      }
+    };
+
+    const handleMouseLeave = () => {
+      isHoveringRef.current = false;
+      cursorRef.current.x = -9999;
+      cursorRef.current.y = -9999;
+    };
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
-
-    // Initial center resting position
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const initialPos = {
-        x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2
-      };
-      mouseRef.current = { ...initialPos };
-      cursorRef.current = { ...initialPos };
-    }
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
-  // Compute responsive font size based on container width
+  // Compute responsive font size based on container width accounting for max expansion
   const setSize = useCallback(() => {
     if (!containerRef.current || !titleRef.current) return;
 
     const { width: containerW, height: containerH } = containerRef.current.getBoundingClientRect();
 
-    let newFontSize = containerW / (chars.length / 1.75);
+    // Scale font size so even at max wdth (151) and max scale (1.18), text stays within container
+    let newFontSize = containerW / (chars.length * 0.86);
     newFontSize = Math.max(newFontSize, minFontSize);
 
     setFontSize(newFontSize);
@@ -125,21 +139,24 @@ const TextPressure = ({
     return () => window.removeEventListener('resize', debouncedSetSize);
   }, [setSize]);
 
-  // 60FPS Variable font physics animation loop
+  // Ultra-Dynamic 60FPS Variable Font Physics & Idle Wave Loop
   useEffect(() => {
     let rafId;
 
     const animate = () => {
-      // Smooth lerp trailing
-      mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) * 0.12;
-      mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) * 0.12;
+      const now = Date.now();
+      const isIdle = !isHoveringRef.current || (now - lastInteractionTimeRef.current > 3500);
+
+      // Fast, snappy spring lerp when active
+      mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) * 0.16;
+      mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) * 0.16;
 
       if (titleRef.current) {
         const titleRect = titleRef.current.getBoundingClientRect();
-        // Dynamic influence radius around the title
-        const maxDist = Math.max(titleRect.width * 0.6, 260);
+        const maxDist = Math.max(titleRect.width * 0.7, 340);
+        const timeSec = now * 0.0025;
 
-        spansRef.current.forEach(span => {
+        spansRef.current.forEach((span, idx) => {
           if (!span) return;
 
           const rect = span.getBoundingClientRect();
@@ -149,29 +166,79 @@ const TextPressure = ({
           };
 
           const d = dist(mouseRef.current, charCenter);
+          const isNearMouse = d < maxDist && cursorRef.current.x > -1000;
 
-          // Variable font axes calculations within strict valid font limits
-          const wdth = width ? Math.round(getAttr(d, maxDist, 45, 151)) : 100;
-          const wght = weight ? Math.round(getAttr(d, maxDist, 300, 950)) : 800;
-          const norm = Math.max(0, Math.min(1, 1 - d / maxDist));
-          const slntVal = italic ? (-(norm * 10)).toFixed(1) : 0;
-          const alphaVal = alpha ? getAttr(d, maxDist, 0.4, 1).toFixed(2) : 1;
+          let wdth = 90;
+          let wght = 750;
+          let slntVal = '0';
+          let scaleVal = '1.000';
+          let translateYVal = '0.00';
+          let newShadow = 'none';
+          let newColor = textColor;
+          let alphaVal = '1.00';
 
-          // CSS font-variation-settings for Roboto Flex
+          if (isNearMouse) {
+            // High-intensity cursor response
+            const norm = Math.max(0, Math.min(1, 1 - d / maxDist));
+            const ease = 1 - Math.pow(1 - norm, 3);
+
+            wdth = width ? Math.round(getAttr(d, maxDist, 60, 151)) : 100;
+            wght = weight ? Math.round(getAttr(d, maxDist, 350, 1000)) : 800;
+            slntVal = italic ? (-(ease * 10)).toFixed(1) : '0';
+            alphaVal = alpha ? getAttr(d, maxDist, 0.5, 1).toFixed(2) : '1.00';
+
+            scaleVal = (1 + ease * 0.18).toFixed(3);
+            translateYVal = (-ease * 9).toFixed(2);
+
+            const glowIntensity = (ease * 32).toFixed(1);
+            const glowOpacity = (ease * 0.9).toFixed(2);
+            newShadow = ease > 0.05
+              ? `0 0 ${glowIntensity}px rgba(248, 220, 108, ${glowOpacity}), 0 ${ease * 8}px 22px rgba(0, 0, 0, 0.6)`
+              : 'none';
+
+            newColor = ease > 0.35 ? '#FFFBD9' : textColor;
+          } else if (isIdle) {
+            // Mesmerizing idle wave when not hovered
+            const wave = Math.sin(timeSec + idx * 0.75);
+            const waveNorm = (wave + 1) / 2; // 0 to 1
+
+            wdth = width ? Math.round(75 + waveNorm * 45) : 100;
+            wght = weight ? Math.round(600 + waveNorm * 300) : 800;
+            slntVal = italic ? (-(waveNorm * 5)).toFixed(1) : '0';
+
+            const subtleScale = (1 + waveNorm * 0.05).toFixed(3);
+            scaleVal = subtleScale;
+            translateYVal = (-waveNorm * 3).toFixed(2);
+
+            if (waveNorm > 0.6) {
+              const idleGlow = ((waveNorm - 0.6) * 25).toFixed(1);
+              newShadow = `0 0 ${idleGlow}px rgba(248, 220, 108, 0.35)`;
+            }
+          }
+
+          // Apply CSS font-variation-settings
           const newFontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'slnt' ${slntVal}`;
-
           if (span.style.fontVariationSettings !== newFontVariationSettings) {
             span.style.fontVariationSettings = newFontVariationSettings;
           }
-          if (alpha && span.style.opacity !== String(alphaVal)) {
+          if (alpha && span.style.opacity !== alphaVal) {
             span.style.opacity = alphaVal;
           }
 
-          // Subtle physical micro-scale for enhanced tactile feel
-          const scaleVal = (1 + norm * 0.08).toFixed(3);
-          const newTransform = `scale(${scaleVal})`;
+          // Apply transform
+          const newTransform = `scale(${scaleVal}) translateY(${translateYVal}px)`;
           if (span.style.transform !== newTransform) {
             span.style.transform = newTransform;
+          }
+
+          // Apply text shadow
+          if (span.style.textShadow !== newShadow) {
+            span.style.textShadow = newShadow;
+          }
+
+          // Apply text color
+          if (span.style.color !== newColor && !stroke) {
+            span.style.color = newColor;
           }
         });
       }
@@ -181,7 +248,7 @@ const TextPressure = ({
 
     animate();
     return () => cancelAnimationFrame(rafId);
-  }, [width, weight, italic, alpha]);
+  }, [width, weight, italic, alpha, textColor, stroke]);
 
   const dynamicClassName = [className, flex ? 'tp-flex' : '', stroke ? 'tp-stroke' : ''].filter(Boolean).join(' ');
 
@@ -230,8 +297,8 @@ const TextPressure = ({
         .text-pressure-char {
           display: inline-block;
           transform-origin: center bottom;
-          will-change: font-variation-settings, transform;
-          transition: transform 0.05s ease-out;
+          will-change: font-variation-settings, transform, text-shadow, color;
+          transition: transform 0.06s cubic-bezier(0.2, 0, 0, 1), color 0.12s ease;
         }
       `}</style>
 
