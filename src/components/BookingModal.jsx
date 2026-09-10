@@ -11,8 +11,7 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
     recipientName: '',
     date: '',
     timeSlot: '11:59 PM (Midnight Surprise)',
-    city: 'Mumbai',
-    venueAddress: ''
+    noOfPax: ''
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -39,7 +38,7 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
       `*Surprise For:* ${formData.recipientName}`,
       `*Date:* ${formData.date}`,
       `*Time Slot:* ${formData.timeSlot}`,
-      `*City / Venue:* ${formData.city} - ${formData.venueAddress}`,
+      `*No of Pax:* ${formData.noOfPax}`,
       '',
       '*Stealth Protocol:* Please coordinate discreetly with me and provide a personalized package quote!'
     ];
@@ -220,35 +219,18 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                   </select>
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>City</label>
-                  <select
-                    name="city"
-                    value={formData.city}
+                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>No of Pax (Guests)</label>
+                  <input
+                    type="number"
+                    name="noOfPax"
+                    min="1"
+                    required
+                    placeholder="e.g. 2"
+                    value={formData.noOfPax}
                     onChange={handleChange}
                     className="modal-input"
-                  >
-                    <option value="Mumbai">Mumbai & Navi Mumbai</option>
-                    <option value="Delhi NCR">Delhi NCR</option>
-                    <option value="Bengaluru">Bengaluru</option>
-                    <option value="Pune">Pune</option>
-                    <option value="Goa">Goa (VIP Destination)</option>
-                    <option value="Hyderabad">Hyderabad</option>
-                    <option value="Other">Other (Pan-India Hamper)</option>
-                  </select>
+                  />
                 </div>
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>Delivery / Setup Location</label>
-                <input
-                  type="text"
-                  name="venueAddress"
-                  required
-                  placeholder="e.g. Bandra West, Apartment 402 or Rooftop Venue"
-                  value={formData.venueAddress}
-                  onChange={handleChange}
-                  className="modal-input"
-                />
               </div>
 
               <button
