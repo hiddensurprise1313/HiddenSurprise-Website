@@ -17,7 +17,26 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'noOfPax') {
+      if (value === '') {
+        setFormData({ ...formData, noOfPax: '' });
+        return;
+      }
+      const num = parseInt(value, 10);
+      if (isNaN(num)) return;
+      if (num > 12) {
+        setFormData({ ...formData, noOfPax: '12' });
+        return;
+      }
+      if (num < 1) {
+        setFormData({ ...formData, noOfPax: '1' });
+        return;
+      }
+      setFormData({ ...formData, noOfPax: String(num) });
+      return;
+    }
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleWhatsAppSubmit = (e) => {
@@ -219,13 +238,14 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
                   </select>
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>No of Pax (Guests)</label>
+                  <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>No of Pax (1 - 12 Guests)</label>
                   <input
                     type="number"
                     name="noOfPax"
                     min="1"
+                    max="12"
                     required
-                    placeholder="e.g. 2"
+                    placeholder="e.g. 2 (Max 12)"
                     value={formData.noOfPax}
                     onChange={handleChange}
                     className="modal-input"

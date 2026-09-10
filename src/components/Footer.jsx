@@ -5,6 +5,16 @@ import FoldText from './FoldText';
 import StarBorder from './StarBorder';
 
 export default function Footer({ onOpenBooking, onOpenUnboxing }) {
+  const handleContactCall = (e) => {
+    e.preventDefault();
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (typeof window !== 'undefined' && window.innerWidth <= 768);
+    if (isMobile) {
+      window.location.href = 'tel:+918870740190';
+    } else {
+      window.open('https://wa.me/918870740190?text=Hi%20Hidden%20Surprise!%20I%20would%20like%20to%20inquire%20about%20a%20surprise%20booking.', '_blank');
+    }
+  };
+
   return (
     <footer
       style={{
@@ -146,17 +156,43 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
           <div>
             <h4 style={{ fontSize: '1.05rem', marginBottom: '1.2rem', color: '#FFFFFF' }}>Stealth Concierge</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.92rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <Phone size={16} color="#F8DC6C" />
-                <span>+91 88707 40190 (24/7 WhatsApp)</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <Mail size={16} color="#F8DC6C" />
+              <a
+                href="tel:+918870740190"
+                onClick={handleContactCall}
+                className="footer-link"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                  transition: 'color 0.2s ease'
+                }}
+                title="Call (Mobile) / WhatsApp (PC)"
+              >
+                <Phone size={16} color="#F8DC6C" style={{ flexShrink: 0 }} />
+                <span>+91 88707 40190</span>
+              </a>
+
+              <a
+                href="mailto:hello@hiddensurprise.com"
+                className="footer-link"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'inherit',
+                  textDecoration: 'none'
+                }}
+              >
+                <Mail size={16} color="#F8DC6C" style={{ flexShrink: 0 }} />
                 <span>hello@hiddensurprise.com</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem' }}>
+              </a>
+
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', lineHeight: 1.5 }}>
                 <MapPin size={16} color="#F8DC6C" style={{ flexShrink: 0, marginTop: '3px' }} />
-                <span>Hyderabad, Mumbai, Delhi NCR, Bengaluru, Goa & Pan-India.</span>
+                <span>2nd floor, Unicorn Plaza, Kamarajar Salai, Karaikal - 609602</span>
               </div>
             </div>
           </div>
