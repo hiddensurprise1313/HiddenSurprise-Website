@@ -1,10 +1,12 @@
-// Hidden Surprise Client-Side Analytics & Admin Auth Engine
+// Hidden Surprise Client-Side & Firebase Real-Time Analytics Engine
+import { logFirestoreEvent } from './firebase';
 
 const STORAGE_KEYS = {
   EVENTS: 'hs_analytics_events',
   AUTH: 'hs_admin_auth',
   CONFIG: 'hs_admin_config',
-  VISITOR_ID: 'hs_visitor_id'
+  VISITOR_ID: 'hs_visitor_id',
+  VISITOR_CITY: 'hs_visitor_city'
 };
 
 const DEFAULT_CONFIG = {
@@ -37,7 +39,27 @@ export const getDeviceType = () => {
   return 'desktop';
 };
 
-// Get stored events or initialize with rich realistic baseline data
+// Cached IP Geolocation for City Detection
+export const getVisitorCity = async () => {
+  if (typeof window === 'undefined') return 'Karaikal';
+  const cached = localStorage.getItem(STORAGE_KEYS.VISITOR_CITY);
+  if (cached) return cached;
+
+  try {
+    const res = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(2500) });
+    if (res.ok) {
+      const data = await res.json();
+      const city = data.city || data.region || 'Karaikal';
+      localStorage.setItem(STORAGE_KEYS.VISITOR_CITY, city);
+      return city;
+    }
+  } catch (e) {
+    // Fallback if offline or blocked
+  }
+  return 'Karaikal';
+};
+
+// Get stored events or initialize with baseline data
 export const getStoredEvents = () => {
   if (typeof window === 'undefined') return [];
   const raw = localStorage.getItem(STORAGE_KEYS.EVENTS);
@@ -55,7 +77,7 @@ export const getStoredEvents = () => {
   return initialEvents;
 };
 
-// Realistic baseline event generator for realistic initial dashboard
+// Realistic baseline event generator for initial dashboard
 function generateBaselineEvents() {
   const events = [];
   const now = Date.now();
@@ -76,10 +98,8 @@ function generateBaselineEvents() {
   const devices = ['mobile', 'mobile', 'mobile', 'desktop', 'desktop', 'tablet'];
   const cities = ['Karaikal', 'Karaikal', 'Karaikal', 'Nagapattinam', 'Tharangambadi', 'Mayiladuthurai'];
 
-  // Past 30 days of data
   for (let i = 30; i >= 0; i--) {
     const dayTimestamp = now - (i * DAY_MS);
-    // 60 to 140 daily impressions with weekend spikes
     const isWeekend = new Date(dayTimestamp).getDay() === 0 || new Date(dayTimestamp).getDay() === 6;
     const dailyViews = isWeekend ? Math.floor(95 + Math.random() * 50) : Math.floor(60 + Math.random() * 40);
 
@@ -89,7 +109,6 @@ function generateBaselineEvents() {
       const city = cities[Math.floor(Math.random() * cities.length)];
       const visitor = 'v_seed_' + Math.floor(Math.random() * 300);
 
-      // Pageview impression
       events.push({
         id: 'evt_' + Math.random().toString(36).substring(2, 9),
         type: 'pageview',
@@ -100,7 +119,6 @@ function generateBaselineEvents() {
         timestamp: time
       });
 
-      // 45% also explore a package
       if (Math.random() < 0.45) {
         const pkg = packages[Math.floor(Math.random() * packages.length)];
         events.push({
@@ -114,7 +132,6 @@ function generateBaselineEvents() {
         });
       }
 
-      // 25% play mystery box unboxing
       if (Math.random() < 0.25) {
         events.push({
           id: 'evt_' + Math.random().toString(36).substring(2, 9),
@@ -127,7 +144,6 @@ function generateBaselineEvents() {
         });
       }
 
-      // 10% open booking modal
       if (Math.random() < 0.10) {
         events.push({
           id: 'evt_' + Math.random().toString(36).substring(2, 9),
@@ -139,7 +155,6 @@ function generateBaselineEvents() {
           timestamp: time + 45000
         });
 
-        // 65% of opened modals convert to WhatsApp submission
         if (Math.random() < 0.65) {
           const pax = Math.floor(2 + Math.random() * 4);
           const bookedPkg = packages[Math.floor(Math.random() * 5)];
@@ -156,7 +171,6 @@ function generateBaselineEvents() {
         }
       }
 
-      // 8% direct WhatsApp / Call clicks
       if (Math.random() < 0.08) {
         events.push({
           id: 'evt_' + Math.random().toString(36).substring(2, 9),
@@ -174,27 +188,37 @@ function generateBaselineEvents() {
   return events.sort((a, b) => b.timestamp - a.timestamp);
 }
 
-// Track a new live event
-export const trackEvent = (type, data = {}) => {
+// Track a new live event (Writes to local storage & pushes to Firebase Firestore)
+export const trackEvent = async (type, data = {}) => {
   if (typeof window === 'undefined') return;
 
   try {
-    const events = getStoredEvents();
+    const visitorCity = localStorage.getItem(STORAGE_KEYS.VISITOR_CITY) || 'Karaikal';
     const newEvent = {
       id: 'evt_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 7),
       type,
       device: getDeviceType(),
       visitorId: getVisitorId(),
+      city: visitorCity,
       timestamp: Date.now(),
       ...data
     };
 
-    // Keep up to 2,500 latest events
+    // 1. Save to local storage buffer
+    const events = getStoredEvents();
     const updated = [newEvent, ...events].slice(0, 2500);
     localStorage.setItem(STORAGE_KEYS.EVENTS, JSON.stringify(updated));
 
-    // Dispatch custom event for real-time dashboard listeners
+    // 2. Dispatch event for local window listeners
     window.dispatchEvent(new CustomEvent('hs_analytics_update', { detail: newEvent }));
+
+    // 3. Push to Firebase Firestore in the background
+    logFirestoreEvent(newEvent).catch(() => {});
+
+    // Asynchronously update city if not yet cached
+    if (!localStorage.getItem(STORAGE_KEYS.VISITOR_CITY)) {
+      getVisitorCity().catch(() => {});
+    }
   } catch (err) {
     console.error('Analytics tracking error:', err);
   }
@@ -205,13 +229,17 @@ export const trackPageView = (path = window.location.pathname) => {
   trackEvent('pageview', { path, referrer: document.referrer || 'Direct' });
 };
 
-// Calculate Aggregated Metrics for Dashboard
-export const getAnalyticsSummary = (days = 30) => {
-  const allEvents = getStoredEvents();
+// Calculate Aggregated Metrics for Dashboard from any list of events
+export const calculateMetricsFromEvents = (allEvents, days = 30) => {
   const now = Date.now();
   const cutoff = days === 'all' ? 0 : now - (days * 24 * 60 * 60 * 1000);
 
-  const filtered = allEvents.filter(e => e.timestamp >= cutoff);
+  const filtered = (allEvents || []).filter(e => (e.timestamp || e.createdTime || 0) >= cutoff);
+
+  // Active Users Now (activity in the last 5 minutes)
+  const fiveMinsAgo = now - 5 * 60 * 1000;
+  const activeRecentEvents = (allEvents || []).filter(e => (e.timestamp || e.createdTime || 0) >= fiveMinsAgo);
+  const activeNow = new Set(activeRecentEvents.map(e => e.visitorId)).size;
 
   // Impressions & Visitors
   const pageviews = filtered.filter(e => e.type === 'pageview');
@@ -281,7 +309,7 @@ export const getAnalyticsSummary = (days = 30) => {
     dayStart.setHours(0, 0, 0, 0);
     const dayEnd = new Date(dayStart.getTime() + DAY_MS);
 
-    const dayEvents = filtered.filter(e => e.timestamp >= dayStart.getTime() && e.timestamp < dayEnd.getTime());
+    const dayEvents = filtered.filter(e => (e.timestamp || e.createdTime || 0) >= dayStart.getTime() && (e.timestamp || e.createdTime || 0) < dayEnd.getTime());
     const dayViews = dayEvents.filter(e => e.type === 'pageview').length;
     const dayConversions = dayEvents.filter(e => e.type === 'booking_submit' || e.type === 'whatsapp_click').length;
 
@@ -295,6 +323,7 @@ export const getAnalyticsSummary = (days = 30) => {
   }
 
   return {
+    activeNow,
     totalImpressions: pageviews.length,
     uniqueVisitors,
     packageClicks: packageClicks.length,
@@ -312,9 +341,15 @@ export const getAnalyticsSummary = (days = 30) => {
   };
 };
 
+// Calculate Aggregated Metrics for Dashboard (Local Storage fallback)
+export const getAnalyticsSummary = (days = 30) => {
+  const allEvents = getStoredEvents();
+  return calculateMetricsFromEvents(allEvents, days);
+};
+
 // Export Analytics Data to CSV
-export const exportAnalyticsCSV = () => {
-  const events = getStoredEvents();
+export const exportAnalyticsCSV = (customEvents = null) => {
+  const events = customEvents || getStoredEvents();
   if (!events || events.length === 0) return;
 
   const headers = ['Event ID', 'Event Type', 'Details / Title', 'Pax', 'Device', 'City', 'Timestamp', 'Date'];
@@ -326,7 +361,7 @@ export const exportAnalyticsCSV = () => {
     e.device || 'desktop',
     e.city || 'Karaikal',
     e.timestamp,
-    new Date(e.timestamp).toISOString()
+    new Date(e.timestamp || e.createdTime || Date.now()).toISOString()
   ]);
 
   const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');

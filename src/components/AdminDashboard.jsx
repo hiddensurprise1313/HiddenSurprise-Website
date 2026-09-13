@@ -3,32 +3,80 @@ import {
   Eye, Users, MessageCircle, TrendingUp, Sparkles, Download,
   LogOut, RefreshCw, Smartphone, Monitor, Tablet, Calendar,
   Key, Check, AlertCircle, ArrowUpRight, ArrowLeft, Heart,
-  Package, ChevronRight, Filter, ShieldCheck, X
+  Package, ChevronRight, Filter, ShieldCheck, X, Flame, Globe2, Radio
 } from 'lucide-react';
 import {
   getAnalyticsSummary,
+  calculateMetricsFromEvents,
   exportAnalyticsCSV,
   adminLogout,
   changeAdminPassword,
   resetAnalyticsData
 } from '../utils/analytics';
+import {
+  isFirebaseConnected,
+  getSavedFirebaseConfig,
+  saveFirebaseConfig,
+  subscribeToRealtimeAnalytics
+} from '../utils/firebase';
 import logoImg from '../assets/logo.png';
 
 export default function AdminDashboard({ onLogout, onBackToSite }) {
   const [timeframe, setTimeframe] = useState(30); // 7, 30, 90, 'all'
+  const [rawFirestoreEvents, setRawFirestoreEvents] = useState(null);
+  const [isCloudLive, setIsCloudLive] = useState(() => isFirebaseConnected());
   const [summary, setSummary] = useState(() => getAnalyticsSummary(30));
   const [hoveredPoint, setHoveredPoint] = useState(null);
+
+  // Modals state
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [showFirebaseModal, setShowFirebaseModal] = useState(false);
+
+  // Password state
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [passError, setPassError] = useState('');
   const [passSuccess, setPassSuccess] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Refresh summary when timeframe changes or real-time event occurs
+  // Firebase Config form state
+  const [fbConfigText, setFbConfigText] = useState(() => {
+    const existing = getSavedFirebaseConfig();
+    return existing ? JSON.stringify(existing, null, 2) : '';
+  });
+  const [fbError, setFbError] = useState('');
+  const [fbSuccess, setFbSuccess] = useState('');
+
+  // Subscribe to Realtime Firestore updates if connected
+  useEffect(() => {
+    let unsubscribe = () => {};
+
+    if (isFirebaseConnected()) {
+      unsubscribe = subscribeToRealtimeAnalytics(
+        (events) => {
+          setRawFirestoreEvents(events);
+          setIsCloudLive(true);
+          const computed = calculateMetricsFromEvents(events, timeframe);
+          setSummary(computed);
+        },
+        (errMsg) => {
+          console.warn('Realtime Firebase issue:', errMsg);
+          setIsCloudLive(false);
+        }
+      );
+    }
+
+    return () => unsubscribe();
+  }, [timeframe, isCloudLive]);
+
+  // Refresh summary when timeframe changes or fallback local storage update occurs
   const refreshData = () => {
     setIsRefreshing(true);
-    setSummary(getAnalyticsSummary(timeframe));
+    if (rawFirestoreEvents && rawFirestoreEvents.length > 0) {
+      setSummary(calculateMetricsFromEvents(rawFirestoreEvents, timeframe));
+    } else {
+      setSummary(getAnalyticsSummary(timeframe));
+    }
     setTimeout(() => setIsRefreshing(false), 300);
   };
 
@@ -36,14 +84,16 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
     refreshData();
   }, [timeframe]);
 
-  // Listen to live events dispatched in current session
+  // Listen to local live events if Firestore not connected
   useEffect(() => {
     const handleLiveUpdate = () => {
-      setSummary(getAnalyticsSummary(timeframe));
+      if (!isCloudLive) {
+        setSummary(getAnalyticsSummary(timeframe));
+      }
     };
     window.addEventListener('hs_analytics_update', handleLiveUpdate);
     return () => window.removeEventListener('hs_analytics_update', handleLiveUpdate);
-  }, [timeframe]);
+  }, [timeframe, isCloudLive]);
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
@@ -60,6 +110,59 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
       }, 1500);
     } else {
       setPassError(res.error || 'Failed to update password');
+    }
+  };
+
+  const handleFirebaseConfigSubmit = (e) => {
+    e.preventDefault();
+    setFbError('');
+    setFbSuccess('');
+
+    try {
+      let parsed = null;
+      const text = fbConfigText.trim();
+
+      if (text.startsWith('{')) {
+        parsed = JSON.parse(text);
+      } else {
+        // Try extracting keys if user pasted standard firebaseConfig JS object
+        const apiKeyMatch = text.match(/apiKey:\s*["']([^"']+)["']/);
+        const projectIdMatch = text.match(/projectId:\s*["']([^"']+)["']/);
+        const authDomainMatch = text.match(/authDomain:\s*["']([^"']+)["']/);
+        const storageBucketMatch = text.match(/storageBucket:\s*["']([^"']+)["']/);
+        const messagingSenderIdMatch = text.match(/messagingSenderId:\s*["']([^"']+)["']/);
+        const appIdMatch = text.match(/appId:\s*["']([^"']+)["']/);
+
+        if (apiKeyMatch && projectIdMatch) {
+          parsed = {
+            apiKey: apiKeyMatch[1],
+            projectId: projectIdMatch[1],
+            authDomain: authDomainMatch ? authDomainMatch[1] : undefined,
+            storageBucket: storageBucketMatch ? storageBucketMatch[1] : undefined,
+            messagingSenderId: messagingSenderIdMatch ? messagingSenderIdMatch[1] : undefined,
+            appId: appIdMatch ? appIdMatch[1] : undefined
+          };
+        }
+      }
+
+      if (!parsed || !parsed.apiKey || !parsed.projectId) {
+        setFbError('Please provide a valid Firebase config object containing apiKey and projectId.');
+        return;
+      }
+
+      const db = saveFirebaseConfig(parsed);
+      if (db) {
+        setIsCloudLive(true);
+        setFbSuccess('Firebase connected successfully! Real-time Firestore sync is active.');
+        setTimeout(() => {
+          setShowFirebaseModal(false);
+          setFbSuccess('');
+        }, 1500);
+      } else {
+        setFbError('Failed to initialize Firebase with the provided configuration.');
+      }
+    } catch (err) {
+      setFbError('Invalid JSON format. Please check your Firebase config JSON.');
     }
   };
 
@@ -86,7 +189,7 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
     });
   }, [chartData, maxViews]);
 
-  // Generate smooth SVG paths
+  // Smooth SVG paths
   const viewsLinePath = useMemo(() => {
     if (points.length < 2) return '';
     return points.reduce((path, p, i) => `${path} ${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`, '');
@@ -157,7 +260,7 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
               </div>
             </div>
 
-            {/* Live Indicator */}
+            {/* Live Indicator / Active Now */}
             <div
               style={{
                 display: 'inline-flex',
@@ -183,8 +286,30 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
                 }}
                 className="animate-pulse"
               />
-              Live Tracking
+              <span>{summary.activeNow > 0 ? `${summary.activeNow} Active Right Now` : 'Live Tracking'}</span>
             </div>
+
+            {/* Firebase Cloud Status Pill */}
+            <button
+              onClick={() => setShowFirebaseModal(true)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                background: isCloudLive ? 'rgba(245, 158, 11, 0.15)' : 'rgba(255, 255, 255, 0.06)',
+                border: isCloudLive ? '1px solid rgba(245, 158, 11, 0.4)' : '1px solid rgba(255, 255, 255, 0.15)',
+                color: isCloudLive ? '#F59E0B' : 'rgba(255, 255, 255, 0.7)',
+                padding: '0.35rem 0.75rem',
+                borderRadius: '999px',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+              title="Configure Firebase Real-time Firestore Sync"
+            >
+              <Flame size={14} color={isCloudLive ? '#F59E0B' : '#9CA3AF'} />
+              {isCloudLive ? 'Firebase Live Synced' : 'Connect Firebase'}
+            </button>
           </div>
 
           {/* Action Bar */}
@@ -227,7 +352,7 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
 
             {/* Export CSV */}
             <button
-              onClick={exportAnalyticsCSV}
+              onClick={() => exportAnalyticsCSV(rawFirestoreEvents)}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -434,7 +559,7 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
                   Visitor Traffic & Lead Inquiries
                 </h3>
                 <p style={{ margin: 0, fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.6)' }}>
-                  Daily impression trajectory over selected timeframe
+                  Daily impression trajectory over selected timeframe {isCloudLive && '(Live Cloud)'}
                 </p>
               </div>
 
@@ -633,9 +758,9 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
                 gap: '0.6rem'
               }}
             >
-              <Sparkles size={18} color="#F8DC6C" style={{ flexShrink: 0 }} />
+              <Globe2 size={18} color="#F8DC6C" style={{ flexShrink: 0 }} />
               <span>
-                <strong>Karaikal HQ:</strong> Unicorn Plaza dispatch covers Karaikal, Nagapattinam & nearby regions.
+                <strong>Karaikal HQ:</strong> Unicorn Plaza dispatch covers Karaikal, Nagapattinam, Mayiladuthurai & nearby regions.
               </span>
             </div>
           </div>
@@ -751,7 +876,7 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
                 Real-Time Event Stream
               </h3>
               <p style={{ margin: 0, fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.6)' }}>
-                Latest visitor actions, packages clicked, and booking calls
+                Latest visitor actions, packages clicked, and booking calls {isCloudLive ? 'across all devices' : '(Local Session)'}
               </p>
             </div>
 
@@ -788,7 +913,7 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
               </thead>
               <tbody>
                 {summary.recentEvents.slice(0, 20).map((evt) => {
-                  const dateStr = new Date(evt.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                  const dateStr = new Date(evt.timestamp || evt.createdTime || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                   return (
                     <tr
                       key={evt.id}
@@ -823,7 +948,7 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
                               '#9CA3AF'
                           }}
                         >
-                          {evt.type.replace(/_/g, ' ')}
+                          {evt.type ? evt.type.replace(/_/g, ' ') : 'EVENT'}
                         </span>
                       </td>
                       <td style={{ padding: '0.75rem 1rem', fontWeight: 600, color: '#FFFFFF' }}>
@@ -846,6 +971,123 @@ export default function AdminDashboard({ onLogout, onBackToSite }) {
           </div>
         </section>
       </main>
+
+      {/* Firebase Config Modal */}
+      {showFirebaseModal && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 120,
+            background: 'rgba(0, 0, 0, 0.8)',
+            backdropFilter: 'blur(12px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1.5rem'
+          }}
+          onClick={() => setShowFirebaseModal(false)}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '520px',
+              backgroundColor: '#0D111A',
+              border: '1px solid rgba(245, 158, 11, 0.4)',
+              borderRadius: '24px',
+              padding: '2.2rem',
+              color: '#FFFFFF',
+              boxShadow: '0 25px 60px rgba(0,0,0,0.85)',
+              position: 'relative'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowFirebaseModal(false)}
+              style={{
+                position: 'absolute',
+                top: '18px',
+                right: '18px',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: 'none',
+                color: '#9CA3AF',
+                borderRadius: '50%',
+                padding: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              <X size={18} />
+            </button>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem' }}>
+              <Flame size={24} color="#F59E0B" />
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, margin: 0, color: '#FFFFFF' }}>
+                Firebase Cloud Sync
+              </h3>
+            </div>
+            <p style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.65)', marginBottom: '1.2rem', lineHeight: 1.5 }}>
+              Paste your Firebase Web App configuration below to activate 100% real-time Firestore synchronization for all worldwide visitors.
+            </p>
+
+            {fbError && (
+              <div style={{ padding: '0.75rem', borderRadius: '10px', background: 'rgba(239, 68, 68, 0.15)', color: '#FCA5A5', fontSize: '0.82rem', marginBottom: '1rem' }}>
+                {fbError}
+              </div>
+            )}
+
+            {fbSuccess && (
+              <div style={{ padding: '0.75rem', borderRadius: '10px', background: 'rgba(37, 211, 102, 0.15)', color: '#86EFAC', fontSize: '0.82rem', marginBottom: '1rem' }}>
+                {fbSuccess}
+              </div>
+            )}
+
+            <form onSubmit={handleFirebaseConfigSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '0.35rem' }}>
+                  Firebase Config (JSON or JavaScript Object)
+                </label>
+                <textarea
+                  rows={8}
+                  required
+                  value={fbConfigText}
+                  onChange={(e) => setFbConfigText(e.target.value)}
+                  placeholder={`{\n  "apiKey": "AIzaSy...",\n  "authDomain": "hidden-surprise.firebaseapp.com",\n  "projectId": "hidden-surprise",\n  "storageBucket": "...",\n  "messagingSenderId": "...",\n  "appId": "..."\n}`}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 1rem',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    borderRadius: '12px',
+                    color: '#FFFFFF',
+                    fontSize: '0.82rem',
+                    fontFamily: 'monospace',
+                    boxSizing: 'border-box',
+                    resize: 'vertical'
+                  }}
+                />
+              </div>
+
+              <div style={{ fontSize: '0.78rem', color: 'rgba(255, 255, 255, 0.5)' }}>
+                💡 Tip: Find this in your <strong>Firebase Console → Project Settings → General → Your apps → SDK setup/config</strong>.
+              </div>
+
+              <button
+                type="submit"
+                className="btn-gold"
+                style={{
+                  padding: '0.85rem',
+                  borderRadius: '12px',
+                  fontWeight: 800,
+                  fontSize: '0.92rem',
+                  marginTop: '0.5rem'
+                }}
+              >
+                Save & Connect Firebase Live
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Change Password Modal */}
       {showPasswordModal && (
