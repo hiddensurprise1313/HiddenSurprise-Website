@@ -3,6 +3,7 @@ import { Check, Sparkles, ArrowRight, MessageCircle, Clock, Award } from 'lucide
 import { CURATED_SERVICES, SERVICE_CATEGORIES } from '../data/servicesData';
 import FoldText from './FoldText';
 import StarBorder from './StarBorder';
+import { trackEvent } from '../utils/analytics';
 
 export default function CuratedServices({ onOpenBooking }) {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -289,12 +290,19 @@ export default function CuratedServices({ onOpenBooking }) {
                   {/* Actions */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '0.65rem' }}>
                     <StarBorder
-                      onClick={() => onOpenBooking({
-                        packageId: service.id,
-                        title: service.title,
-                        category: service.categoryName,
-                        duration: service.duration
-                      })}
+                      onClick={() => {
+                        trackEvent('package_click', {
+                          title: service.title,
+                          category: service.categoryName,
+                          packageId: service.id
+                        });
+                        onOpenBooking({
+                          packageId: service.id,
+                          title: service.title,
+                          category: service.categoryName,
+                          duration: service.duration
+                        });
+                      }}
                       color="#F8DC6C"
                       speed="4s"
                       thickness={1.5}
@@ -318,6 +326,12 @@ export default function CuratedServices({ onOpenBooking }) {
                       href={getWhatsAppUrl(service)}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => {
+                        trackEvent('whatsapp_click', {
+                          title: service.title,
+                          source: 'Package Card WhatsApp'
+                        });
+                      }}
                       className="btn-dark"
                       style={{
                         padding: '0.85rem',

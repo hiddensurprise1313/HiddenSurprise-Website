@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { UNBOXING_REWARDS } from '../data/mockData';
 import { Gift, Sparkles, X, Check, Copy, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { trackEvent } from '../utils/analytics';
 
 export default function UnboxingGame({ isOpen, onClose, onApplyDiscount, appliedDiscount }) {
   const [unboxed, setUnboxed] = useState(false);
@@ -20,6 +21,13 @@ export default function UnboxingGame({ isOpen, onClose, onApplyDiscount, applied
       setReward(randomReward);
       setUnboxed(true);
       setIsOpening(false);
+
+      // Track unboxing event for analytics
+      trackEvent('unbox_perk', {
+        code: randomReward.code,
+        discount: randomReward.discount,
+        description: randomReward.description
+      });
 
       confetti({
         particleCount: 120,

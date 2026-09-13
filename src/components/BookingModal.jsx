@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Send, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { trackEvent } from '../utils/analytics';
 
 export default function BookingModal({ isOpen, onClose, initialData, onBookingSuccess }) {
   if (!isOpen) return null;
@@ -64,6 +65,13 @@ export default function BookingModal({ isOpen, onClose, initialData, onBookingSu
 
     const message = lines.join('\n');
     const whatsappUrl = `https://wa.me/918870740190?text=${encodeURIComponent(message)}`;
+
+    // Track conversion event for analytics
+    trackEvent('booking_submit', {
+      title: experienceTitle,
+      pax: Number(formData.noOfPax) || 2,
+      timeSlot: formData.timeSlot
+    });
 
     confetti({
       particleCount: 80,

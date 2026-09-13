@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StatsBanner from './components/StatsBanner';
@@ -12,6 +12,9 @@ import UnboxingGame from './components/UnboxingGame';
 import BookingModal from './components/BookingModal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Toast from './components/Toast';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
+import { trackPageView, trackEvent, checkAdminAuth } from './utils/analytics';
 
 function App() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
@@ -20,15 +23,67 @@ function App() {
   const [appliedDiscount, setAppliedDiscount] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
 
+  // Route & Admin state
+  const [currentHash, setCurrentHash] = useState(() => (typeof window !== 'undefined' ? window.location.hash : ''));
+  const [isAdminAuth, setIsAdminAuth] = useState(() => checkAdminAuth());
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+      setIsAdminAuth(checkAdminAuth());
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleHashChange);
+
+    // Track initial page view
+    trackPageView(window.location.pathname + window.location.hash);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleHashChange);
+    };
+  }, []);
+
+  const isAdminRoute = currentHash === '#admin' || currentHash === '#/admin' || (typeof window !== 'undefined' && window.location.pathname === '/admin');
+
+  const handleNavigateToSite = () => {
+    window.location.hash = '';
+    setCurrentHash('');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleOpenBooking = (data = null) => {
     setSelectedBookingData(data);
     setBookingModalOpen(true);
+    trackEvent('booking_modal_open', {
+      source: data ? 'Service Card' : 'Navigation CTA',
+      package: data?.title || 'General'
+    });
   };
 
   const handleApplyDiscount = (discount) => {
     setAppliedDiscount(discount);
     setToastMessage(`🎉 Perk "${discount.code}" (${discount.discount}) applied to your booking!`);
   };
+
+  // If viewing Admin Route
+  if (isAdminRoute) {
+    if (!isAdminAuth) {
+      return (
+        <AdminLogin
+          onLoginSuccess={() => setIsAdminAuth(true)}
+          onBackToSite={handleNavigateToSite}
+        />
+      );
+    }
+    return (
+      <AdminDashboard
+        onLogout={() => setIsAdminAuth(false)}
+        onBackToSite={handleNavigateToSite}
+      />
+    );
+  }
 
   return (
     <div className="app">
@@ -72,7 +127,7 @@ function App() {
         <FAQ />
       </main>
 
-      {/* Footer with Top CTA Card */}
+      {/* Footer with Top CTA Card and Admin Link */}
       <Footer
         onOpenBooking={() => handleOpenBooking()}
         onOpenUnboxing={() => setUnboxingModalOpen(true)}
@@ -101,5 +156,6 @@ function App() {
 }
 
 export default App;
+
 
 

@@ -215,8 +215,24 @@ export default function Footer({ onOpenBooking, onOpenUnboxing }) {
           <div>
             © {new Date().getFullYear()} Hidden Surprise. All rights reserved.
           </div>
-          <div>
-            "Your Smile... Our Surprise..."
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <span>"Your Smile... Our Surprise..."</span>
+            <a
+              href="#admin"
+              className="footer-admin-link"
+              style={{
+                color: 'rgba(255, 255, 255, 0.35)',
+                textDecoration: 'none',
+                fontSize: '0.78rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.3rem',
+                transition: 'color 0.2s ease'
+              }}
+              title="Executive Admin & Analytics Dashboard"
+            >
+              Admin Portal 🔒
+            </a>
           </div>
         </div>
       </div>

@@ -1,8 +1,12 @@
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
+import { trackEvent } from '../utils/analytics';
 
 export default function FloatingWhatsApp({ onOpenBooking }) {
   const handleWhatsApp = () => {
+    trackEvent('whatsapp_click', {
+      source: 'Floating Concierge Button'
+    });
     const text = encodeURIComponent("Hi Hidden Surprise team! I'd like to plan a secret surprise celebration. Can you help me?");
     window.open(`https://wa.me/918870740190?text=${text}`, '_blank');
   };
